@@ -1,0 +1,64 @@
+.primary__input {
+    width: 100%;
+    margin-bottom: 2rem;
+    position: relative;
+    &--input {
+        padding: 1.8rem 2rem;
+        font-size: 1.4rem;
+        border-radius: 5px;
+        border: 1px solid #BDBDBD;
+        min-width: 30rem!important;
+        width: 100%;
+        position: relative;
+
+        @include responsive($mobile-l) {
+            width: 100%;
+        }
+    }
+
+    &--left-icon {
+        position:absolute;
+        align-items: center;
+        top: 0;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        right:1.5rem;
+        cursor: pointer;
+    }
+
+
+}
+
+input {
+    font-size: 1.4rem!important;
+}
+
+label, .MuiFormControlLabel-label {
+    font-size: 1.4rem!important;
+}
+
+.MuiTextField-root {
+    margin-bottom: 3rem!important;
+
+}
+
+.MuiInputLabel-root {
+    background-color: white!important;
+}
+
+.MuiFormHelperText-root, .MuiCalendarPicker-root, .MuiInputAdornment-root {
+    font-size: 1.6rem!important;
+}
+
+
+.select {
+    min-width: 30rem!important;
+}
+
+.PrivateSwitchBase-input, .Mui-checked{
+    color: $primary-orange!important;
+    &:checked {
+        color: $primary-orange!important
+    }
+}

@@ -1,0 +1,98 @@
+.booked-page {
+    &__container {
+        padding: 0!important;
+        display: block;
+        text-align: center;
+
+        .button-group {
+            margin-top: 2rem;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            justify-content: center;
+        }
+        .card__header {
+            background-color:#FEEAC8;
+            width: 100%;
+            padding: 1.5rem;
+            img {
+                width: 11rem
+            }
+            h3 {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                justify-content: center;
+                color: #828282;
+                margin-bottom: 1rem;
+            }
+            h4 {
+                font-size: 1.6rem;
+
+            }
+        }
+
+        .card__body {
+            padding: 3rem;
+            & > p:first-child {
+                color: #4F4F4F;
+                margin: 1rem 0;
+            }
+            .contact {
+                display: flex;
+                align-items: center;
+                width: 100%;
+                background-color: #F2F2F2;
+                padding: 1.1rem;
+                border-radius: 5px;
+                justify-content: center;
+                gap: 1rem;
+                h3 {
+                    font-size: 1.7rem;
+                }
+            }
+
+            .need__car {
+                &--container {
+                    margin-top: 3rem;
+                    border: 1px solid #FF9F87;
+                    border-radius: 5px;
+                    padding: 2.4rem;
+
+
+                    & > div:first-child {
+                        display: flex;
+                        align-items: center;
+                        text-align: left;
+                        gap: 3rem;
+                        margin-bottom: 3rem;
+
+                        .container-img {
+                            width: 23rem!important;
+                            flex: none;
+                            img {
+                                width: 100%;
+                            }
+                            
+                        }
+                        h5 {
+                            font-size: 2.2rem;
+                            margin-bottom: 0.5rem;
+                        }
+                        p {
+                            color: #4F4F4F;
+                            margin-bottom: 1rem!important;
+
+                        }
+
+                        a {
+                            color: #FF481A;
+                            text-decoration: underline;
+                            font-size: 1.4rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

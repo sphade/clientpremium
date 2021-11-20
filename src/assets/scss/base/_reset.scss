@@ -1,0 +1,113 @@
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: inherit;
+  scroll-behavior: smooth;
+}
+
+// -ms-overflow-style: none;
+// scrollbar-width: none;
+::-webkit-scrollbar {
+  background: $primary-black;
+  width: 0.6rem;
+  height: 0.8rem;
+}
+::-webkit-scrollbar-thumb {
+  background: $primary-ash;
+  border-radius: 1rem;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+.app, #root {
+  height: 100%!important;
+}
+
+
+
+body {
+  box-sizing: border-box;
+  font-family: 'Hind', sans-serif;
+  height: 100%;
+}
+
+.secondary-font, .sf {
+  font-family: 'Teko', 'Hind', sans-serif!important;
+}
+
+a {
+text-decoration: none;
+}
+
+h3 {
+  font-size: 2rem;
+
+}
+
+p {
+  font-size: 1.6rem;
+}
+
+
+
+.custom-slick {
+  .slick-prev{
+    z-index: 900;
+    left: 20px;
+  
+  }
+
+  .slick-next {
+    right: 20px;
+  
+  }
+}
+.outside-slick {
+  .slick-prev{
+    z-index: 900;
+    left: -40px;
+  
+  }
+
+  .slick-next {
+    right: -40px;
+  
+  }
+}
+.slick-prev, .slick-next {
+  width: 4rem!important;
+  height: 4rem!important;
+}
+
+
+
+
+// .float__label {
+//   font-size: 1.4rem;
+//   position: absolute;
+//   transform-origin: top left;
+//   transform: translate(2rem, 1.7rem) scale(1);
+//   transition: all 0.1s ease-in-out;
+//   color: #999;;
+//   z-index: 200;
+  
+//   &::-moz-placeholder{
+//     color:#999;
+//   }
+//   &::-ms-input-placeholder{
+//     color:#999
+//   }
+//   &::-webkit-input-placeholder{
+//     color:#999
+//   }
+  
+// }
+
+
+// .active .float__label {
+//   transform: translate(2rem, 4px) scale(0.7);
+// }

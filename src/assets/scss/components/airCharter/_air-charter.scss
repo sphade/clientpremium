@@ -1,0 +1,10 @@
+.air-charter {
+    &__content {
+        padding: 8rem 0;
+        background-color:  #F2F2F2;
+        & > div {
+            gap: 7rem;
+        }
+    }
+    
+}

@@ -1,0 +1,32 @@
+@keyframes bounce {
+    0% {
+      transform: translateY(-2rem);
+    }
+    50% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-2rem);
+    }
+  }
+  
+  .preloader {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    place-items: center;
+    background-color: #ffffff;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+  
+    &__img {
+      height: 20rem;
+      width: 20rem;
+      animation: bounce 2s ease infinite 0.3s both;
+  
+      box-shadow: 0 2rem 2rem rgba(0, 0, 0, 0.2);
+      border-radius: 2rem;
+    }
+  }
+  

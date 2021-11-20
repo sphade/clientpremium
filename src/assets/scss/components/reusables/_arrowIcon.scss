@@ -1,0 +1,18 @@
+
+.arrow__icon {
+    border: 1px solid white;
+    border-radius: 100%;
+    display: inline;
+    background: transparent;
+    padding: 1.6rem 1.7rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: $main-transition;
+
+    &:hover {
+        background-color: $primary-orange;
+        border-color: $primary-orange;
+        transform: translateY(5px);
+    }
+}

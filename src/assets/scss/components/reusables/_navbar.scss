@@ -1,0 +1,24 @@
+.navbar {
+    background-color: $primary-black;
+    align-items: center;
+    padding: 1.4rem 0rem;
+
+    &__brand {
+        cursor: pointer
+    }
+
+    .desktop__logo {
+        display: block;
+        width: 30rem;
+        @include responsive($mobile-l) {
+            display: none;
+        }
+    }
+
+    .mobile__logo {
+        display: none;
+        @include responsive($mobile-l) {
+            display: block;
+        }
+    }
+}

@@ -1,0 +1,12 @@
+.top-filter {
+    background-color: white;
+    padding: 3.2rem 0 ;
+    
+
+    &__content {
+        display: flex;
+        // flex-wrap: wrap;
+        gap: 2rem;
+    }
+
+}

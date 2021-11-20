@@ -1,0 +1,29 @@
+.left-filter {
+    width: 20.7rem;
+    align-self: flex-start;
+    background-color: #F9F9F9;
+
+    &__header {
+        background-color: white;
+        border: 1px solid #E0E0E0 ;
+        border-radius: 8px;
+        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.08);
+
+        h3 {
+            padding: 1.5rem 1.7rem;
+            text-transform: uppercase;
+        }
+    }
+
+    &__content {
+        padding: 2.4rem 1.6rem;
+        &--radio {
+            margin-bottom: 3rem;
+            h4 {
+                font-size: 1.6rem;
+                margin-bottom: 0.8rem;
+            }
+        }
+
+    }
+}

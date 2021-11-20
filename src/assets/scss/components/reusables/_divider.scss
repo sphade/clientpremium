@@ -1,0 +1,40 @@
+.divider {
+  @extend .flex-center;
+  position: relative;
+  margin-bottom: 1.5rem;;
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    height: 2px;
+    background-color: #E0E0E0;
+  }
+  &::before {
+    left: 0;
+    right: 55%;
+  }
+  &::after {
+    right: 0;
+    left: 55%;
+  }
+
+
+
+  &__text {
+    position: relative;
+    @extend .items-center;
+    font-weight: normal;
+    font-size: 1.4rem;
+    line-height: 2.1rem;
+    color: #4F4F4F;
+
+
+
+    &::before {
+      right: 200%;
+    }
+    &::after {
+      left: 200%;
+    }
+  }
+}

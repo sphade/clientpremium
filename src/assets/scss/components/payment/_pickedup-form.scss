@@ -1,0 +1,53 @@
+.pickedup-form {
+    h3 {
+        font-size: 3.2rem;
+        font-weight: 300;
+        text-align: center;
+    }
+
+    &__alert {
+        max-width:  61rem;
+        margin: 1rem auto;
+    }
+
+    &__radios {
+        margin-top: 4rem;
+
+        &--list {
+            gap: 2rem;
+        }
+    }
+    
+    &__fields {
+        margin-top: 4rem;
+        display: flex;
+        flex-direction: column;
+
+        button {
+            width: 40rem!important;
+            margin: 3rem auto!important;
+        }
+        &--row {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+            .depature-img {
+                margin-bottom: 3rem;
+                min-width: 12rem;
+                display: flex;
+               justify-content: center;
+               align-self: stretch;
+               align-items: center;
+               img {
+                   width:6rem;
+                
+               }
+            }
+         
+            .depature {
+                flex: none;
+                min-width: 28rem;
+            }
+        }
+    }
+}
