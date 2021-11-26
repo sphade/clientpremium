@@ -39,17 +39,7 @@
     }
 
   
-    .otp__input {
-        font-size: 2.5rem;
-        
-        border: 1px solid #BDBDBD;
-        border-radius: 5px;
-        margin-right: 0.7rem;
-        margin: 0 1rem;
-        width: 5rem!important;
-        height: 5rem!important;
-        text-align: center;
-    }
+   
 
     .resend__code {
         color: #4F4F4F;
@@ -104,4 +94,16 @@ input[type='checkbox'] {
         background-color: $primary-orange;
         border: 1px solid $primary-orange;
     }
+}
+
+.otp__input {
+    font-size: 2.5rem;
+    
+    border: 1px solid #BDBDBD;
+    border-radius: 5px;
+    margin-right: 0.7rem;
+    margin: 0 1rem;
+    width: 5rem!important;
+    height: 5rem!important;
+    text-align: center;
 }

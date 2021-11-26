@@ -1,8 +1,9 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Redirect } from 'react-router-dom';
 
 import { Footer, Navbar } from '../reusables';
 import { appRoutes } from '../routes';
+import ProtectedRoute from '../routes/ProtectedRoutes';
 
 const AppView = () => {
     return (
@@ -11,7 +12,7 @@ const AppView = () => {
 
             <Switch>
                 {appRoutes.map(({ key, path, component: Component }) => (
-                    <Route exact key={key} path={path} component={Component} />
+                    <ProtectedRoute exact key={key} path={path} component={Component} />
                 ))}
                 <Redirect from="/" to="/home" />
             </Switch>

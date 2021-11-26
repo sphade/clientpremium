@@ -2,7 +2,14 @@ import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useQueryClient, useMutation } from 'react-query';
 
-import { Divider, LinkButton, OutlineButton, PrimaryButton, PrimaryInput } from '../../reusables';
+import {
+    Divider,
+    LinkButton,
+    OutlineButton,
+    PrimaryButton,
+    PrimaryInput,
+    CustomPhoneInput,
+} from '../../reusables';
 import { ReactComponent as EyeIcon } from './../../assets/svgs/eye.svg';
 import { AUTHENTICATED_ROUTES } from '../../routes/path';
 import { useFormik } from 'formik';
@@ -21,10 +28,9 @@ const ProvideDetails = () => {
     const { STORE_SIGNUP_DETAILS } = SignupReducerType;
     const { succesSnackbar, errorSnackbar } = useCustomSnackbar();
 
-    const { mutate } = useMutation(signUserUp, {
+    const { mutate, isLoading } = useMutation(signUserUp, {
         onSuccess: (data) => {
-            console.log(data);
-            succesSnackbar(data.message || 'check email and phone for verification otp');
+            succesSnackbar(data.message || 'Check email and phone for verification otp');
             history.push(AUTHENTICATED_ROUTES.signupotp);
         },
         onError: () => {
@@ -45,11 +51,14 @@ const ProvideDetails = () => {
             acceptTerms: '',
         },
         onSubmit: async (values) => {
-            if (!acceptTerms) return;
+            if (!acceptTerms) {
+                errorSnackbar('Please accept the Terms and Condition');
+                return;
+            }
             dispatch({ type: STORE_SIGNUP_DETAILS, payload: values });
             const data = {
                 email: values.email,
-                phone: `+234${values.phoneNumber}`,
+                phone: `+${values.phoneNumber}`,
             };
             mutate(data);
         },
@@ -76,12 +85,8 @@ const ProvideDetails = () => {
                     name="email"
                     label="Email Address"
                 />
-                <PrimaryInput
-                    formik={formik}
-                    placeholder="Phone Number"
-                    name="phoneNumber"
-                    label="Phone Number"
-                />
+                <CustomPhoneInput name="phoneNumber" formik={formik} />
+
                 <PrimaryInput
                     formik={formik}
                     placeholder="Password"
@@ -90,6 +95,7 @@ const ProvideDetails = () => {
                     type="password"
                     icon={<EyeIcon />}
                 />
+
                 <PrimaryInput
                     formik={formik}
                     placeholder="Confirm Password"
@@ -111,7 +117,12 @@ const ProvideDetails = () => {
                     </p>
                 </div>
 
-                <PrimaryButton fullWidth label="Create Account" onClick={handleSubmit} />
+                <PrimaryButton
+                    fullWidth
+                    label="Create Account"
+                    onClick={handleSubmit}
+                    isLoading={isLoading}
+                />
                 <Divider text="OR" classes="" />
                 <Link to={AUTHENTICATED_ROUTES.signin}>
                     <OutlineButton fullWidth label="Sign In" />

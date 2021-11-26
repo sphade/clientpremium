@@ -20,6 +20,11 @@ export const signUserUp =  async (data: Record<string, unknown>) => {
 
     return response.data;
 }
+export const resendVerifyOtp =  async (data: Record<string, unknown>) => {
+    const response = await axios.post(apiRoutes.resendOtp, data )
+
+    return response.data;
+}
 
 
 export const createUser =  async (data: Record<string, unknown> ) => {
@@ -36,7 +41,7 @@ export const forgotPassword =  async (data: Record<string, unknown> ) => {
 }
 
 export const resetPassword =  async (data: Record<string, unknown> ) => {
-    const response = await axios.post(apiRoutes.forgotPassword, data )
+    const response = await axios.post(apiRoutes.resetPassword, data )
     return response.data;
 }
 

@@ -1,7 +1,8 @@
 import combineReducers from 'react-combine-reducers';
-import { ResetPasswordReducer, SignupReducer } from "./userReducer"
+import { ResetPasswordReducer, SignupReducer, UserReducer } from "./userReducer"
 
 export const baseReducer = combineReducers({
-        user: [SignupReducer, {}],
+        signupInfo: [SignupReducer, {}],
         password: [ResetPasswordReducer, {}],
+        user: [UserReducer, {}],
       });

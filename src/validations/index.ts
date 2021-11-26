@@ -13,8 +13,7 @@ export const provideDetailsValidation = () => Yup.lazy( formValues => {
           .required('Enter a valid email'),
         phoneNumber: Yup.string()
           .trim()
-          .required('Enter your phone number')
-          .length(11, 'Enter a correct phone number'),
+          .required('Enter your phone number'),
           name: Yup.string()
         .trim()
        
@@ -47,8 +46,29 @@ export const forgotPasswordValidaiton = Yup.object({
         email: Yup.string()
           .trim()
           .email('Enter a valid email')
-          .required('Enter a valid email'),
-       
-       
+          .required('Enter a valid email'), 
  
   });
+
+
+  export const resetPasswordValidation = () => Yup.lazy( formValues => {
+
+    const password = formValues['password'];
+    const confirmPassword = formValues['confirmPassword']
+
+    return Yup.object({
+      
+        password: Yup.string().required('Enter your password').test(
+            {
+                message: 'Password do not match',
+                test: (value) => value === confirmPassword
+            }
+        ),
+        confirmPassword: Yup.string().required('Re-enter your password').test(
+            {
+                message: 'Password do not match',
+                test: (value) => value === password
+            }
+        )
+    })
+})

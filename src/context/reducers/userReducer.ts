@@ -5,8 +5,11 @@ export const SignupReducerType = {
   };
   
 export const ResetPassordType = {
-    STORE_PASSWORD_DETAILS: 'ADD_TO_STORE',
+    STORE_PASSWORD_DETAILS: 'STORE_PASSWORD_DETAILS',
     CLEAR_SIGNUP_DETAILS: 'CLEAR_SIGNUP_DETAILS',
+  };
+export const UserReducerType = {
+    MUTATE_USER: 'MUTATE_USER',
   };
   
 
@@ -18,14 +21,14 @@ export  function SignupReducer(state: GlobalStateType, action:ActionType) {
     
     switch (action.type) {
       case STORE_SIGNUP_DETAILS: {
-        return {...state, ...action.payload};
+        return {...state,...action.payload};
       }
       case CLEAR_SIGNUP_DETAILS: {
         return { ...state, ...action.payload };
       }
   
       default: {
-        throw new Error(`Unhandled action type: ${action.type}`);
+        return state;
       }
     }
   }
@@ -41,7 +44,22 @@ export  function ResetPasswordReducer(state: GlobalStateType, action:ActionType)
       }
   
       default: {
-        throw new Error(`Unhandled action type: ${action.type}`);
+        return state;
       }
     }
   }
+export  function UserReducer(state: GlobalStateType, action:ActionType) {
+    const { MUTATE_USER } = UserReducerType;
+    
+    switch (action.type) {
+      case MUTATE_USER: {
+        return {...state, ...action.payload};
+      }
+      default: {
+        return state;
+      }
+    }
+  }
+
+
+

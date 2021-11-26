@@ -1,9 +1,13 @@
 import React from 'react';
+import { FormControl, FormControlLabel, Radio, RadioGroup } from '@mui/material';
+import { Link } from 'react-router-dom';
+
 import { PrimaryButton } from '../../../reusables';
+import { APP_ROUTES } from '../../../routes/path';
+
 import PaystackLogo from '../../../assets/images/paystack.png';
 import FlutterwaveLogo from '../../../assets/images/flutterwave.png';
 import WalletLogo from '../../../assets/images/wallet.png';
-import { FormControl, FormControlLabel, Radio, RadioGroup } from '@mui/material';
 
 const paymentMethods = [
     {
@@ -53,8 +57,9 @@ const PaymentMethod = () => {
                                 ))}
                             </RadioGroup>
                         </FormControl>
-
-                        <PrimaryButton label="MAKE PAYMENT" fullWidth />
+                        <Link to={APP_ROUTES.bookedPage}>
+                            <PrimaryButton label="MAKE PAYMENT" fullWidth />
+                        </Link>
                     </div>
                 </div>
             </div>

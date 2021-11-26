@@ -1,13 +1,16 @@
 import React from 'react';
 import Slider from 'react-slick';
+import { Link } from 'react-router-dom';
 import PlaneImage from './../../../assets/images/plane.jpg';
 import { OutlineButton, PrimaryButton } from '../../../reusables';
 import { ReactComponent as ArrowLeftIcon } from '../../../assets/svgs/arrow-left.svg';
 import { ReactComponent as ArrowRightIcon } from '../../../assets/svgs/arrow-right.svg';
+import { APP_ROUTES } from '../../../routes/path';
 
 const settings = {
     infinite: true,
     speed: 500,
+    className: 'custom-slick',
     slidesToShow: 1,
     slidesToScroll: 1,
     nextArrow: <ArrowRightIcon />,
@@ -41,8 +44,12 @@ const AvailablePrivateJets = () => {
                             </p>
                         </div>
                         <div className="button-group">
-                            <PrimaryButton label="Charter Flight" small />
-                            <OutlineButton label="Jet Details" small />
+                            <Link to={APP_ROUTES.bookingSummary}>
+                                <PrimaryButton label="Charter Flight" small />
+                            </Link>
+                            <Link to={APP_ROUTES.detailPage}>
+                                <OutlineButton label="Jet Details" small />
+                            </Link>
                         </div>
                     </div>
                     <div className="charter-card__image">

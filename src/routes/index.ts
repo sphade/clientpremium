@@ -1,4 +1,5 @@
 import { lazy } from "react";
+import { Preloader } from '../reusables';
 
 import { APP_ROUTES, AUTHENTICATED_ROUTES } from './path';
 const SignIn = lazy(() => import('./../components/auth/Signin'));
@@ -11,6 +12,9 @@ const AirCharter = lazy(() => import('../components/pages/AirCharter'));
 const DetailPage = lazy(() => import('../components/pages/DetailPage'));
 const PaymentMethod = lazy(() => import('../components/pages/Payment/PaymentMethod'));
 const BookedPage = lazy(() => import('../components/pages/Payment/BookedPage'));
+const PickupSummary = lazy(() => import('../components/pages/Payment/PickupSummary'));
+const CarAddedSuccess = lazy(() => import('../components/pages/Payment/CarAddedSuccess'));
+const BookingSummary = lazy(() => import('../components/pages/BookingSummary'));
 
 
 export const routeList = [
@@ -71,6 +75,30 @@ export const appRoutes = [
         key: 'booked-page',
         path: APP_ROUTES.bookedPage,
         component: BookedPage,
+
+    },
+    {
+        key: 'pickup-summary',
+        path: APP_ROUTES.pickUpSummary,
+        component: PickupSummary,
+
+    },
+    {
+        key: 'car-added-success',
+        path: APP_ROUTES.carAddedSuccess,
+        component: CarAddedSuccess,
+
+    },
+    {
+        key: 'booking-summary',
+        path: APP_ROUTES.bookingSummary,
+        component: BookingSummary,
+
+    },
+    {
+        key: 'pre-loader',
+        path: '/loader',
+        component: Preloader,
 
     },
 ]

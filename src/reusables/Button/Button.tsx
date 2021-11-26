@@ -1,3 +1,4 @@
+import { CircularProgress } from '@mui/material';
 import React from 'react';
 import { ButtonType } from './type';
 
@@ -9,17 +10,21 @@ export const PrimaryButton = (props: ButtonType): JSX.Element => {
         children,
         classes,
         noRounded = false,
+        isLoading = false,
         ...rest
     } = props;
     return (
         <button
             {...rest}
+            disabled={isLoading || rest.disabled}
             data-testid="button"
             className={`${classes} primary__button ${small ? '' : 'large'} ${
                 fullWidth ? 'full__width' : ''
             } ${noRounded && 'no__rounded'}`}
         >
-            {label ? label : children}
+            {isLoading && <CircularProgress className="loading" size={20} />}
+
+            <span>{label ? label : children}</span>
         </button>
     );
 };
@@ -32,17 +37,21 @@ export const OutlineButton = (props: ButtonType): JSX.Element => {
         children,
         classes,
         noRounded = false,
+        isLoading = false,
         ...rest
     } = props;
     return (
         <button
             {...rest}
+            disabled={isLoading || rest.disabled}
             data-testid="button"
             className={`${classes} outline__button 
             ${small ? '' : 'large'}
             ${fullWidth ? 'full__width' : ''}  ${noRounded && 'no__rounded'}`}
         >
-            {label ? label : children}
+            {isLoading && <CircularProgress className="loading" size={20} />}
+
+            <span>{label ? label : children}</span>
         </button>
     );
 };

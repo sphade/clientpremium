@@ -12,6 +12,14 @@
     text-transform: uppercase;
     font-weight: 600;
     letter-spacing: 0.1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem!important;
+    justify-content: center;
+
+    .loading {
+        color: white
+    }
 
     @include responsive($mobile-l) {
         width: 100%!important;
@@ -44,6 +52,10 @@
 
 .outline__button {
     @extend .primary__button;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: center;
     background-color: white;
     border: 1px solid $primary-orange;
     color: $primary-orange;
@@ -69,5 +81,6 @@
 button:disabled {
     background-color: #BDBDBD!important;
     cursor: not-allowed
+    
 }
 

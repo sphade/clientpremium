@@ -48,7 +48,59 @@
             background-position: center;
             background-size: cover;
             padding: 5.2rem 0rem;
+        
 
+         &__content {
+             background-color: rgba(255, 255, 255, 0.75);
+             padding: 2.4rem 10rem 7rem;
+             margin-top: 2.5rem;
+
+
+             &--header {
+                 font-size: 3rem;
+                 text-align: center;
+                 font-weight: 400;
+                 text-transform: uppercase;
+                 margin-bottom: 3rem;
+
+             }
+
+             .primary__button {
+                    text-align: center;
+                    margin: 0 auto;
+                    // display: block;
+             }
+
+             &--form, &--select {
+                 display: flex;
+                 gap: 2rem;
+             }
+
+             &--select {
+                 display: flex;
+                 align-items: center;
+                 justify-content: space-between;
+                & > div {
+                    display: flex;
+                    gap: 2rem;
+                    &:first-child {
+                        flex: none;
+                        width: 50%;
+
+                    }
+
+                    &:nth-child(2) {
+                        margin-bottom: 3rem;
+                        p {
+                            color: $primary-orange;
+                        }
+                        &  > svg {
+                            cursor: pointer;
+                        }
+                    }
+                }
+             }
+         }
             
         }
 
@@ -116,36 +168,7 @@
                 text-align: center;
             }
 
-            .tab__pane {
-                margin: 2rem 0;
-                margin-bottom: 4rem;
-                display: flex;
-                align-items: center;
-                flex-wrap: wrap;
-                border-bottom: 1px solid #E0E0E0;
-
-                &--item {
-                    background: transparent;
-                    padding: 2.5rem 2rem;
-                    font-size: 2.4rem;
-                    border: none;
-                    border-bottom: 2px solid transparent;
-                    outline: none;
-                    flex: auto;
-
-                    color: $text-ash-secondary;
-                    cursor: pointer;
-                    transition: $main-transition;
-                    min-width: 30rem;
-
-                    &:hover {
-                        background-color: #FFEEE9;
-                        color: $primary-orange;
-                        border-bottom: 2px solid $primary-orange;
-                        
-                    }
-                }
-            }
+           
 
             .primary__card {
                 &--container {
@@ -233,6 +256,7 @@
                 grid-template-columns: repeat(auto-fill, minmax(290px, 1fr) ) ;
                 grid-gap: 2.4rem;
                 margin-top: 6rem;
+                background-color: white;
 
             
                 .card__image {

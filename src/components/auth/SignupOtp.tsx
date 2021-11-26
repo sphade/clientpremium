@@ -7,20 +7,38 @@ import { useHistory } from 'react-router';
 import { AUTHENTICATED_ROUTES } from '../../routes/path';
 import { useMutation, useQueryClient } from 'react-query';
 import useCustomSnackbar from '../../hooks/useSnackbar';
-import { createUser } from '../../routes/api';
+import { createUser, resendVerifyOtp } from '../../routes/api';
 import useGlobalStoreProvider from '../../context';
 
 const SignupOtp = () => {
+    //App History
     const history = useHistory();
+
+    //Handle countdownt imer
+    const {
+        minutesLeft,
+        secondsLeft,
+        start: startOtpCountdown,
+        reset,
+        isOver,
+        isRunning,
+    } = useCountdown({ minutes: 2 });
+
+    //Snackbar
     const { succesSnackbar, errorSnackbar } = useCustomSnackbar();
+
+    //React query
     const queryClient = useQueryClient();
+
+    //Global Store
     const { state } = useGlobalStoreProvider();
 
+    //handle Otp
     const [otp, setOtp] = useState('');
 
+    //Create User
     const { mutate } = useMutation(createUser, {
         onSuccess: (data) => {
-            console.log(data);
             succesSnackbar(data.message || 'User Successfully registered');
             history.push(AUTHENTICATED_ROUTES.signupsucces);
         },
@@ -32,26 +50,45 @@ const SignupOtp = () => {
         },
     });
 
-    const {
-        minutesLeft,
-        secondsLeft,
-        start: startOtpCountdown,
-        reset: resetOtpCountdown,
-        isOver,
-    } = useCountdown({ minutes: 2 });
-
+    //Start countdown on page load
     useEffect(() => {
         startOtpCountdown();
     }, []);
 
+    //Resend otp
+    const { mutate: resendOtp, isLoading: resendOtpLoading } = useMutation(resendVerifyOtp, {
+        onSuccess: (data) => {
+            succesSnackbar(data.message || 'Check email and phone for verification otp');
+            reset();
+            startOtpCountdown();
+        },
+        onError: () => {
+            errorSnackbar('Error');
+        },
+        onSettled: () => {
+            queryClient.invalidateQueries('create');
+        },
+    });
+
+    //HandleResend otp
+    const handleResendOtp = () => {
+        const { email, phoneNumber: phone } = state.signupInfo;
+
+        const data = {
+            email,
+            phone: `+${phone}`,
+        };
+        resendOtp(data);
+    };
+
     const handleSubmit = (value: string) => {
-        const { email, name, password, phoneNumber: phone } = state.user;
+        const { email, name, password, phoneNumber: phone } = state.signupInfo;
         const data = {
             email,
             password,
             name,
             otp: value,
-            phone: `+234${phone}`,
+            phone: `+${phone}`,
         };
         mutate(data);
     };
@@ -61,7 +98,7 @@ const SignupOtp = () => {
             <h3>PHONE NUMBER VERIFICATION</h3>
             <p className="phone__number">
                 Enter the 6 digit verification code sent to:
-                <span>+234 8012345678</span>
+                <span>+{state.signupInfo?.phoneNumber}</span>
             </p>
             <div className="otp__box">
                 <OtpInput
@@ -78,21 +115,21 @@ const SignupOtp = () => {
                     separator={<span></span>}
                 />
             </div>
+
             <p className="resend__code">
-                Resend code in{' '}
                 <span>
                     {!isOver ? (
-                        `${minutesLeft}:${secondsLeft}`
+                        `Resend code in ${minutesLeft}:${secondsLeft}`
                     ) : (
-                        <span onClick={resetOtpCountdown}>Resend Otp</span>
+                        <span>You can now resend otp</span>
                     )}
                 </span>{' '}
             </p>
             <PrimaryButton
+                onClick={handleResendOtp}
                 label="Resend Code"
-                // onClick={() => {
-                //     handleSubmit();
-                // }}
+                disabled={isRunning}
+                isLoading={resendOtpLoading}
             />
             <LinkButton label="Didn’t get the code? Use email" />
         </div>

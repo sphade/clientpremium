@@ -1,10 +1,13 @@
-import { FormControl, FormControlLabel, Radio, RadioGroup } from '@mui/material';
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { FormControl, FormControlLabel, Radio, RadioGroup } from '@mui/material';
+
 import { CustomAlert, PrimaryButton, PrimaryInput, PrimarySelect } from '../../../reusables';
 import SmallCar from '../../../assets/images/small-car.png';
 import BaseModal from '../../../reusables/BaseModal';
 import { ReactComponent as PickupIcon } from '../../../assets/svgs/pickup-icon.svg';
 import { ReactComponent as CarIcon } from '../../../assets/svgs/car-outlined.svg';
+import { APP_ROUTES } from '../../../routes/path';
 
 const tripType = ['One stop trip', 'Two stop trip'];
 
@@ -81,7 +84,9 @@ const PickupForm = ({
                             <p>Nov-05-2021 | 09:00 am</p>
                         </div>
                     </div>
-                    <PrimaryButton label="NEXT" disabled />
+                    <Link to={APP_ROUTES.pickUpSummary}>
+                        <PrimaryButton label="NEXT" />
+                    </Link>
                 </div>
             </div>
         </BaseModal>

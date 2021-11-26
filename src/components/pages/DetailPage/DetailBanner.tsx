@@ -9,6 +9,8 @@ import { ReactComponent as ArrowRightIcon } from '../../../assets/svgs/arrow-rig
 
 import { PrimaryButton } from '../../../reusables';
 import { detailBannerSummary } from './constants';
+import { Link } from 'react-router-dom';
+import { APP_ROUTES } from '../../../routes/path';
 
 const settings = {
     focusOnSelect: true,
@@ -29,7 +31,9 @@ const DetailBanner = () => {
                     <ArrowLeft />
                     <h3>SKY NIGHT 6000</h3>
                 </div>
-                <PrimaryButton label="Charter Flight" />
+                <Link to={APP_ROUTES.bookingSummary}>
+                    <PrimaryButton label="Charter Flight" />
+                </Link>
             </div>
             <div className="detail-banner__hero">
                 <div className="detail-banner__hero--images">

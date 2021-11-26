@@ -62,3 +62,9 @@ label, .MuiFormControlLabel-label {
         color: $primary-orange!important
     }
 }
+
+.error-input {
+    input {
+        border: 2px solid #d32f2f!important;
+    }
+}

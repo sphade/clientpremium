@@ -1,12 +1,43 @@
 .top-filter {
     background-color: white;
-    padding: 3.2rem 0 ;
+    padding: 0rem 0 ;
+    padding-bottom: 2rem;
     
+    &__banner {
+        background-color: black;
+        color: white;
+
+        height: 15rem;
+
+    margin-bottom: 3rem;
+    display: flex;
+
+
+
+    .center {
+        width: 100%;
+        margin-bottom: 2rem;
+        display: flex;
+        align-self: flex-end;
+        gap: 1rem;
+        img {
+            width: 10rem
+        }
+    }
+    }
 
     &__content {
         display: flex;
+        padding-top: 1rem;
         // flex-wrap: wrap;
         gap: 2rem;
+
+        & > div {
+            display: flex;
+            width: 100%;
+        gap: 2rem;
+
+        }
     }
 
 }

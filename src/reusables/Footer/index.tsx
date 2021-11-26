@@ -1,5 +1,5 @@
 import React from 'react';
-import FullLogo from './../../assets/svgs/full-logo.svg';
+import FullLogo from '../../assets/images/logo-premium.png';
 import { ReactComponent as LocationIcon } from '../../assets/svgs/location.svg';
 import { ReactComponent as CallIcon } from '../../assets/svgs/Call.svg';
 import { ReactComponent as WhatsappIcon } from '../../assets/svgs/whatsapp.svg';
@@ -52,7 +52,7 @@ const Footer = () => {
             <div className="center">
                 <div className="footer__top">
                     <div className="footer__top--left">
-                        <img src={FullLogo} alt="logo" />
+                        <img src={FullLogo} alt="logo" className="full-logo" />
                         <p>Bossbus is owned and managed by Founders and Innovators Limited</p>
                     </div>
                     <div className="footer__top--right">

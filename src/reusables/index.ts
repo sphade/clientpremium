@@ -7,3 +7,6 @@ export { default as Footer} from './Footer';
 export { default as Divider} from './Divider';
 export { default as Preloader} from './Preloader';
 export { default as ArrowButton} from './ArrowButton';
+export { default as Tabpane} from './Tabpane';
+export { default as CustomDropDown} from './CustomDropDown';
+export { default as CustomPhoneInput} from './Input/CustomPhoneInput';

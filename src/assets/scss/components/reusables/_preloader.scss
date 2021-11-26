@@ -20,12 +20,11 @@
     padding: 0;
     margin: 0;
   
-    &__img {
+    & > img {
       height: 20rem;
       width: 20rem;
       animation: bounce 2s ease infinite 0.3s both;
   
-      box-shadow: 0 2rem 2rem rgba(0, 0, 0, 0.2);
       border-radius: 2rem;
     }
   }

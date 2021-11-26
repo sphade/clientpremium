@@ -16,4 +16,6 @@ export const APP_ROUTES = {
     paymentMethod: '/payment-method',
     bookedPage: '/booked-success',
     pickUpSummary: '/pickup-summary',
+    carAddedSuccess: '/car-added-success',
+    bookingSummary: '/booking-summary',
 }

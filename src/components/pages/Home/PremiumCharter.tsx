@@ -9,8 +9,8 @@ const PremiumCharter = () => {
                 <h3 className="title">All Premium Charters</h3>
                 <div className="tab__pane">
                     <button className="tab__pane--item active">Air</button>
-                    <button className="tab__pane--item active">Sea</button>
-                    <button className="tab__pane--item active">Land</button>
+                    <button className="tab__pane--item">Sea</button>
+                    <button className="tab__pane--item">Land</button>
                 </div>
                 <div className="primary__card--container">
                     {[1, 2, 3, 4, 5, 6].map((item) => (
@@ -36,7 +36,7 @@ const PremiumCharter = () => {
                     ))}
                 </div>
 
-                <div className="cta">
+                <div className="cta flex justify-center">
                     <PrimaryButton label="See All Charter" noRounded />
                 </div>
             </div>

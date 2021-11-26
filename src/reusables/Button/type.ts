@@ -8,4 +8,5 @@ export interface ButtonType extends ButtonHTMLAttributes<HTMLButtonElement> {
     fullWidth?: boolean;
     noRounded?: boolean;
     small?: boolean;
+    isLoading?: boolean;
 }

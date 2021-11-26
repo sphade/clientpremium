@@ -6,6 +6,8 @@ import { SnackbarProvider } from 'notistack';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import 'react-phone-input-2/lib/material.css';
+
 import App from './App';
 import './app.scss';
 import { Preloader } from './reusables';

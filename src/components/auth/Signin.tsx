@@ -1,8 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useFormik } from 'formik';
 import React from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { Link, useHistory } from 'react-router-dom';
 import { useAppStorage } from '../../hooks';
+import useGlobalStoreProvider from '../../context';
+
 import useCustomSnackbar from '../../hooks/useSnackbar';
 
 import { OutlineButton, PrimaryButton, PrimaryInput, LinkButton, Divider } from '../../reusables';
@@ -10,22 +13,28 @@ import { login } from '../../routes/api';
 import { APP_ROUTES, AUTHENTICATED_ROUTES } from '../../routes/path';
 import { loginValidation } from '../../validations';
 import { ReactComponent as EyeIcon } from './../../assets/svgs/eye.svg';
+import { UserReducerType } from '../../context/reducers/userReducer';
 
 const SignIn = (): JSX.Element => {
     const history = useHistory();
     const { succesSnackbar, errorSnackbar } = useCustomSnackbar();
     const { addToStore } = useAppStorage();
+    const { checkAuthenticated, dispatch } = useGlobalStoreProvider();
+    const { MUTATE_USER } = UserReducerType;
 
     const queryClient = useQueryClient();
 
-    const { mutate } = useMutation(login, {
-        onSuccess: (data) => {
-            addToStore('user', data.data);
+    const { mutate, isLoading } = useMutation(login, {
+        onSuccess: async (data) => {
+            await addToStore('user', data.data);
+            dispatch({ type: MUTATE_USER, payload: data.data });
+
             succesSnackbar(data.message || 'Success');
+            checkAuthenticated();
             history.push(APP_ROUTES.home);
         },
-        onError: () => {
-            errorSnackbar('Error');
+        onError: (error: any) => {
+            errorSnackbar(error?.response?.data?.error || 'Error');
         },
         onSettled: () => {
             queryClient.invalidateQueries('create');
@@ -72,7 +81,12 @@ const SignIn = (): JSX.Element => {
                         <LinkButton label="Forgot Password?" classes="forgot__button" />
                     </Link>
                 </div>
-                <PrimaryButton label="Sign In" fullWidth />
+                <PrimaryButton
+                    label="Sign In"
+                    fullWidth
+                    isLoading={isLoading}
+                    onClick={handleSubmit}
+                />
                 <Divider text="OR" classes="" />
                 <Link to={AUTHENTICATED_ROUTES.singupProvideDetails}>
                     <OutlineButton label="Create Account" fullWidth />

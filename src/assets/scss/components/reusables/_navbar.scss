@@ -4,12 +4,51 @@
     padding: 1.4rem 0rem;
 
     &__brand {
-        cursor: pointer
+        cursor: pointer;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+
+        &--left {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+
+            p {
+                font-weight:600;
+            }
+            .menu-dropdown {
+                border: 7px solid yellow!important
+            }
+        }
+
+        &--right {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            p {
+                font-weight:600;
+            }
+
+
+            .user--profile {
+                display: flex;
+                align-items: center;
+                gap: 2rem;
+                img {
+                    width: 3.8rem;
+                    height: 3.8rem;
+                    border-radius: 50%;
+                }
+            }
+        }
     }
 
     .desktop__logo {
         display: block;
-        width: 30rem;
+        width: 20rem;
         @include responsive($mobile-l) {
             display: none;
         }

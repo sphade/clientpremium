@@ -1,9 +1,9 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { ReactComponent as AlertIcon } from './../../assets/svgs/alert.svg';
 
 export type AlertType = {
-    hasIcon?: ReactNode | JSX.Element;
-    content: string;
+    hasIcon?: boolean;
+    content: string | JSX.Element;
     header?: string;
     cssClass?: string;
 };
