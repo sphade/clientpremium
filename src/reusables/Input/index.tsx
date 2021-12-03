@@ -54,6 +54,7 @@ export const PrimaryInput = ({
     formik,
     name,
     icon,
+    fullWidth = true,
     ...rest
 }: PrimaryInputProps & TextFieldProps) => {
     // Toggle password visibility
@@ -98,6 +99,7 @@ export const PrimaryInput = ({
 
         return (
             <TextField
+                className="primary__input"
                 {...rest}
                 type={
                     rest.type === 'password' && showPassword
@@ -114,13 +116,14 @@ export const PrimaryInput = ({
                 helperText={touched[name] && errors[name]}
                 variant="outlined"
                 InputProps={inputProps}
-                fullWidth
+                fullWidth={fullWidth}
             />
         );
     }
 
     return (
         <TextField
+            className="primary__input"
             type={
                 rest.type === 'password' && showPassword
                     ? 'text'
@@ -132,7 +135,7 @@ export const PrimaryInput = ({
             name={name}
             variant="outlined"
             InputProps={inputProps}
-            fullWidth
+            fullWidth={fullWidth}
         />
     );
 };
@@ -143,6 +146,7 @@ export const PrimarySelect = ({
     placeholder,
     name,
     icon,
+    fullWidth = true,
     ...rest
 }: PrimarySelectProps & TextFieldProps) => {
     const inputProps = {
@@ -165,6 +169,7 @@ export const PrimarySelect = ({
                 select
                 {...rest}
                 name={name}
+                className="primary__input"
                 onChange={handleChange}
                 value={values[name]}
                 onBlur={handleBlur}
@@ -172,7 +177,7 @@ export const PrimarySelect = ({
                 helperText={touched[name] && errors[name]}
                 variant="outlined"
                 InputProps={inputProps}
-                fullWidth
+                fullWidth={fullWidth}
             >
                 <MenuItem value="">
                     <em>{placeholder || 'Select'}</em>
@@ -191,9 +196,10 @@ export const PrimarySelect = ({
             select
             {...rest}
             name={name}
+            className="primary__input"
             variant="outlined"
             InputProps={inputProps}
-            fullWidth
+            fullWidth={fullWidth}
         >
             <MenuItem value="">
                 <em>{placeholder || 'Select'}</em>

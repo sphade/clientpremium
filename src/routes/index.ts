@@ -55,13 +55,13 @@ export const appRoutes = [
     },
     {
         key: 'air-charter',
-        path: APP_ROUTES.airCharter,
+        path: [APP_ROUTES.airCharter ,  APP_ROUTES.landCharter, '/charter/:type'],
         component: AirCharter,
 
     },
     {
         key: 'detail-page',
-        path: APP_ROUTES.detailPage,
+        path: [APP_ROUTES.detailPage, '/charter/:type/:id'],
         component: DetailPage,
 
     },

@@ -1,7 +1,7 @@
-export const detailBannerSummary = [
+export const detailBannerSummary = (isLand = false) =>  [
     {
-        title: 'Max range',
-        value: '6000 nm'
+        title: isLand ? 'Rates Per day' : 'Max range',
+        value: isLand ? "N120,000" : '6000 nm'
     },
     {
         title: 'Year built',
@@ -12,7 +12,7 @@ export const detailBannerSummary = [
         value: '43 ft 3 in'
     },
     {
-        title: 'Guests',
+        title: isLand ? 'Capacity': 'Guests',
         value: '14'
     },
     {

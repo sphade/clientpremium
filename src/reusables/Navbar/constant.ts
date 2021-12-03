@@ -5,17 +5,17 @@ import { APP_ROUTES } from '../../routes/path';
 
 export const allTravelServices = [
         {
-            link: APP_ROUTES.airCharter,
+            link: APP_ROUTES.charter('air'),
             name: 'Air charter',
             icon: PlaneIcon
         },
         {
-            link: APP_ROUTES.airCharter,
+            link: APP_ROUTES.charter('sea'),
             name: 'Sea charter',
             icon: SeaIcon
         },
         {
-            link: '',
+            link: APP_ROUTES.charter('land'),
             name: 'Land charter',
             icon: CarIcon
         },

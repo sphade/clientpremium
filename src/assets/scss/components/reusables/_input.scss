@@ -1,13 +1,14 @@
 .primary__input {
-    width: 100%;
+    border: 1px solid black;
+    // width: 100%;
     margin-bottom: 2rem;
     position: relative;
+    min-width: 30rem!important;
     &--input {
         padding: 1.8rem 2rem;
         font-size: 1.4rem;
         border-radius: 5px;
         border: 1px solid #BDBDBD;
-        min-width: 30rem!important;
         width: 100%;
         position: relative;
 
@@ -43,7 +44,7 @@ label, .MuiFormControlLabel-label {
 
 }
 
-.MuiInputLabel-root {
+.MuiInputLabel-root  {
     background-color: white!important;
 }
 

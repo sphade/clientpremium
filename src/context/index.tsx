@@ -20,7 +20,6 @@ export const GlobalStoreProvider = ({ children }: { children: ReactNode }) => {
     const checkAuthenticated = async () => {
         const user = (await getFromStore('user')) || {};
 
-        console.log('ahhhere');
         if (user?.token) {
             setIsAuthenticated(true);
             dispatch({ type: MUTATE_USER, payload: user });

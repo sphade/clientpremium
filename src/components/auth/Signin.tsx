@@ -30,7 +30,7 @@ const SignIn = (): JSX.Element => {
             dispatch({ type: MUTATE_USER, payload: data.data });
 
             succesSnackbar(data.message || 'Success');
-            checkAuthenticated();
+            await checkAuthenticated();
             history.push(APP_ROUTES.home);
         },
         onError: (error: any) => {

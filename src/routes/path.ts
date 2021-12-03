@@ -10,8 +10,12 @@ export const AUTHENTICATED_ROUTES = {
 
 export const APP_ROUTES = {
     home: '/home',
+    charter: (type: string) => `/charter/${type}`,
     airCharter: '/air-charter',
-    detailPage: '/detail',
+    landCharter: '/land-charter',
+    seaCharter: '/sea-charter',
+    detailPage: 'detail',
+    charterDetailPage: (type: string, id: string) => `/charter/${type}/${id}`,
     charterSummary: '/charter-summary',
     paymentMethod: '/payment-method',
     bookedPage: '/booked-success',

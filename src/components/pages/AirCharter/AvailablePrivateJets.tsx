@@ -1,11 +1,13 @@
 import React from 'react';
 import Slider from 'react-slick';
 import { Link } from 'react-router-dom';
-import PlaneImage from './../../../assets/images/plane.jpg';
 import { OutlineButton, PrimaryButton } from '../../../reusables';
 import { ReactComponent as ArrowLeftIcon } from '../../../assets/svgs/arrow-left.svg';
 import { ReactComponent as ArrowRightIcon } from '../../../assets/svgs/arrow-right.svg';
 import { APP_ROUTES } from '../../../routes/path';
+import { useCheckCharterType } from '../../../hooks';
+import { CharterType } from '../../../hooks/types';
+import { PREMIUM_CHARTER_DATA } from '../Home/constants';
 
 const settings = {
     infinite: true,
@@ -18,12 +20,20 @@ const settings = {
 };
 
 const AvailablePrivateJets = () => {
+    const charterType = useCheckCharterType();
+
+    const isLand = charterType === CharterType.LAND;
+
+    const charterData = PREMIUM_CHARTER_DATA.filter(
+        (data) => data.type.toLowerCase() === charterType.toLowerCase(),
+    );
+
     return (
         <div className="private-jets">
-            <h3 className="private-jets__title">AVAILABLE PRIVATE JETS</h3>
+            <h3 className="private-jets__title">AVAILABLE {isLand ? 'CARS' : 'PRIVATE JETS'} </h3>
 
-            {[1, 2, 3, 4].map((item) => (
-                <div key={item} className="charter-card">
+            {charterData.map((item, index) => (
+                <div key={index} className="charter-card">
                     <div className="charter-card__content">
                         <div className="charter-card__content--title">
                             <h4>SKY NIGHT 6000</h4>
@@ -45,18 +55,21 @@ const AvailablePrivateJets = () => {
                         </div>
                         <div className="button-group">
                             <Link to={APP_ROUTES.bookingSummary}>
-                                <PrimaryButton label="Charter Flight" small />
+                                <PrimaryButton
+                                    label={`Charter ${isLand ? 'Car' : 'Flight'}`}
+                                    small
+                                />
                             </Link>
-                            <Link to={APP_ROUTES.detailPage}>
-                                <OutlineButton label="Jet Details" small />
+                            <Link to={APP_ROUTES.charterDetailPage('land', '2')}>
+                                <OutlineButton label={`${isLand ? 'Card' : 'Jet'} Details`} small />
                             </Link>
                         </div>
                     </div>
                     <div className="charter-card__image">
                         <Slider {...settings}>
-                            <img src={PlaneImage} alt="plane" />
-                            <img src={PlaneImage} alt="plane" />
-                            <img src={PlaneImage} alt="plane" />
+                            <img src={item.image} alt="plane" />
+                            <img src={item.image} alt="plane" />
+                            <img src={item.image} alt="plane" />
                         </Slider>
                     </div>
                 </div>

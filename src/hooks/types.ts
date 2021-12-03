@@ -113,3 +113,11 @@ export enum NetworkSpeed {
 	SLOW = 'SLOW',
 	FAST = 'FAST',
 }
+
+
+export enum CharterType {
+	AIR = "AIR",
+	LAND = 'LAND',
+	SEA = 'SEA'
+
+}

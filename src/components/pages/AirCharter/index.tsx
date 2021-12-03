@@ -1,13 +1,12 @@
 import React from 'react';
-import { } from 'react-router-dom'
 
 //Custom Imports
 import AvailablePrivateJets from './AvailablePrivateJets';
 import LeftFilter from './LeftFilter';
 import TopFilter from './TopFilter';
 
-
 const AirCharter = () => {
+
     return (
         <div className="air-charter">
             <TopFilter />

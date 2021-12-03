@@ -5,7 +5,7 @@ import FeaturedItems from './FeaturedItems';
 
 const DetailPage = () => {
     return (
-        <div>
+        <div style={{ backgroundColor: 'white' }}>
             <DetailBanner />
             <DetailContent />
             <FeaturedItems />

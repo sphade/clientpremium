@@ -1,35 +1,49 @@
-import React from 'react';
-import { PrimaryButton } from '../../../reusables';
-import Plane from '../../../assets/images/plane.jpg';
+import React, { useState } from 'react';
+import { PrimaryButton, PrimarySelect, Tabpane } from '../../../reusables';
+import { PREMIUM_CHARTER_DATA } from './constants';
+import { airCraftType } from '../AirCharter/constants';
 
 const PremiumCharter = () => {
+    const [filter, setFilter] = useState('air');
+
+    const selectedFilter = PREMIUM_CHARTER_DATA.filter(
+        (item) => item.type.toLowerCase() === filter,
+    );
+
+    const onChange = (value: string) => {
+        setFilter(value.toLowerCase());
+    };
+
     return (
         <article className="premium jumbotron">
             <div className="center">
                 <h3 className="title">All Premium Charters</h3>
-                <div className="tab__pane">
-                    <button className="tab__pane--item active">Air</button>
-                    <button className="tab__pane--item">Sea</button>
-                    <button className="tab__pane--item">Land</button>
-                </div>
+                <Tabpane onChange={onChange} list={['Air', 'Sea', 'Land']} />
+                <PrimarySelect
+                    name="airCraftType"
+                    label="Air craft type"
+                    options={airCraftType}
+                    fullWidth={false}
+                />
+
                 <div className="primary__card--container">
-                    {[1, 2, 3, 4, 5, 6].map((item) => (
-                        <div key={item} className="primary__card--item">
+                    {selectedFilter.map((item, index) => (
+                        <div key={index} className="primary__card--item">
                             <div className="card__image">
-                                <img src={Plane} alt="card__image" />
+                                <img src={item.image} alt="card__image" />
                             </div>
                             <div className="card__content">
                                 <div className="card__title">
-                                    <h5>Comodore 101</h5>
+                                    <h5>{item.name}</h5>
                                     <h5>
                                         {' '}
-                                        PRICE/HOUR <span>168,000</span>
+                                        PRICE/HOUR <span>{item.price}</span>
                                     </h5>
                                 </div>
                                 <div className="summary">
-                                    <p>Seats: 12</p>
-                                    <p>Speed: 427 kts</p>
-                                    <p>Range: 1390 nm</p>
+                                    <p>Seats: {item.seats}</p>
+                                    <p>Speed: {item.speed} kts</p>
+                                    <p>Range: {item.range} nm</p>
                                 </div>
                             </div>
                         </div>
