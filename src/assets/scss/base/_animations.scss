@@ -38,3 +38,19 @@
     opacity: 100;
   }
 }
+
+
+@keyframes fadeOut {
+  0% {
+    opacity:1;
+  }
+  45% {
+  opacity:1;
+  }
+  55% {
+  opacity:0;
+  }
+  100% {
+  opacity:0;
+  }
+}

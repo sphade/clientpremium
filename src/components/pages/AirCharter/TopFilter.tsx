@@ -5,10 +5,9 @@ import { ReactComponent as LocationIcon } from './../../../assets/svgs/location-
 import { airCraftType, tripType } from './constants';
 import StylishArrow from '../../../assets/images/arrow-style.png';
 import { useCheckCharterType } from '../../../hooks';
-import { CharterType } from '../../../hooks/types';
 
 const TopFilter = () => {
-    const charterType = useCheckCharterType();
+    const { charterType, isLand } = useCheckCharterType();
 
     return (
         <div className="top-filter">
@@ -22,7 +21,7 @@ const TopFilter = () => {
                 <div className="top-filter__content">
                     <PrimaryInput name="Leaving" label="Leaving from" icon={<NavigatorIcon />} />
                     <PrimaryInput name="Leaving" label="Going to" icon={<LocationIcon />} />
-                    {charterType !== CharterType.LAND ? (
+                    {isLand ? (
                         <>
                             <DatePicker label="Departing" />
                             <DatePicker label="Returning" />
@@ -35,7 +34,7 @@ const TopFilter = () => {
                     )}
                 </div>
                 <div className="top-filter__content">
-                    {charterType !== CharterType.LAND ? (
+                    {!isLand ? (
                         <div>
                             <PrimarySelect
                                 name="airCraftType"

@@ -3,6 +3,26 @@ export const airCraftType = [
         name: 'Private Jet', value: 'Private Jet'
     }
 ]
+export const landCraftType = [
+    {
+        name: 'Sedan', value: 'Sedan',
+    },
+    {
+        name: 'Benz', value: 'Benz',
+    },
+    {
+        name: 'Nissan', value: 'Nissan',
+    },
+]
+export const seaTripType = [
+    {
+        name: 'Boat cruise', value: 'Boat',
+    },
+    {
+        name: 'Boat trip', value: 'Boat trip',
+    },
+    
+]
 
 export const tripType = [
     {

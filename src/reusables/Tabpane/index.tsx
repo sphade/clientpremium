@@ -10,7 +10,6 @@ const TabPane = ({
     const [selectedTab, setSelectedTab] = React.useState(list[0]);
 
     const handleTabChange = (value: string) => {
-        console.log(value);
         setSelectedTab(value);
 
         if (onChange) {

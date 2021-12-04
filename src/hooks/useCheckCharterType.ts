@@ -1,18 +1,50 @@
 import {  useParams } from 'react-router-dom';
-import { CharterType } from './types';
+import { CHARTER_TYPE, PREMIUM_CHARTER_DATA } from '../components/pages/Home/constants';
+import { CharterType, } from './types';
 
-const useCheckCharterType = (): CharterType => {
+const useCheckCharterType = (): {
+	charterType: CharterType,
+	isLand: boolean,
+	isAir: boolean,
+	isSea: boolean,
+	charterData: { name: string;
+		price: number;
+		seats: number;
+		speed: number;
+		range: number;
+		type: CHARTER_TYPE;
+		image: string}[]
+} => {
 
 	const params:  Record<string,string> = useParams();
 	
 	const type = params?.type
 
+	let charterType = CharterType.AIR
+
 	if (type === 'air') {
-		return CharterType.AIR;
+		charterType= CharterType.AIR;
 	} else if (type === 'land') {
-		return CharterType.LAND;
+		charterType =	 CharterType.LAND;
 	} else {
-		return CharterType.SEA;
+		charterType = CharterType.SEA;
+	}
+
+
+    const isLand = charterType === CharterType.LAND;
+    const isSea = charterType === CharterType.SEA;
+    const isAir = charterType === CharterType.AIR;
+
+    const charterData = PREMIUM_CHARTER_DATA.filter(
+        (data) => data.type.toLowerCase() === charterType.toLowerCase(),
+    );
+
+	return {
+		charterType,
+		isLand,
+		isSea,
+		isAir,
+		charterData
 	}
 
 	//check if the location is association or guarantor

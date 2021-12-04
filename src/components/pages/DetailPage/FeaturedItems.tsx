@@ -1,8 +1,8 @@
 import React from 'react';
 import Slider from 'react-slick';
-import PlaneImage from './../../../assets/images/plane.jpg';
 import { ReactComponent as ArrowLeftIcon } from '../../../assets/svgs/arrow-left.svg';
 import { ReactComponent as ArrowRightIcon } from '../../../assets/svgs/arrow-right.svg';
+import { useCheckCharterType } from '../../../hooks';
 
 const settings = {
     infinite: true,
@@ -15,14 +15,16 @@ const settings = {
 };
 
 const FeaturedItems = () => {
+    const { charterData } = useCheckCharterType();
+
     return (
         <div className="featured-item">
             <div className="featured-item__slider center">
                 <h3>FEATURED JETS</h3>
                 <Slider {...settings}>
-                    {[1, 2, 3, 4, 5, 6].map((item) => (
-                        <div className="featured-item__slider--card" key={item}>
-                            <img src={PlaneImage} alt="plane" />
+                    {charterData.map((item, index) => (
+                        <div className="featured-item__slider--card" key={index}>
+                            <img src={item.image} alt="plane" />
                             <div className="slider-card-content">
                                 <h5>Sky Warrior</h5>
                                 <p>Rate from N168 per trip.</p>

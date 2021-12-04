@@ -6,8 +6,6 @@ import { ReactComponent as ArrowLeftIcon } from '../../../assets/svgs/arrow-left
 import { ReactComponent as ArrowRightIcon } from '../../../assets/svgs/arrow-right.svg';
 import { APP_ROUTES } from '../../../routes/path';
 import { useCheckCharterType } from '../../../hooks';
-import { CharterType } from '../../../hooks/types';
-import { PREMIUM_CHARTER_DATA } from '../Home/constants';
 
 const settings = {
     infinite: true,
@@ -20,13 +18,7 @@ const settings = {
 };
 
 const AvailablePrivateJets = () => {
-    const charterType = useCheckCharterType();
-
-    const isLand = charterType === CharterType.LAND;
-
-    const charterData = PREMIUM_CHARTER_DATA.filter(
-        (data) => data.type.toLowerCase() === charterType.toLowerCase(),
-    );
+    const { isLand, charterData, charterType } = useCheckCharterType();
 
     return (
         <div className="private-jets">
@@ -60,8 +52,8 @@ const AvailablePrivateJets = () => {
                                     small
                                 />
                             </Link>
-                            <Link to={APP_ROUTES.charterDetailPage('land', '2')}>
-                                <OutlineButton label={`${isLand ? 'Card' : 'Jet'} Details`} small />
+                            <Link to={APP_ROUTES.charterDetailPage(charterType.toLowerCase(), '2')}>
+                                <OutlineButton label={`${isLand ? 'Car' : 'Jet'} Details`} small />
                             </Link>
                         </div>
                     </div>

@@ -1,7 +1,18 @@
+.nav-dropdown {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0.5rem;
+}
 .navbar {
     background-color: $primary-black;
     align-items: center;
     padding: 1.4rem 0rem;
+    // position: sticky;
+    // top: 0;
+    // z-index: 4000;
+    // left: 0;
+    // right: 0;
 
     &__brand {
         cursor: pointer;
@@ -9,6 +20,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+
 
 
         &--left {

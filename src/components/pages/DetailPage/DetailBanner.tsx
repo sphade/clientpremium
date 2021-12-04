@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import Slider from 'react-slick';
 import PlaneImage4 from './../../../assets/images/plane-4.png';
 import PlaneImage2 from './../../../assets/images/plane-2.png';
@@ -15,7 +16,6 @@ import { detailBannerSummary } from './constants';
 import { Link } from 'react-router-dom';
 import { APP_ROUTES } from '../../../routes/path';
 import { useCheckCharterType } from '../../../hooks';
-import { CharterType } from '../../../hooks/types';
 
 const settings = {
     focusOnSelect: true,
@@ -29,14 +29,14 @@ const settings = {
 };
 
 const DetailBanner = () => {
-    const charterType = useCheckCharterType();
+    const { isLand } = useCheckCharterType();
 
-    const isLand = charterType === CharterType.LAND;
+    const history = useHistory();
 
     return (
         <article className="detail-banner">
             <div className="center detail-banner__header">
-                <div>
+                <div onClick={() => history.goBack()}>
                     <ArrowLeft />
                     <h3>{isLand ? 'BMW M3' : 'SKY NIGHT 6000'}</h3>
                 </div>

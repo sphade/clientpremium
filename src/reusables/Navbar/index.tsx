@@ -9,6 +9,7 @@ import Avatar from '../../assets/svgs/user-avatar.png';
 import { CustomDropDown } from '..';
 import { allTravelServices, userProfileMenu } from './constant';
 import useGlobalStoreProvider from './../../context';
+import SeaIcon from '../../assets/images/small-sea-icon.png';
 
 const Navbar = ({ primary = true }: { primary?: boolean }): JSX.Element => {
     const { state, logoutUser } = useGlobalStoreProvider();
@@ -31,7 +32,17 @@ const Navbar = ({ primary = true }: { primary?: boolean }): JSX.Element => {
                                 buttonText="All travel services"
                                 menuItems={allTravelServices.map((menu) => (
                                     <Link key={menu.name} to={menu.link || '/home'}>
-                                        {menu.name}
+                                        <div className="nav-dropdown">
+                                            {menu.image && (
+                                                <img
+                                                    src={menu.image}
+                                                    alt="icon"
+                                                    width="20"
+                                                    height="20"
+                                                />
+                                            )}
+                                            <p>{menu.name}</p>
+                                        </div>
                                     </Link>
                                 ))}
                             />

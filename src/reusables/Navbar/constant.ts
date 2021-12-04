@@ -1,23 +1,24 @@
-import { ReactComponent as PlaneIcon } from '../../assets/svgs/airplance-menu.svg';
-import { ReactComponent as SeaIcon } from '../../assets/svgs/sea-menu.svg';
-import { ReactComponent as CarIcon } from '../../assets/svgs/land-menu.svg';
 import { APP_ROUTES } from '../../routes/path';
+
+import PlaneIcon from '../../assets/images/small-air-icon.png';
+import CarIcon from '../../assets/images/small-land-icon.png';
+import BoatIcon from '../../assets/images/small-sea-icon.png';
 
 export const allTravelServices = [
         {
             link: APP_ROUTES.charter('air'),
             name: 'Air charter',
-            icon: PlaneIcon
+            image: PlaneIcon,
         },
         {
             link: APP_ROUTES.charter('sea'),
             name: 'Sea charter',
-            icon: SeaIcon
+            image: BoatIcon,
         },
         {
             link: APP_ROUTES.charter('land'),
             name: 'Land charter',
-            icon: CarIcon
+            image: CarIcon,
         },
         {
             link: '',

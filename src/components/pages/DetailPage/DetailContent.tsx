@@ -1,11 +1,9 @@
 import React from 'react';
 import { useCheckCharterType } from '../../../hooks';
-import { CharterType } from '../../../hooks/types';
 
 const DetailContent = () => {
-    const charterType = useCheckCharterType();
+    const { isLand } = useCheckCharterType();
 
-    const isLand = charterType === CharterType.LAND;
     return (
         <article className="detail-content">
             <div className="center detail-content__top center">

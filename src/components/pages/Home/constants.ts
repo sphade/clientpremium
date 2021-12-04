@@ -29,11 +29,31 @@ export const SEA_CHARTER_INFO = {
     image: Boat
 }
 
-
-
-
 export const PREMIUM_CHARTER_DATA = [
     ...Array.from([1,2,3,4,5,6], () => AIR_CHARTER_INFO),
     ...Array.from([1,2,3,4,5,6], () => SEA_CHARTER_INFO),
     ...Array.from([1,2,3,4,5,6], () => LAND_CHARTER_INFO),
+]
+
+
+export const DESTINATION = [
+    {
+        name: "Ikorodu", value: "Ikorodu",
+    },
+    {
+        name: "Agbaara", value: "Agbaara",
+    },
+    {
+        name: "Lagos", value: "Lagos",
+    },
+]
+export const BOAT_TYPE = [
+    {
+        name: "Speed Boats", value: "Speed Boats",
+    },
+    {
+        name: "Yachts", value: "Yachts",
+    },
+
+    
 ]
