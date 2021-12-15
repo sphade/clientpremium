@@ -73,7 +73,6 @@
         &__image {
             max-width: 40rem;
             height: 100%!important;
-            border: 1px solid black;
 
 
               @include responsive($tablet) {
