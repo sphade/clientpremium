@@ -1,5 +1,5 @@
 import React from 'react'
-import { CustomDivider, DatePicker, PrimaryButton, PrimaryInput } from '../../../reusables';
+import {  DatePicker, PrimaryButton, PrimaryInput } from '../../../reusables';
 import { ReactComponent as NavigatorIcon } from './../../../assets/svgs/navigator.svg';
 import { ReactComponent as LocationIcon } from './../../../assets/svgs/location-outlined.svg';
 import { Divider } from '@mui/material';

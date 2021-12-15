@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
 import { PrimaryButton, PrimaryInput, DatePicker  } from '../../../reusables';
 import Boat from '../../../assets/images/sea-charter.png'
