@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useQueryClient, useMutation } from 'react-query';
 
 import {
-    Divider,
+    CustomDivider,
     LinkButton,
     OutlineButton,
     PrimaryButton,
@@ -123,7 +123,7 @@ const ProvideDetails = () => {
                     onClick={handleSubmit}
                     isLoading={isLoading}
                 />
-                <Divider text="OR" classes="" />
+                <CustomDivider text="OR" classes="" />
                 <Link to={AUTHENTICATED_ROUTES.signin}>
                     <OutlineButton fullWidth label="Sign In" />
                 </Link>

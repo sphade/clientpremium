@@ -9,4 +9,5 @@ export interface ButtonType extends ButtonHTMLAttributes<HTMLButtonElement> {
     noRounded?: boolean;
     small?: boolean;
     isLoading?: boolean;
+    color?: string
 }

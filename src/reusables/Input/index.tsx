@@ -147,6 +147,7 @@ export const PrimarySelect = ({
     name,
     icon,
     fullWidth = true,
+    className="",
     ...rest
 }: PrimarySelectProps & TextFieldProps) => {
     const inputProps = {
@@ -169,7 +170,7 @@ export const PrimarySelect = ({
                 select
                 {...rest}
                 name={name}
-                className="primary__input"
+                className={`primary__input ${className}`}
                 onChange={handleChange}
                 value={values[name]}
                 onBlur={handleBlur}

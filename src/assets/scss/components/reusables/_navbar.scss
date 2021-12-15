@@ -8,11 +8,7 @@
     background-color: $primary-black;
     align-items: center;
     padding: 1.4rem 0rem;
-    // position: sticky;
-    // top: 0;
-    // z-index: 4000;
-    // left: 0;
-    // right: 0;
+   
 
     &__brand {
         cursor: pointer;
@@ -36,7 +32,14 @@
             }
         }
 
+
+
         &--right {
+
+             @include responsive($tablet) {
+                display: none
+
+         }
             display: flex;
             align-items: center;
             gap: 4rem;

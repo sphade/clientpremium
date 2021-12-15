@@ -1,4 +1,4 @@
 export interface Dividertype {
-    text: string;
+    text?: string;
     classes?: string;
   }

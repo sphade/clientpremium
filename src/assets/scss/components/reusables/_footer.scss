@@ -5,14 +5,25 @@
 
     &__top {
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-between;
         align-items: center;
         padding-bottom: 5rem;
         border-bottom: 1px solid #4E4E4E;
 
+         @include responsive($tablet) {
+                 gap: 3rem
+
+         }
+
         &--left {
             p {
                 max-width: 30rem;
+
+                 @include responsive($tablet) {
+                max-width: 100%;
+
+         }
             }
 
             .full-logo {
@@ -22,12 +33,19 @@
 
         &--right {
             width: 50%;
+
+              @include responsive($tablet) {
+                 width: 100%;
+        }
+
             h5 {
                 font-size: 2rem;
                 font-weight: 500;
                 margin-bottom: 1rem;
             
             }
+
+            
             .subscribe--input {
                 position: relative;
                 input {

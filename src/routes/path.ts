@@ -22,4 +22,5 @@ export const APP_ROUTES = {
     pickUpSummary: '/pickup-summary',
     carAddedSuccess: '/car-added-success',
     bookingSummary: '/booking-summary',
+    jetPooling: '/jet-pooling',
 }

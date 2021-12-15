@@ -21,7 +21,7 @@ export const allTravelServices = [
             image: CarIcon,
         },
         {
-            link: '',
+            link: APP_ROUTES.jetPooling,
             name: 'Jet pooling',
             icon: ''
         },

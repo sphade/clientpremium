@@ -48,6 +48,7 @@
             width: 100%;
             color: white;
             z-index: 1000;
+            display: block;
         }
 
         h3 {
@@ -92,6 +93,11 @@
              padding: 2.4rem 10rem 7rem;
              margin-top: 2.5rem;
 
+              @include responsive($tablet) {
+                padding: 2.4rem 2rem 7rem;
+
+         }
+
 
              &--header {
                  font-size: 3rem;
@@ -111,6 +117,7 @@
              &--form, &--select {
                  display: flex;
                  gap: 2rem;
+                 flex-wrap: wrap;
              }
 
             
@@ -122,11 +129,20 @@
                 & > div {
                     display: flex;
                     gap: 2rem;
+                    @include responsive($tablet) {
+                             flex-wrap: wrap
+
+         };
                     &:first-child {
                         flex: none;
                         width: 50%;
+                             @include responsive($tablet) {
+                width: 100%;
 
+         }
                     }
+
+                    
 
                     &:nth-child(2) {
                         margin-bottom: 3rem;
@@ -202,10 +218,19 @@
         .premium {
             background-color: #F8F8F8;
 
+                .primary__input {
+                    width: 100%!important;
+                }
+         
+
             .cta {
                 margin-top: 6rem;
                 text-align: center;
             }
+
+
+
+            
 
            
 

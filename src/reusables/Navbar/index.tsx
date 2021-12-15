@@ -9,7 +9,6 @@ import Avatar from '../../assets/svgs/user-avatar.png';
 import { CustomDropDown } from '..';
 import { allTravelServices, userProfileMenu } from './constant';
 import useGlobalStoreProvider from './../../context';
-import SeaIcon from '../../assets/images/small-sea-icon.png';
 
 const Navbar = ({ primary = true }: { primary?: boolean }): JSX.Element => {
     const { state, logoutUser } = useGlobalStoreProvider();

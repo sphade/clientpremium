@@ -1,0 +1,154 @@
+.jet-pooling {
+    &__body {
+        background-color: $secondary-ash;
+        min-height: 100vh;
+        padding-top: 7rem;
+        padding-bottom: 6rem;
+        
+    }
+
+    .center {
+        display: grid;
+        grid-template-columns: 30rem 3fr;
+        gap: 3rem;
+    }
+
+    &__leftbar {
+        background-color: white;
+        color: #05271C;
+        .info {
+            padding: 2.4rem 1.5rem;
+            background-color: #90F1D1;
+
+
+            h5 {
+                font-size: 1.3rem;
+                font-weight: 300;
+                
+            }
+
+            h3 {
+                font-size: 1.8rem;
+                margin: 1rem 0;
+            }
+            p {
+                font-size: 1.6rem;
+            }
+        }
+
+        .subscribe {
+            margin: 2rem 1rem;
+            border: 1px solid $secondary-ash;
+            padding: 3.2rem 1rem 0rem;
+
+            &__form {
+                margin-top: 3rem;
+            }
+
+            &__header {
+                h3 {
+                    font-size: 1.8rem;
+
+                }
+                p {
+                    color: #4F4F4F;
+                }
+
+                .custom-divider {
+                    margin: 2rem 0 1rem;
+                }                
+            }
+        }
+    }
+
+    &__middleBar {
+        .title{
+            text-align: left;
+        }
+    }
+
+    .searchBar__container {
+        p {
+            font-size: 1.4rem;
+            color: #4F4F4F
+        }
+        margin-bottom:5rem;
+        
+        .searchBar {
+            margin-top: 1rem;
+            background-color: white;
+            padding: 3rem 2rem 2rem;
+            box-shadow: 12px 12px 24px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+
+            .reset__filter {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                justify-content: flex-end;
+            }
+            &__group {
+                display: flex;
+                gap: 1rem;;
+                input {
+                    flex: 2;
+                    flex-shrink: none;
+                }
+
+                .primary__button {
+                    align-self: flex-start;
+                    min-width: 12rem!important;
+                    height: 5rem;
+                }
+
+            }
+        }
+    }
+    
+    &__cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 290px) ) ;
+        gap: 2rem;
+        margin-top: 2rem;
+ 
+    .jet-pooling__card {
+        background-color: white;
+        box-shadow: 12px 12px 24px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;       
+        .image {
+            overflow: hidden;
+            height: 14.8rem;
+            img {
+                width: 100%
+            }
+        }
+
+        .content {
+            padding: 2rem 1rem 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            
+            
+            h3 {
+                font-size: 1.5rem;
+                font-weight: 400;
+            }
+            p {
+                font-size: 1.4rem;
+                color: #4F4F4F;
+            }
+
+        }
+        .available__cta {
+            text-align: center;
+            margin: 1rem 0 2rem;
+            font-size: 1.4rem;
+
+            .action {
+                color: $primary-orange
+            }
+        }
+    }
+    }
+}

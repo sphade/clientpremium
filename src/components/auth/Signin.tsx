@@ -8,7 +8,7 @@ import useGlobalStoreProvider from '../../context';
 
 import useCustomSnackbar from '../../hooks/useSnackbar';
 
-import { OutlineButton, PrimaryButton, PrimaryInput, LinkButton, Divider } from '../../reusables';
+import { OutlineButton, PrimaryButton, PrimaryInput, LinkButton, CustomDivider } from '../../reusables';
 import { login } from '../../routes/api';
 import { APP_ROUTES, AUTHENTICATED_ROUTES } from '../../routes/path';
 import { loginValidation } from '../../validations';
@@ -87,7 +87,7 @@ const SignIn = (): JSX.Element => {
                     isLoading={isLoading}
                     onClick={handleSubmit}
                 />
-                <Divider text="OR" classes="" />
+                <CustomDivider text="OR" classes="" />
                 <Link to={AUTHENTICATED_ROUTES.singupProvideDetails}>
                     <OutlineButton label="Create Account" fullWidth />
                 </Link>

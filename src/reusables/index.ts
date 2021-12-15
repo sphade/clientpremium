@@ -4,7 +4,7 @@ export { default as CustomAlert} from './CustomAlert';
 export * from './Input/DatePicker';
 export { default as Navbar} from './Navbar';
 export { default as Footer} from './Footer';
-export { default as Divider} from './Divider';
+export { default as CustomDivider} from './CustomDivider';
 export { default as Preloader} from './Preloader';
 export { default as ArrowButton} from './ArrowButton';
 export { default as Tabpane} from './Tabpane';

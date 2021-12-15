@@ -23,6 +23,7 @@ const PremiumCharter = () => {
                     name="airCraftType"
                     label="Air craft type"
                     options={airCraftType}
+                    className="filter__select"
                     fullWidth={false}
                 />
 

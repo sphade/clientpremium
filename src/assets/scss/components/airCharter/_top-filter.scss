@@ -2,6 +2,8 @@
     background-color: white;
     padding: 0rem 0 ;
     padding-bottom: 2rem;
+
+   
     
     &__banner {
         background-color: black;
@@ -32,10 +34,18 @@
         // flex-wrap: wrap;
         gap: 2rem;
 
+         @include responsive($tablet) {
+        flex-wrap: wrap;
+    }
+
         & > div {
             display: flex;
             width: 100%;
         gap: 2rem;
+
+         @include responsive($tablet) {
+        flex-wrap: wrap;
+    }
 
         }
     }

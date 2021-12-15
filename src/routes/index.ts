@@ -15,6 +15,7 @@ const BookedPage = lazy(() => import('../components/pages/Payment/BookedPage'));
 const PickupSummary = lazy(() => import('../components/pages/Payment/PickupSummary'));
 const CarAddedSuccess = lazy(() => import('../components/pages/Payment/CarAddedSuccess'));
 const BookingSummary = lazy(() => import('../components/pages/BookingSummary'));
+const JetPooling = lazy(() => import('../components/pages/JetPooling'));
 
 
 export const routeList = [
@@ -93,6 +94,12 @@ export const appRoutes = [
         key: 'booking-summary',
         path: APP_ROUTES.bookingSummary,
         component: BookingSummary,
+
+    },
+    {
+        key: 'jet-pooling',
+        path: APP_ROUTES.jetPooling,
+        component: JetPooling,
 
     },
     {

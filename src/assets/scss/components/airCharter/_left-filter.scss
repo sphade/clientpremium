@@ -1,8 +1,12 @@
 .left-filter {
+
     width: 20.7rem;
     align-self: flex-start;
     background-color: #F9F9F9;
-
+    
+    @include responsive($tablet) {
+       width: 100%;
+   }
     &__header {
         background-color: white;
         border: 1px solid #E0E0E0 ;
@@ -23,6 +27,7 @@
                 font-size: 1.6rem;
                 margin-bottom: 0.8rem;
             }
+    
         }
 
     }

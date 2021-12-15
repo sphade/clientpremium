@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import { Menu, MenuItem } from '@mui/material';
 import { ReactComponent as ArrowDown } from '../../assets/svgs/caret-down-line.svg';

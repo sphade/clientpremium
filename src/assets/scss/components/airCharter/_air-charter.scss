@@ -4,6 +4,10 @@
         background-color:  #F2F2F2;
         & > div {
             gap: 7rem;
+
+             @include responsive($tablet) {
+        flex-wrap: wrap;
+    }
         }
     }
     

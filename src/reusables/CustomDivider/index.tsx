@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dividertype } from './types';
 
-const Divider = ({ text, classes }: Dividertype): JSX.Element => {
+const CustomDivider = ({ text, classes }: Dividertype): JSX.Element => {
     return (
         <div className={`divider ${classes}`}>
             <span className="divider__text">{text}</span>
@@ -9,4 +9,4 @@ const Divider = ({ text, classes }: Dividertype): JSX.Element => {
     );
 };
 
-export default Divider;
+export default CustomDivider;

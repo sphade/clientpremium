@@ -9,12 +9,14 @@ export const PrimaryButton = (props: ButtonType): JSX.Element => {
         label,
         children,
         classes,
+        color = '',
         noRounded = false,
         isLoading = false,
         ...rest
     } = props;
     return (
         <button
+            style={{ background: color}}
             {...rest}
             disabled={isLoading || rest.disabled}
             data-testid="button"
