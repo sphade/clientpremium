@@ -4,7 +4,7 @@ import { Switch, Redirect } from 'react-router-dom';
 import { Footer, Navbar } from '../reusables';
 import { appRoutes } from '../routes';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import ProtectedRoute, { PublicRoute } from '../routes/ProtectedRoutes';
+import ProtectedRoute from '../routes/ProtectedRoutes';
 
 const AppView = () => {
     return (
@@ -13,7 +13,7 @@ const AppView = () => {
 
             <Switch>
                 {appRoutes.map(({ key, path, component: Component }) => (
-                    <PublicRoute exact key={key} path={path} component={Component} />
+                    <ProtectedRoute exact key={key} path={path} component={Component} />
                 ))}
                 <Redirect from="/" to="/home" />
             </Switch>
