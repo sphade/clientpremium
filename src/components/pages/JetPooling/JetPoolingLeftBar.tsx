@@ -1,5 +1,5 @@
 import React from 'react'
-import {  DatePicker, PrimaryButton, PrimaryInput } from '../../../reusables';
+import {  CustomCounter, DatePicker, PrimaryButton, PrimaryInput } from '../../../reusables';
 import { ReactComponent as NavigatorIcon } from './../../../assets/svgs/navigator.svg';
 import { ReactComponent as LocationIcon } from './../../../assets/svgs/location-outlined.svg';
 import { Divider } from '@mui/material';
@@ -23,6 +23,8 @@ const JetPoolingLeftBar = () => {
                     <PrimaryInput name="Leaving" label="Leaving from" icon={<NavigatorIcon />} />
                     <PrimaryInput name="Leaving" label="Going to" icon={<LocationIcon />} />
                             <DatePicker label="Departing" />
+
+                    <CustomCounter outlined mb  />
                     <PrimaryButton label="Subscribe" color={'black'} fullWidth={true} />
 
                 </div>

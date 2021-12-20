@@ -7,7 +7,7 @@ import { ReactComponent as ArrowRightIcon } from '../../../assets/svgs/arrow-rig
 import { APP_ROUTES } from '../../../routes/path';
 import { useCheckCharterType } from '../../../hooks';
 
-const settings = {
+export const singleSettings = {
     infinite: true,
     speed: 500,
     className: 'custom-slick',
@@ -58,7 +58,7 @@ const AvailablePrivateJets = () => {
                         </div>
                     </div>
                     <div className="charter-card__image">
-                        <Slider {...settings}>
+                        <Slider {...singleSettings}>
                             <img src={item.image} alt="plane" />
                             <img src={item.image} alt="plane" />
                             <img src={item.image} alt="plane" />

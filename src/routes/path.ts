@@ -23,4 +23,6 @@ export const APP_ROUTES = {
     carAddedSuccess: '/car-added-success',
     bookingSummary: '/booking-summary',
     jetPooling: '/jet-pooling',
+    wallet: '/wallet',
+    trip: '/trip',
 }

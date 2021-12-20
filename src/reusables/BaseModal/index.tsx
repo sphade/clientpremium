@@ -11,10 +11,10 @@ import {
 } from '@mui/material';
 import Slide from '@mui/material/Slide';
 import { makeStyles } from '@mui/styles';
+import { maxWidth } from '@mui/system';
 
 export interface BaseModalProps extends DialogProps {
     children: ReactNode;
-    width: number;
     footer?: ReactNode;
     showCloseIcon?: boolean;
 }
@@ -61,6 +61,7 @@ const BaseModal = ({
     showCloseIcon = true,
     children,
     footer,
+    maxWidth = 'md',
     ...rest
 }: BaseModalProps): JSX.Element => {
     const classes = useStyles(); // construct styles
@@ -72,7 +73,8 @@ const BaseModal = ({
                     onClose(event, reason);
                 }
             }}
-            maxWidth="md"
+            
+            maxWidth={maxWidth}
             disableEscapeKeyDown
             transitionDuration={600}
             scroll="body"

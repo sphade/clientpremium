@@ -16,6 +16,8 @@ const PickupSummary = lazy(() => import('../components/pages/Payment/PickupSumma
 const CarAddedSuccess = lazy(() => import('../components/pages/Payment/CarAddedSuccess'));
 const BookingSummary = lazy(() => import('../components/pages/BookingSummary'));
 const JetPooling = lazy(() => import('../components/pages/JetPooling'));
+const Wallet = lazy(() => import('../components/pages/Wallet'));
+const Trip = lazy(() => import('../components/pages/Trip'));
 
 
 export const routeList = [
@@ -100,6 +102,18 @@ export const appRoutes = [
         key: 'jet-pooling',
         path: APP_ROUTES.jetPooling,
         component: JetPooling,
+
+    },
+    {
+        key: 'wallet',
+        path: APP_ROUTES.wallet,
+        component: Wallet,
+
+    },
+    {
+        key: 'trip',
+        path: APP_ROUTES.trip,
+        component: Trip,
 
     },
     {

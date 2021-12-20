@@ -114,12 +114,14 @@
     .jet-pooling__card {
         background-color: white;
         box-shadow: 12px 12px 24px rgba(0, 0, 0, 0.1);
-        border-radius: 5px;       
+        border-radius: 5px;   
+        cursor: pointer;    
         .image {
             overflow: hidden;
             height: 14.8rem;
             img {
-                width: 100%
+                width: 100%;
+                object-fit: cover;
             }
         }
 

@@ -222,9 +222,6 @@
         .premium {
             background-color: #F8F8F8;
 
-                .primary__input {
-                    width: 100%!important;
-                }
          
 
             .cta {
@@ -419,14 +416,39 @@
 }
 
 .alert {
-        padding: 1rem 1.5rem;
-        border-radius: 2px;
-        background-color: #FFFAE5;
-        border: 1px solid #FFC200;
-        display: flex; 
+    color: #5C3200;
+    &__header {
+        display: flex;
         gap: 1rem;
+        align-items: center;
+        h3 {
+            font-weight: 500;
+        }
+    }
 
-        &__content {
+    
+    
+    padding: 1rem 1.5rem;
+    border-radius: 2px;
+    background-color: #FFFAE5;
+    border: 1px solid #FFC200;
+    
+    &__content {
+        margin-top: 0.5rem;
+        &--content {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+            &--bullet {
+                width: 8px;
+                height: 8px;
+                margin-top: 0.6rem;
+                border-radius: 50%;
+                background-color: $primary-orange;
+                flex: none;
+            }
             h3 {
                 font-size: 2.4rem;
             

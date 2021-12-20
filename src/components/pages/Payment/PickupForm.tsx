@@ -26,12 +26,12 @@ const PickupForm = ({
     closePickupForm: () => void;
 }) => {
     return (
-        <BaseModal width={1000} open={openPickupForm} onClose={closePickupForm}>
+        <BaseModal open={openPickupForm} onClose={closePickupForm}>
             <div className="pickedup-form">
                 <h3 className="pickedup-form__title">Pick-up Form</h3>
                 <CustomAlert
                     cssClass="pickedup-form__alert"
-                    content="Adding cars to flight charters are only available within Nigeria."
+                    content={["Adding cars to flight charters are only available within Nigeria."]}
                 />
                 <div className="pickedup-form__radios">
                     <h4>Trip type</h4>

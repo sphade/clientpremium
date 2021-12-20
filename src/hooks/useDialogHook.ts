@@ -3,10 +3,9 @@ import { useDialogHooksProps } from './types';
 
 const useDialogHook = (): useDialogHooksProps => {
 	const [open, setOpen] = useState(false);
-	const handleOpen = () => setOpen(true);
-	const handleClose = () => setOpen(false);
+	const toggleDialog = () => setOpen(!open);
 
-	return { open, handleOpen, handleClose };
+	return { open,  toggleDialog };
 };
 
 export default useDialogHook;

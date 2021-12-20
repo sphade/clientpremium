@@ -49,7 +49,6 @@ const Navbar = ({ primary = true }: { primary?: boolean }): JSX.Element => {
                     </div>
                     {primary && (
                         <div className="navbar__brand--right">
-                            <p>Trips</p>
                             <Badge color="error" variant="dot">
                                 <BellIcon />
                             </Badge>

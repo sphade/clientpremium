@@ -60,6 +60,12 @@
     border: 1px solid $primary-orange;
     color: $primary-orange;
     
+
+    &.secondary {
+        border: 1px solid white;
+        color: white;
+        background-color: transparent;
+    }
 }
 
 .link__button {

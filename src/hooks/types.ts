@@ -11,8 +11,8 @@ export interface useStepsProps {
 
 export interface useDialogHooksProps {
 	open: boolean;
-	handleOpen: () => void;
-	handleClose: () => void;
+	toggleDialog: () => void;
+	
 }
 
 export interface useCountdownInitializeProps {

@@ -17,8 +17,7 @@ const Charter = () => {
                 <CustomAlert
                     hasIcon
                     header="Trip Charter Time"
-                    content=" All charter activities should be made at least 24 hours before pick up
-                    time."
+                    content={[" All charter activities should be made at least 24 hours before pick up time."]}
                 />
 
                 <div className="charter__content">

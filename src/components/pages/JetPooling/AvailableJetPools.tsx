@@ -1,13 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
 import { PrimaryButton, PrimaryInput, DatePicker  } from '../../../reusables';
-import Boat from '../../../assets/images/sea-charter.png'
+import Plane from '../../../assets/images/plane-5.png'
 import { ReactComponent as ArrowRight } from './../../../assets/svgs/arrow-right-secondary.svg';
 import { ReactComponent as NavigatorIcon } from './../../../assets/svgs/navigator.svg';
 import { ReactComponent as LocationIcon } from './../../../assets/svgs/location-outlined.svg';
 import { ReactComponent as CloseIcon } from './../../../assets/svgs/close.svg';
 
 import { PREMIUM_CHARTER_DATA } from '../Home/constants';
+import { useDialogHook } from '../../../hooks';
+import JetPoolingDialog from './JetPoolingDialog';
 
 const AvailableJetPools = () => {
     const [filter, setFilter] = useState('air');
@@ -19,6 +21,9 @@ const AvailableJetPools = () => {
     const onChange = (value: string) => {
         setFilter(value.toLowerCase());
     };
+
+    const { open, toggleDialog } = useDialogHook();
+
 
     return (
         <article className="jet-pooling__middleBar">
@@ -43,9 +48,11 @@ const AvailableJetPools = () => {
 
                     {
                        [ 1,2,3,4,5,6,7,8,9].map(item => (
-                           <div key={item} className="jet-pooling__card">
+                           <div
+                           onClick={toggleDialog}
+                           key={item} className="jet-pooling__card">
                                <div className="image">
-                                   <img src={Boat} alt="" />
+                                   <img src={Plane} alt="" />
                                </div>
                                <div className="content">
                                    <div>
@@ -90,6 +97,9 @@ const AvailableJetPools = () => {
                     </button>
                 </div>
             </div>
+
+            <JetPoolingDialog open={open} handleClose={toggleDialog} />
+
         </article>
     );
 };

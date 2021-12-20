@@ -43,16 +43,17 @@ export const allTravelServices = [
       
 ]
 export const userProfileMenu = [
+    {
+        link: '',
+        name: 'Payment',
+        icon: ''
+    },
         {
-            link: '',
-            name: 'Profile',
+            link: '/trip',
+            name: 'Trips',
             icon: ''
         },
-        {
-            link: '',
-            name: 'Settings',
-            icon: ''
-        },
+       
         {
             link: '',
             name: 'Logout',

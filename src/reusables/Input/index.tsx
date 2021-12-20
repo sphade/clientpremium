@@ -167,6 +167,7 @@ export const PrimarySelect = ({
 
         return (
             <TextField
+        
                 select
                 {...rest}
                 name={name}
@@ -193,8 +194,11 @@ export const PrimarySelect = ({
     }
 
     return (
+       
+
         <TextField
             select
+        
             {...rest}
             name={name}
             className="primary__input"

@@ -1,0 +1,49 @@
+.wallet {
+    margin: 10rem 0;
+    background-color: white;
+    width: 70rem;
+    &__header {
+        color: white;
+        background-color: $primary-orange;
+        padding: 4rem 0 2rem;
+        display:flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+            h3 {
+                font-size:3.6rem;
+            }
+
+        &--buttonGroup {
+            display: flex;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+    }
+    &__body {
+        padding: 1.5rem 2rem;
+        &--header {
+            display: flex;
+            justify-content: space-between;
+            h3 {
+                font-weight: 600;
+            }
+            p {
+                color: #828282
+            }
+        }
+
+        &--content {
+            .empty {
+                height: 40rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content:center;
+                gap: 2rem;
+                text-align:center;
+            }
+        }
+    }
+}

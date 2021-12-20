@@ -19,6 +19,8 @@ const PremiumCharter = () => {
             <div className="center">
                 <h3 className="title">All Premium Charters</h3>
                 <Tabpane onChange={onChange} list={['Air', 'Sea', 'Land']} />
+                <div>
+
                 <PrimarySelect
                     name="airCraftType"
                     label="Air craft type"
@@ -26,6 +28,7 @@ const PremiumCharter = () => {
                     className="filter__select"
                     fullWidth={false}
                 />
+                </div>
 
                 <div className="primary__card--container">
                     {selectedFilter.map((item, index) => (
