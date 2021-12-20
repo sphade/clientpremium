@@ -11,7 +11,6 @@ import {
 } from '@mui/material';
 import Slide from '@mui/material/Slide';
 import { makeStyles } from '@mui/styles';
-import { maxWidth } from '@mui/system';
 
 export interface BaseModalProps extends DialogProps {
     children: ReactNode;

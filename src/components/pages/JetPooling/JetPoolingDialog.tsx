@@ -4,7 +4,7 @@ import PlaneImage4 from './../../../assets/images/plane-4.png';
 import PlaneImage2 from './../../../assets/images/plane-2.png';
 import PlaneImage3 from './../../../assets/images/plane-3.png';
 
-import { CustomAlert, CustomCounter, CustomDivider, PrimaryButton,  } from '../../../reusables';
+import { CustomAlert, CustomCounter, PrimaryButton,  } from '../../../reusables';
 import BaseModal from '../../../reusables/BaseModal';
 import { ReactComponent as ArrowRight } from '../../../assets/svgs/arrow-right-secondary.svg';
 import { Divider } from '@mui/material';

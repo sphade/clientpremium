@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { PrimarySelect } from '../../../../reusables'
 import { ReactComponent as NavigatorIcon } from '../../../../assets/svgs/navigator.svg'
 import { ReactComponent as ArrowRight } from '../../../../assets/svgs/arrow-circle-right.svg'
