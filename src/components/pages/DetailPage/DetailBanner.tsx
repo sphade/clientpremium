@@ -7,6 +7,8 @@ import PlaneImage3 from './../../../assets/images/plane-3.png';
 import car1 from './../../../assets/images/car-1.png';
 import car2 from './../../../assets/images/car-2.png';
 import car3 from './../../../assets/images/car-3.png';
+import Boat from '../../../assets/images/sea-charter.png'
+
 import { ReactComponent as ArrowLeft } from '../../../assets/svgs/outline-arrow-left.svg';
 import { ReactComponent as ArrowLeftIcon } from '../../../assets/svgs/arrow-left.svg';
 import { ReactComponent as ArrowRightIcon } from '../../../assets/svgs/arrow-right.svg';
@@ -17,47 +19,54 @@ import { Link } from 'react-router-dom';
 import { APP_ROUTES } from '../../../routes/path';
 import { useCheckCharterType } from '../../../hooks';
 
-const settings = {
-    focusOnSelect: true,
-    infinite: true,
-    speed: 500,
-    className: 'custom-slick',
-    centerMode: true,
-    centerPadding: '20%',
-    nextArrow: <ArrowRightIcon />,
+
+
+ const settings = {
+    //   className: "center",
+      centerMode: true,
+      infinite: true,
+    //   centerPadding: "60px",
+      slidesToShow: 1,
+      className: 'custom-slick',
+    centerPadding: '28%',
+      speed: 500,
+      nextArrow: <ArrowRightIcon />,
     prevArrow: <ArrowLeftIcon />,
-};
+    };
 
 const DetailBanner = () => {
-    const { isLand } = useCheckCharterType();
+    const { isLand, isSea,charterData  } = useCheckCharterType();
+
+
 
     const history = useHistory();
+    const firstData = charterData[0]
 
     return (
         <article className="detail-banner">
             <div className="center detail-banner__header">
                 <div onClick={() => history.goBack()}>
                     <ArrowLeft />
-                    <h3>{isLand ? 'BMW M3' : 'SKY NIGHT 6000'}</h3>
+                    <h3>{firstData.name}</h3>
                 </div>
                 <Link to={APP_ROUTES.bookingSummary}>
-                    <PrimaryButton label={`Charter ${isLand ? 'Car' : 'Flight'}`} />
+                    <PrimaryButton label={`Charter ${isLand ? 'Car' : isSea ? 'Boat' :  'Flight'}`} />
                 </Link>
             </div>
             <div className="detail-banner__hero">
                 <div className="detail-banner__hero--images">
                     <Slider {...settings}>
                         <div className="center-slider">
-                            <img src={isLand ? car1 : PlaneImage4} alt="plane" />
+                            <img src={isLand ? car1 : isSea ?  Boat : PlaneImage4} alt="plane" />
                         </div>
                         <div className="center-slider">
-                            <img src={isLand ? car2 : PlaneImage2} alt="plane" />
+                            <img src={isLand ? car2 : isSea ?  Boat : PlaneImage2} alt="plane" />
                         </div>
                         <div className="center-slider">
-                            <img src={isLand ? car3 : PlaneImage3} alt="plane" />
+                            <img src={isLand ? car3 : isSea ?  Boat : PlaneImage3} alt="plane" />
                         </div>
                         <div className="center-slider">
-                            <img src={isLand ? car1 : PlaneImage3} alt="plane" />
+                            <img src={isLand ? car1 :isSea ?  Boat :  PlaneImage3} alt="plane" />
                         </div>
                     </Slider>
                 </div>

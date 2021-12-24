@@ -15,18 +15,18 @@ const settings = {
 };
 
 const FeaturedItems = () => {
-    const { charterData } = useCheckCharterType();
+    const { charterData,  text  } = useCheckCharterType();
 
     return (
         <div className="featured-item">
             <div className="featured-item__slider center">
-                <h3>FEATURED JETS</h3>
+                <h3>FEATURED {text.toUpperCase()}</h3>
                 <Slider {...settings}>
-                    {charterData.map((item, index) => (
+                    {charterData.map(({ name, image}, index) => (
                         <div className="featured-item__slider--card" key={index}>
-                            <img src={item.image} alt="plane" />
+                            <img src={image} alt="plane" />
                             <div className="slider-card-content">
-                                <h5>Sky Warrior</h5>
+                                <h5>{name}</h5>
                                 <p>Rate from N168 per trip.</p>
                                 <p>Length: 54m | Buit: 2018 | Guests: 12</p>
                             </div>

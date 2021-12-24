@@ -7,11 +7,12 @@ import { APP_ROUTES } from '../../routes/path';
 import { ReactComponent as BellIcon } from '../../assets/svgs/bell-icon.svg';
 import Avatar from '../../assets/svgs/user-avatar.png';
 import { CustomDropDown } from '..';
-import { allTravelServices, userProfileMenu } from './constant';
+import { allTravelServices } from './constant';
 import useGlobalStoreProvider from './../../context';
+import ProfileDropDown from './ProfileDropdown';
 
 const Navbar = ({ primary = true }: { primary?: boolean }): JSX.Element => {
-    const { state, logoutUser } = useGlobalStoreProvider();
+    const { state } = useGlobalStoreProvider();
 
     const {
         user: { name = 'Anne Hans' },
@@ -55,17 +56,8 @@ const Navbar = ({ primary = true }: { primary?: boolean }): JSX.Element => {
 
                             <div className="user--profile">
                                 <img src={Avatar} alt="user-avater" />
-                                <CustomDropDown
+                                <ProfileDropDown
                                     buttonText={name}
-                                    menuItems={userProfileMenu.map((menu) =>
-                                        menu.name !== 'Logout' ? (
-                                            <Link key={menu.name} to={menu.link || '/home'}>
-                                                {menu.name}
-                                            </Link>
-                                        ) : (
-                                            <div onClick={logoutUser}>{menu.name}</div>
-                                        ),
-                                    )}
                                 />
                             </div>
                         </div>

@@ -10,7 +10,8 @@ export enum CHARTER_TYPE {
 }
 
 export const AIR_CHARTER_INFO = {
-    name: 'Comodore 101',
+    name:  'SKY NIGHT 6000',
+
     price: 168000,
     seats: 12,
     speed: 427,
@@ -20,11 +21,13 @@ export const AIR_CHARTER_INFO = {
 }
 export const LAND_CHARTER_INFO = {
     ...AIR_CHARTER_INFO,
+    name: 'Comodore 101',
     type: CHARTER_TYPE.LAND,
     image: CharterCar
 }
 export const SEA_CHARTER_INFO = {
     ...AIR_CHARTER_INFO,
+    name: 'SPIRIT',
     type: CHARTER_TYPE.SEA,
     image: Boat
 }

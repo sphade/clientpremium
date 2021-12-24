@@ -11,7 +11,8 @@ export const apiRoutes = {
     resendOtp: '/user/resend-verify-otp',
     forgotPassword: '/user/forgot-password',
     resetPassword: '/user/reset-password',
-    login: '/user/login'
+    login: '/user/login',
+    allVehicles: '/vehicle/'
 }
 
 
@@ -22,7 +23,10 @@ export const signUserUp =  async (data: Record<string, unknown>) => {
 }
 export const resendVerifyOtp =  async (data: Record<string, unknown>) => {
     const response = await axios.post(apiRoutes.resendOtp, data )
-
+    return response.data;
+}
+export const getVehicles =  async () => {
+    const response = await axios.get(apiRoutes.allVehicles)
     return response.data;
 }
 

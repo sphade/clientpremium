@@ -3,13 +3,25 @@
     color: white;
     padding: 9rem 0;
 
+    .horizontal-divider {
+        background-color: #4E4E4E;
+    }
+
+    .center {
+        padding: 0 12rem;
+         @include responsive($tablet) {
+                 padding: 1rem
+
+         }
+    }
+
+
     &__top {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
         align-items: center;
         padding-bottom: 5rem;
-        border-bottom: 1px solid #4E4E4E;
 
          @include responsive($tablet) {
                  gap: 3rem

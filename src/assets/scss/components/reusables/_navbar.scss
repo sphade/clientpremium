@@ -1,3 +1,50 @@
+
+.nav-custom {
+    .nav-item {
+        &.secondary {
+            padding: 2rem 1rem;
+            gap: 2rem;
+        }
+        &.tertiary {
+            margin-top: 6rem;
+            padding: 2rem 1rem;
+            gap: 1rem;
+
+            h3 {
+
+                color: $primary-orange;
+            }
+            border-bottom: transparent;
+        }
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+        border-bottom: 1px solid #E0E0E0;
+        padding: 1rem;
+
+        .middle {
+            flex: 1;
+        }
+       img {
+            width: 35px;
+            height: 35px;
+            border-radius:50%;
+       }
+
+
+
+       h3 {
+           font-size: 1.4rem;
+       }
+       p {
+           font-size: 1rem;
+           color: #828282
+       }
+        
+    } 
+}
+
 .nav-dropdown {
     display: flex;
     align-items: center;

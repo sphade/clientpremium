@@ -18,7 +18,13 @@ export const singleSettings = {
 };
 
 const AvailablePrivateJets = () => {
-    const { isLand, charterData, charterType } = useCheckCharterType();
+    const { isLand, charterData, charterType, isSea } = useCheckCharterType();
+    
+   
+
+    
+
+
 
     return (
         <div className="private-jets">
@@ -28,7 +34,7 @@ const AvailablePrivateJets = () => {
                 <div key={index} className="charter-card">
                     <div className="charter-card__content">
                         <div className="charter-card__content--title">
-                            <h4>SKY NIGHT 6000</h4>
+                            <h4>{item.name}</h4>
                             <h4>N185,000/Hour</h4>
                         </div>
                         <div className="charter-card__content--stats">
@@ -48,12 +54,12 @@ const AvailablePrivateJets = () => {
                         <div className="button-group">
                             <Link to={APP_ROUTES.bookingSummary}>
                                 <PrimaryButton
-                                    label={`Charter ${isLand ? 'Car' : 'Flight'}`}
+                                    label={`Charter ${isLand ? 'Car' : isSea ? 'Boat' : 'Flight'}`}
                                     small
                                 />
                             </Link>
                             <Link to={APP_ROUTES.charterDetailPage(charterType.toLowerCase(), '2')}>
-                                <OutlineButton label={`${isLand ? 'Car' : 'Jet'} Details`} small />
+                                <OutlineButton label={`${isLand ? 'Car' : isSea ? 'Boat' :  'Jet'} Details`} small />
                             </Link>
                         </div>
                     </div>

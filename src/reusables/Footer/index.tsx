@@ -65,6 +65,9 @@ const Footer = () => {
                         </div>
                     </div>
                 </div>
+                </div>
+                <div className="horizontal-divider"></div>
+                <div className="center">
                 <div className="footer__bottom">
                     <div className="footer__bottom--left">
                         <h5>Contact</h5>

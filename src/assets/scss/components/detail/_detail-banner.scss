@@ -28,15 +28,16 @@
         &--images {
 
         .slick-list, .slick-track {
-            margin: 0 -10px!important;
-            padding: 0;
-            height: 51rem!important;
+            // margin: 0 -10px!important;
+            // padding: 0;
+            // height: 41rem!important;
         }
            
             .center-slider {
-            //    width: 51rem;
+               width: 65rem!important;
                padding: 0 2rem;
-               height: 51rem!important;
+               height: 41rem!important;
+               overflow: hidden;
 
                img {
                    width: 100%;

@@ -7,6 +7,7 @@ const useCheckCharterType = (): {
 	isLand: boolean,
 	isAir: boolean,
 	isSea: boolean,
+	text: string,
 	charterData: { name: string;
 		price: number;
 		seats: number;
@@ -34,6 +35,7 @@ const useCheckCharterType = (): {
     const isLand = charterType === CharterType.LAND;
     const isSea = charterType === CharterType.SEA;
     const isAir = charterType === CharterType.AIR;
+	const text =  isLand ? 'Car' : isSea ? 'Boat' :  'Jet';
 
     const charterData = PREMIUM_CHARTER_DATA.filter(
         (data) => data.type.toLowerCase() === charterType.toLowerCase(),
@@ -44,7 +46,8 @@ const useCheckCharterType = (): {
 		isLand,
 		isSea,
 		isAir,
-		charterData
+		charterData,
+		text
 	}
 
 	//check if the location is association or guarantor

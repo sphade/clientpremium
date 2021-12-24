@@ -26,13 +26,13 @@ const SeaCharterFilter = () => {
                     <PrimarySelect
                         name="seaTripType"
                         label="Trip type"
-                        fullWidth={false}
+                        fullWidth
                         options={seaTripType}
                     />
                     <PrimarySelect
                         name="boatType"
                         label="Boat type"
-                        fullWidth={false}
+                        fullWidth
                         options={BOAT_TYPE}
                     />
                 </div>
