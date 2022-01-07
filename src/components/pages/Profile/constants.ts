@@ -18,7 +18,7 @@ export const ProfileItems = [
     },
     {
         label: 'Phone Number',
-        text: 'Fahanmi Wuraola',
+        text: '09033614885',
         hasAction: true,
         action: 'Change PhoneNumber'
     },
