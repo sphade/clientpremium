@@ -31,8 +31,7 @@
                 }
             }
             .card__options {
-                width: 100%;
-                width: 39rem;
+                max-width: 39rem;
                 margin: 4rem auto 2rem!important;
                 
                 .MuiFormControl-root {

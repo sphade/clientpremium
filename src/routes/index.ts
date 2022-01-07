@@ -17,7 +17,13 @@ const CarAddedSuccess = lazy(() => import('../components/pages/Payment/CarAddedS
 const BookingSummary = lazy(() => import('../components/pages/BookingSummary'));
 const JetPooling = lazy(() => import('../components/pages/JetPooling'));
 const Wallet = lazy(() => import('../components/pages/Wallet'));
+const AllTransactions = lazy(() => import('../components/pages/Wallet/AllTransactions'));
+const WalletFunded = lazy(() => import('../components/pages/Wallet/WalletFunded'));
+const WithdrawFunds = lazy(() => import('../components/pages/Wallet/WithdrawFunds'));
 const Trip = lazy(() => import('../components/pages/Trip'));
+const Profile = lazy(() => import('../components/pages/Profile'));
+const GetHelp = lazy(() => import('../components/pages/GetHelp'));
+const Terms = lazy(() => import('../components/pages/Company/Terms'));
 
 
 export const routeList = [
@@ -41,6 +47,12 @@ export const routeList = [
         key: 'provide-details',
         path: AUTHENTICATED_ROUTES.singupProvideDetails,
         component: ProvideDetails,
+    },
+    {
+        key: 'terms',
+        path: AUTHENTICATED_ROUTES.terms,
+        component: Terms,
+
     },
     {
         key: 'forgot-password',
@@ -116,6 +128,37 @@ export const appRoutes = [
         component: Trip,
 
     },
+    {
+        key: 'profile',
+        path: APP_ROUTES.profile,
+        component: Profile,
+
+    },
+    {
+        key: 'allTransactions',
+        path: APP_ROUTES.allTransactions,
+        component: AllTransactions,
+
+    },
+    {
+        key: 'walletFunded',
+        path: APP_ROUTES.walletFunded,
+        component: WalletFunded,
+
+    },
+    {
+        key: 'withdrawFunds',
+        path: APP_ROUTES.withdrawFunds,
+        component: WithdrawFunds,
+
+    },
+    {
+        key: 'getHelp',
+        path: APP_ROUTES.getHelp,
+        component: GetHelp,
+
+    },
+    
     {
         key: 'pre-loader',
         path: '/loader',

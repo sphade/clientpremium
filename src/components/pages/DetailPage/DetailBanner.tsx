@@ -23,16 +23,49 @@ import { useCheckCharterType } from '../../../hooks';
 
  const settings = {
     //   className: "center",
-      centerMode: true,
       infinite: true,
-    //   centerPadding: "60px",
-      slidesToShow: 1,
       className: 'custom-slick',
-    centerPadding: '28%',
       speed: 500,
+      centerPadding: '28%',
+      
+      slidesToShow: 1,
+
+       responsive: [
+        {
+          breakpoint: 2024,
+          settings: {
+          centerMode: true,
+            slidesToShow: 1,
+            infinite: true,
+            dots: true
+          }
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 2,
+            initialSlide: 2
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1,
+            dots: true,
+          }
+        }
+      ],
+
       nextArrow: <ArrowRightIcon />,
     prevArrow: <ArrowLeftIcon />,
+
+       
+
     };
+
+
+    
 
 const DetailBanner = () => {
     const { isLand, isSea,charterData  } = useCheckCharterType();

@@ -8,8 +8,32 @@ const settings = {
     infinite: true,
     className: 'outside-slick',
     speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
+    
+     responsive: [
+        {
+          breakpoint: 2024,
+          settings: {
+         slidesToShow: 3,
+         infinite: true,
+          }
+        },
+        {
+          breakpoint: 800,
+          settings: {
+            slidesToShow:2,
+            className: 'custom-slick',
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            className: 'custom-slick',
+            slidesToShow: 1,
+            dots: true,
+          }
+        }
+      ],
+
     nextArrow: <ArrowRightIcon />,
     prevArrow: <ArrowLeftIcon />,
 };

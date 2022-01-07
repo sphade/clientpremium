@@ -22,16 +22,30 @@
         margin-top: 4rem;
         display: flex;
         flex-direction: column;
+        
+        @include responsive($tablet) {
+            gap: 3rem
+        }
+
 
         button {
-            width: 40rem!important;
+            width: 100%!important;
             margin: 3rem auto!important;
         }
         &--row {
+
+        @include responsive($tablet) {
+            flex-wrap: wrap;
+            gap: 0rem;
+        }
             display: flex;
             gap: 2rem;
             align-items: flex-start;
+
             .depature-img {
+                 @include responsive($tablet) {
+           display: none
+        }
                 margin-bottom: 3rem;
                 min-width: 12rem;
                 display: flex;

@@ -1,7 +1,21 @@
+
+.wallet__container {
+    margin: 10rem 0rem;
+    display: flex;
+    gap: 2rem;
+
+    .close-icon {
+        cursor: pointer;
+    }
+
+}
 .wallet {
-    margin: 10rem 0;
     background-color: white;
-    width: 70rem;
+    max-width: 70rem;
+    width: 60rem;
+
+   
+
     &__header {
         color: white;
         background-color: $primary-orange;
@@ -14,10 +28,34 @@
                 font-size:3.6rem;
             }
 
+
+            &--value {
+                display: flex;
+                align-items: center;
+                gap: 2rem;
+
+                .refresh-icon {
+                   width: 2rem;
+                   height: 2rem;
+                }
+
+                .eye-icon {
+                    path {
+                        stroke: white;
+                    }
+                    outline: white;
+                }
+            }
+
         &--buttonGroup {
             display: flex;
             gap: 2rem;
             margin-top: 3rem;
+
+            @include responsive($tablet) {
+                flex-direction: column;
+                gap: 0rem;
+            }
         }
 
     }
@@ -25,6 +63,8 @@
         padding: 1.5rem 2rem;
         &--header {
             display: flex;
+            margin-bottom: 1rem;
+
             justify-content: space-between;
             h3 {
                 font-weight: 600;
@@ -32,11 +72,14 @@
             p {
                 color: #828282
             }
+
         }
 
         &--content {
+            min-height: 40rem;
+            max-height: 50rem;
+            overflow: auto;
             .empty {
-                height: 40rem;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
@@ -44,6 +87,64 @@
                 gap: 2rem;
                 text-align:center;
             }
+            svg {
+                margin: 4rem 0 2rem;
+            }
+            p {
+                margin: 1rem 0;
+            }
         }
     }
 }
+
+
+    .transaction {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+
+        &__history {
+
+            padding: 1rem 0rem;
+            border-bottom:1px solid #E0E0E0;
+            display: flex;
+            justify-content: space-between;
+
+            &--left {
+                p {
+                    margin-top: 0;
+                    margin-bottom: 0.2rem;
+                    font-size: 1.4rem;
+                    color: $primary-orange;
+                }
+                h5 {
+                    font-size: 1.6rem;
+                    color: #828282;
+                    font-weight: 400;
+                }
+            }
+
+            &--right {
+                .credit {
+                    color: $primary-green;
+                }
+                .debit {
+                    color: $primary-red;
+                }
+            }
+        }
+    }
+
+
+    .fund__wallet {
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem;
+        align-items: center;
+        img {
+            width: 19rem;
+        }
+      
+    }
+
+

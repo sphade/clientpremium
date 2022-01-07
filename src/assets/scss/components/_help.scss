@@ -1,0 +1,74 @@
+.help {
+    width: 100%;
+    margin: 10rem 0;
+
+    .center {
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        gap: 2rem;
+    }
+
+    
+
+    &__card {
+        background-color:white;
+        padding: 5rem;
+    }
+
+    &__left {
+        &--info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+
+            h4 {
+                font-size: 1.6rem
+            }
+
+
+        }
+
+        &--infoCard {
+            display: flex;
+            width: 100%!important;
+            border: 1px solid #828282;
+            border-radius: 5px;
+            padding: 1rem 3rem;
+            text-align: center;
+            justify-content:center;
+            gap: 1.5rem;
+            align-items:center;
+        }
+
+        &--divider {
+            margin: 1rem 0 3rem!important;
+        }
+    }
+
+    &__right {
+        text-align: center;
+        padding: 5rem 8rem;
+
+        &--header {
+            h5, p {
+                margin-top: 1rem; 
+                font-size: 1.8rem;
+                color: $tertiary-ash;
+            }
+
+            p {
+                font-size: 1.4rem;
+                
+            }
+        }
+
+        &--form {
+            margin-top: 3rem;
+
+            .react-tel-input {
+                margin-bottom: 3rem;
+            }
+        }
+    }
+    
+}

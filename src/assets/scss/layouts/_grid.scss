@@ -2,10 +2,7 @@
   max-width: 1250px;
   margin: 0 auto;
 
-  @include responsive($desktop-l) {
-    padding-left: 1.3rem;
-    padding-right: 1.3rem;
-  }
+ 
 }
 
 
@@ -113,6 +110,13 @@ border-radius: 4px;
   @extend .flex;
   justify-content: center;
 }
+.justify-between {
+  @extend .flex;
+  justify-content: space-between;
+}
+.flex-none {
+  flex: none
+}
 .flex-center {
   @extend .flex;
   justify-content: center;
@@ -161,6 +165,10 @@ border-radius: 4px;
 
 .h3 {
   font-size: 2.4rem;
+
+  @include responsive($tablet) {
+    font-size: 2rem;
+  }
 }
 
 .primary-color {
@@ -169,4 +177,40 @@ border-radius: 4px;
 
 .ash-color {
   color: #4F4F4F
+}
+
+
+.customCard {
+
+     &__card {
+
+    
+      @include responsive($tablet) {
+            margin: 2rem 1rem;
+        }
+
+        max-width: 71rem;
+        margin: 2rem auto;
+        background-color: white;
+        border-radius: 5px;
+        padding: 2rem 0;
+
+        &--header {
+            display: flex;
+            align-items: center;
+            padding: 1rem 3rem 2rem;
+            border-bottom: 1px solid #E0E0E0;
+
+            h3 {
+                text-align: center;     
+                width: 100%; 
+                text-transform: uppercase;
+            }
+        }
+
+        &--details {
+          padding: 3rem 2rem 0rem;
+        }
+        
+    }
 }

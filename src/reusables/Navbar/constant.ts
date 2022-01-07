@@ -5,6 +5,8 @@ import CarIcon from '../../assets/images/small-land-icon.png';
 import BoatIcon from '../../assets/images/small-sea-icon.png';
 import {ReactComponent as EmptyWallet } from '../../assets/svgs/empty-wallet.svg';
 import {ReactComponent as Map } from '../../assets/svgs/map.svg';
+import {ReactComponent as GetHelp } from '../../assets/svgs/message-question.svg';
+import {ReactComponent as About } from '../../assets/svgs/about.svg';
 
 export const allTravelServices = [
         {
@@ -46,14 +48,24 @@ export const allTravelServices = [
 ]
 export const userProfileMenu = [
     {
-        link: '',
-        name: 'Payment',
+        link:  APP_ROUTES.wallet,
+        name: 'My Wallet',
         icon: EmptyWallet
     },
         {
-            link: '/trip',
-            name: 'Trips',
+            link: APP_ROUTES.trip,
+            name: 'My Trips',
             icon: Map
+        },
+        {
+            link: APP_ROUTES.getHelp,
+            name: 'Get Help',
+            icon: GetHelp
+        },
+        {
+            link: '/',
+            name: 'About',
+            icon: About
         },
        
        

@@ -42,7 +42,9 @@ const BookedPagePrimary = () => {
                                 <a href="#">View more details</a>
                             </div>
                         </div>
-                        <CustomAlert content={["Adding cars to flight charters are only available within Nigeria."]} />
+                        <CustomAlert 
+                        hasIcon={false}
+                        content={["Adding cars to flight charters are only available within Nigeria."]} />
                     </div>
                     <div className="button-group">
                         <OutlineButton label="back to home" />

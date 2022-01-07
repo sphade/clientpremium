@@ -15,7 +15,6 @@ const BookingSummarySecondary = () => {
         <div className="booking-summary ">
             <div className="center">
                 
-
                 <article className="booking-summary__booking-card">
                     <h3 className="booking-card__title">BOOKING SUMMARY</h3>
                     <div className="horizontal-divider"></div>

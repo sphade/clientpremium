@@ -16,6 +16,9 @@ export const landCraftType = [
     {
         name: 'Nissan', value: 'Nissan',
     },
+    {
+        name: 'Others', value: 'Others',
+    },
 ]
 export const seaTripType = [
     {

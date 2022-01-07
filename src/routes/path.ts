@@ -5,6 +5,8 @@ export const AUTHENTICATED_ROUTES = {
     singupProvideDetails: '/auth/signup/provide-details',
     signupotp: '/auth/signup/otp',
     forgotPassword: '/auth/forgot-password',
+    terms: '/terms',
+
 }
 
 
@@ -24,5 +26,10 @@ export const APP_ROUTES = {
     bookingSummary: '/booking-summary',
     jetPooling: '/jet-pooling',
     wallet: '/wallet',
+    allTransactions: '/allTransactions',
+    walletFunded: '/walletFunded',
+    withdrawFunds: '/withdrawFunds',
     trip: '/trip',
+    profile: '/profile',
+    getHelp: '/getHelp',
 }

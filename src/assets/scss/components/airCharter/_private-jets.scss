@@ -12,7 +12,6 @@
         grid-template-columns: 1fr 40rem;
         border-radius: 8px;
         overflow: hidden!important;
-        // align-items: stretch;
         margin-top: 4rem;
         border: 1px solid #E0E0E0;
         cursor: pointer;
@@ -20,7 +19,6 @@
               @include responsive($tablet) {
                   display: flex;
                   flex-direction: column;
-                // display: block;
                 max-width: 30rem;
             }
         
@@ -35,6 +33,21 @@
             display: flex;
             gap: 1.5rem;
             margin-top: 4rem!important;
+        
+            a, .primary__button {
+
+                @include responsive($tablet) {
+            
+             min-width: 100%!important;
+
+            }
+            }
+
+                @include responsive($tablet) {
+            gap: 0rem;
+             flex-wrap: wrap
+
+            }
         }
 
         &__content {
@@ -114,12 +127,29 @@
         align-items: center;
         justify-content: space-between;
 
+            @include responsive($tablet) {
+             flex-wrap: wrap;
+            gap: 1rem;
+            }
+
+        
+
 
         &--buttons {
             display: flex;
             gap: 2.4rem;
+
+            
+            @include responsive($tablet) {
+             flex-wrap: wrap;
+            gap: 1rem;
+            }
+
+            
+
             button {
-                padding: 0.1rem 1.2rem;
+                flex: none;
+                padding: 1rem 1.2rem;
                 border-radius: 8px;
                 border: 2px solid #1E1E1E;
                 display: flex;
@@ -145,6 +175,8 @@
                 align-items: center;
                 padding: 0.3rem;
                 border-radius: 8px;
+
+                
 
                 h3 {
                     padding: 0.2rem 2rem;

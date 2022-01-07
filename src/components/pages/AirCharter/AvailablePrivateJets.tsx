@@ -19,12 +19,6 @@ export const singleSettings = {
 
 const AvailablePrivateJets = () => {
     const { isLand, charterData, charterType, isSea } = useCheckCharterType();
-    
-   
-
-    
-
-
 
     return (
         <div className="private-jets">

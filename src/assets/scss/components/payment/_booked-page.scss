@@ -10,6 +10,12 @@
             gap: 2rem;
             align-items: center;
             justify-content: center;
+
+             @include responsive($tablet) {
+                            flex-wrap: wrap;
+            gap: 0rem;
+
+            }
         }
         .card__header {
             background-color:#FEEAC8;
@@ -34,6 +40,11 @@
 
         .card__body {
             padding: 3rem;
+
+             @include responsive($tablet) {
+                                        padding: 3rem 1rem;
+
+                        }
             & > p:first-child {
                 color: #4F4F4F;
                 margin: 1rem 0;
@@ -61,6 +72,10 @@
 
 
                     & > div:first-child {
+                        @include responsive($tablet) {
+                            flex-wrap: wrap;
+                        }
+
                         display: flex;
                         align-items: center;
                         text-align: left;
