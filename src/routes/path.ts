@@ -6,6 +6,7 @@ export const AUTHENTICATED_ROUTES = {
     signupotp: '/auth/signup/otp',
     forgotPassword: '/auth/forgot-password',
     terms: '/terms',
+    privacyNotice: '/privacyNotice',
 
 }
 

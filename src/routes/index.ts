@@ -24,6 +24,7 @@ const Trip = lazy(() => import('../components/pages/Trip'));
 const Profile = lazy(() => import('../components/pages/Profile'));
 const GetHelp = lazy(() => import('../components/pages/GetHelp'));
 const Terms = lazy(() => import('../components/pages/Company/Terms'));
+const PrivacyNotice = lazy(() => import('../components/pages/Company/PrivacyNotice'));
 
 
 export const routeList = [
@@ -52,6 +53,12 @@ export const routeList = [
         key: 'terms',
         path: AUTHENTICATED_ROUTES.terms,
         component: Terms,
+
+    },
+    {
+        key: 'privacy-notice',
+        path: AUTHENTICATED_ROUTES.privacyNotice,
+        component: PrivacyNotice,
 
     },
     {
