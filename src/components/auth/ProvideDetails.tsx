@@ -35,8 +35,9 @@ const ProvideDetails = () => {
       );
       history.push(AUTHENTICATED_ROUTES.signupotp);
     },
-    onError: () => {
-      errorSnackbar("Error");
+    // eslint-disable-next-line
+    onError: (error: any) => {
+      errorSnackbar(error?.response?.data?.error || "Error");
     },
     onSettled: () => {
       queryClient.invalidateQueries("create");

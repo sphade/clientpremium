@@ -89,8 +89,9 @@ export const EnterEmailOrPhone = ({
       succesSnackbar(data.message || "Success");
       nextStep();
     },
-    onError: () => {
-      errorSnackbar("Error");
+    // eslint-disable-next-line
+    onError: (error: any) => {
+      errorSnackbar(error?.response?.data?.error || "Error");
     },
     onSettled: () => {
       queryClient.invalidateQueries("create");
