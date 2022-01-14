@@ -8,13 +8,14 @@ const SignupOtp = lazy(() => import('../components/auth/SignupOtp'));
 const ProvideDetails = lazy(() => import('../components/auth/ProvideDetails'));
 const ForgotPassword = lazy(() => import('../components/auth/ForgotPassword'));
 const Home = lazy(() => import('../components/pages/Home'));
-const AirCharter = lazy(() => import('../components/pages/AirCharter'));
+const CharterPage = lazy(() => import('../components/pages/CharterPage'));
 const DetailPage = lazy(() => import('../components/pages/DetailPage'));
 const PaymentMethod = lazy(() => import('../components/pages/Payment/PaymentMethod'));
 const BookedPage = lazy(() => import('../components/pages/Payment/BookedPage'));
 const PickupSummary = lazy(() => import('../components/pages/Payment/PickupSummary'));
 const CarAddedSuccess = lazy(() => import('../components/pages/Payment/CarAddedSuccess'));
 const BookingSummary = lazy(() => import('../components/pages/BookingSummary'));
+const BookingSummaryPrimary = lazy(() => import('../components/pages/BookingSummary/components/BookingSummaryPrimary'));
 const JetPooling = lazy(() => import('../components/pages/JetPooling'));
 const Wallet = lazy(() => import('../components/pages/Wallet'));
 const AllTransactions = lazy(() => import('../components/pages/Wallet/AllTransactions'));
@@ -78,7 +79,7 @@ export const appRoutes = [
     {
         key: 'air-charter',
         path: [APP_ROUTES.airCharter ,  APP_ROUTES.landCharter, '/charter/:type'],
-        component: AirCharter,
+        component: CharterPage,
 
     },
     {
@@ -109,6 +110,12 @@ export const appRoutes = [
         key: 'car-added-success',
         path: APP_ROUTES.carAddedSuccess,
         component: CarAddedSuccess,
+
+    },
+    {
+        key: 'booking-summary-primary',
+        path: APP_ROUTES.bookingSummaryPrimary,
+        component: BookingSummaryPrimary,
 
     },
     {

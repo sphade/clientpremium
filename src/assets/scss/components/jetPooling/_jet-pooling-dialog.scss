@@ -1,11 +1,22 @@
 .trip__dialog {
 
     &--image {
+        position: relative;
         margin-bottom: 2rem;
         img {
                 height: 30rem;
                 object-fit: cover!important;
             }
+
+
+        .image-button {
+            position: absolute;
+            color: black;
+            background-color:white;
+            bottom: 10px;
+            right: 10px;
+            width: 150px!important;
+        }
     }
    .trip {
         &__details {

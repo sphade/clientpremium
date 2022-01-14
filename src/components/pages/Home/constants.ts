@@ -3,6 +3,19 @@ import CharterCar from '../../../assets/images/charter-car.png'
 import Boat from '../../../assets/images/sea-charter.png'
 
 
+export const flightNumber =  {
+    '1': "First",
+    '2': "Second",
+    '3': "Third",
+    '4': "Fourth",
+    '5': "Fifth",
+    '6': "Sixth",
+    '7': "Seventh",
+    '8': "Eighth",
+    '9': "Ninth",
+    '10': "Tenth"
+}
+
 export enum CHARTER_TYPE {
     AIR = "AIR",
     LAND = "LAND",

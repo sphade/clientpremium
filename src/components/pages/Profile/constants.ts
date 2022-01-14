@@ -3,11 +3,13 @@ export const ProfileItems = [
     {
         label: 'Full Name',
         text: 'Fahanmi Wuraola',
+        key: 'name'
         
     },
     {
         label: 'Email',
         text: 'Ugobauz46@gmail.com',
+        key: 'email'
 
     },
     {
@@ -19,6 +21,7 @@ export const ProfileItems = [
     {
         label: 'Phone Number',
         text: '09033614885',
+        key: 'phone',
         hasAction: true,
         action: 'Change PhoneNumber'
     },

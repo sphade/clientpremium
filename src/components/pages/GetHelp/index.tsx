@@ -1,13 +1,51 @@
 import { Divider } from "@mui/material";
+import { useFormik } from "formik";
 import React from "react";
+import { useMutation, useQueryClient } from "react-query";
+import useCustomSnackbar from "../../../hooks/useSnackbar";
 import {
   CustomPhoneInput,
   PrimaryButton,
   PrimaryInput,
 } from "../../../reusables";
+import { getHelpApi } from "../../../routes/api";
+import { getHelpValidation } from "../../../validations";
 import { helpInfo } from "./constant";
 
 const GetHelp = () => {
+  const queryClient = useQueryClient();
+  const { succesSnackbar, errorSnackbar } = useCustomSnackbar();
+
+  const { mutate, isLoading } = useMutation(getHelpApi, {
+    onSuccess: async (data) => {
+      succesSnackbar(data.message || "Success");
+    },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onError: (error: any) => {
+      errorSnackbar(error?.response?.data?.error || "Error");
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries("create");
+    },
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      fullName: "",
+      email: "",
+      phone: "",
+      message: "",
+    },
+    onSubmit: async (values, { resetForm }) => {
+      await mutate({ ...values, phone: `+${values.phone}` });
+
+      resetForm();
+    },
+    validationSchema: getHelpValidation,
+  });
+
+  const { handleSubmit } = formik;
+
   return (
     <div className="help">
       <div className="center">
@@ -36,26 +74,35 @@ const GetHelp = () => {
               soon as possible.
             </p>
           </div>
-          <div className="help__right--form">
+          <form className="help__right--form" onSubmit={handleSubmit}>
             <PrimaryInput
               placeholder="Full Name"
               name="fullName"
               label="Full Name"
+              formik={formik}
             />
-            <PrimaryInput placeholder="Email" name="email" label="Email" />
-            <CustomPhoneInput name="Phone Number" />
+            <PrimaryInput
+              placeholder="Email"
+              name="email"
+              label="Email"
+              formik={formik}
+            />
+            <CustomPhoneInput name="phone" formik={formik} />
             <PrimaryInput
               placeholder="Message"
               name="message"
               label="Message"
               multiline
               rows={4}
+              formik={formik}
             />
             <PrimaryButton
               label="Submit"
+              isLoading={isLoading}
+              onClick={handleSubmit}
               style={{ backgroundColor: "black" }}
             />
-          </div>
+          </form>
         </div>
       </div>
     </div>

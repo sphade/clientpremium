@@ -80,6 +80,24 @@
 
         }
 
+        .add__flight {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 3rem;
+
+            
+            &--button {
+                text-transform: uppercase;
+                display: flex;
+                gap: 1rem;
+                font-size: 1.6rem;
+                color: $primary-orange;
+                align-items:center;
+                justify-self: flex-end;
+                font-weight: 700;
+            }
+        }
+
         .charter {
             min-height: 81rem;
             background-image: url('./../../images/map.jpg');
@@ -117,6 +135,21 @@
              &--form, &--select {
                  display: flex;
                  gap: 2rem;
+                 position: relative;
+                 align-items: center;
+
+                 .trip-icon {
+                    position: absolute;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    top: 10%;
+
+
+                          @include responsive($tablet) {
+                           display: none
+
+                        };
+                 }
 
                           @include responsive($tablet) {
                              flex-wrap: wrap
@@ -403,6 +436,7 @@
                         padding: 0.8rem 2.4rem;
                         font-weight: 500;
                         text-transform: uppercase;
+                        opacity: 0.5
                     }
                 }
             }

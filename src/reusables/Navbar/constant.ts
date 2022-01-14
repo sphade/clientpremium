@@ -13,36 +13,41 @@ export const allTravelServices = [
             link: APP_ROUTES.charter('air'),
             name: 'Air charter',
             image: PlaneIcon,
+            isLink: true,
+
         },
         {
             link: APP_ROUTES.charter('sea'),
             name: 'Sea charter',
             image: BoatIcon,
+            isLink: true,
+
         },
         {
             link: APP_ROUTES.charter('land'),
             name: 'Land charter',
             image: CarIcon,
+            isLink: true,
+        
         },
         {
             link: APP_ROUTES.jetPooling,
             name: 'Jet pooling',
-            icon: ''
+            icon: '',
+            isLink: true,
+
         },
         {
-            link: '',
-            name: 'Empty legs',
-            icon: ''
-        },
-        {
-            link: '',
+            link: '#top-destinations',
             name: 'Top destinations',
-            icon: ''
+            image: '',
+            isLink: false,
         },
         {
-            link: '',
+            link: '#cruising',
             name: 'Boating activities',
-            icon: ''
+            image: '',
+            isLink: false
         },
       
 ]

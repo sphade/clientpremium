@@ -8,9 +8,23 @@ import Avatar from "../../../assets/svgs/user-avatar.png";
 import { useDialogHook } from "../../../hooks";
 import ChangePasswordModal from "./components/ChangePasswordModal";
 import ChangeProfilePhoto from "./components/ChangeProfilePhoto";
+import { fetchUserProfile } from "../../../routes/api";
+import { useQuery } from "react-query";
+import { Preloader } from "../../../reusables";
+import useGlobalStoreProvider from "../../../context";
 
 const Profile = () => {
-  const [image, setImage] = useState("");
+  const { state } = useGlobalStoreProvider();
+
+  const { user } = state;
+
+  const {
+    isLoading,
+    error,
+    data = [],
+  } = useQuery("fetcUserProfile", fetchUserProfile);
+
+  const [image, setImage] = useState(user?.photo || "");
 
   const { open, toggleDialog: togglePhoneNumberModal } = useDialogHook();
   const { open: openPasswordModal, toggleDialog: togglePasswordModal } =
@@ -20,7 +34,6 @@ const Profile = () => {
 
   // Handle Action
   const handleAction = (action: string) => {
-    console.log(action);
     // Actions
     if (action === "Change PhoneNumber") {
       togglePhoneNumberModal();
@@ -29,6 +42,14 @@ const Profile = () => {
       togglePasswordModal();
     }
   };
+
+  if (isLoading) {
+    return <Preloader />;
+  }
+
+  if (error) {
+    return <h3>Error Fetching</h3>;
+  }
 
   return (
     <>
@@ -42,7 +63,10 @@ const Profile = () => {
             <div className="profile__content--details flex">
               <div className="left--content">
                 <div className="image--container">
-                  <img src={image ? image : Avatar} alt="user-avater" />
+                  <img
+                    src={image ? image : "https://via.placeholder.com/150"}
+                    alt="user-avater"
+                  />
                   <div className="icon">
                     <EditIcon />
                   </div>

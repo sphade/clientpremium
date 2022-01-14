@@ -1,9 +1,15 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
 import ImageUploading, { ImageListType } from "react-images-uploading";
 
 import { PrimaryButton } from "../../../../reusables";
 import BaseModal from "../../../../reusables/BaseModal";
-import Avatar from "../../../../assets/svgs/user-avatar.png";
+import { useMutation, useQueryClient } from "react-query";
+import { updateProfilePhotoApi } from "../../../../routes/api";
+import useCustomSnackbar from "../../../../hooks/useSnackbar";
+import { UserReducerType } from "../../../../context/reducers/userReducer";
+import { useAppStorage } from "../../../../hooks";
+import useGlobalStoreProvider from "../../../../context";
 
 const styles = {
   uploadedBtn: {
@@ -29,6 +35,12 @@ const ChangeProfilePhoto = ({
   // eslint-disable-next-line
   saveImage: (image: any) => void;
 }) => {
+  const { state, dispatch } = useGlobalStoreProvider();
+
+  const queryClient = useQueryClient();
+  const { succesSnackbar, errorSnackbar } = useCustomSnackbar();
+  const { MUTATE_USER } = UserReducerType;
+  const { addToStore } = useAppStorage();
   // eslint-disable-next-line
   const [images, setImages] = React.useState<any[]>([]);
 
@@ -37,14 +49,39 @@ const ChangeProfilePhoto = ({
     addUpdateIndex: number[] | undefined
   ) => {
     // data for submit
-    console.log(imageList, addUpdateIndex);
     setImages(imageList);
   };
 
+  const { mutate, isLoading } = useMutation(updateProfilePhotoApi, {
+    onSuccess: async (data) => {
+      const payload = {
+        ...state.user,
+        photo: data.data.imageUrl,
+      };
+      dispatch({
+        type: MUTATE_USER,
+        payload,
+      });
+      await addToStore("user", payload);
+      succesSnackbar(data.message || "Success");
+      saveImage(images[0].data_url);
+
+      closeModal();
+    },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onError: (error: any) => {
+      errorSnackbar(error?.response?.data?.error || "Error");
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries("create");
+    },
+  });
+
   const addImage = () => {
     if (images.length > 0) {
-      saveImage(images[0].data_url);
-      closeModal();
+      const formData = new FormData();
+      formData.append("image", images[0].file);
+      mutate(formData);
     }
   };
 
@@ -71,12 +108,15 @@ const ChangeProfilePhoto = ({
                       <div
                         {...dragProps}
                         onChange={onImageUpload}
-                        className="image--container"
+                        className="image--contaixner"
                       >
                         {isDragging ? (
                           "Uploading"
                         ) : (
-                          <img src={Avatar} alt="user-avater" />
+                          <img
+                            src="https://via.placeholder.com/150"
+                            alt="user-avater"
+                          />
                         )}
                         <div className="icon"></div>
                       </div>
@@ -114,6 +154,7 @@ const ChangeProfilePhoto = ({
                           minWidth: "120px",
                           margin: "0",
                         }}
+                        isLoading={isLoading}
                         onClick={addImage}
                         label={"Save"}
                       />

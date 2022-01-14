@@ -11,7 +11,7 @@ import Avatar from "../../assets/svgs/user-avatar.png";
 import { APP_ROUTES } from "../../routes/path";
 
 const ProfileDropDown = ({ buttonText }: { buttonText: string }) => {
-  const { state } = useGlobalStoreProvider();
+  const { state, logoutUser } = useGlobalStoreProvider();
 
   const {
     user: { name: username = "Anne Hans", email = "onisadeabiodun@gmail.com" },
@@ -84,7 +84,13 @@ const ProfileDropDown = ({ buttonText }: { buttonText: string }) => {
             </MenuItem>
           </Link>
         ))}
-        <MenuItem onClick={handleClose} className="nav-item tertiary">
+        <MenuItem
+          onClick={() => {
+            logoutUser();
+            handleClose();
+          }}
+          className="nav-item tertiary"
+        >
           <Logout />
           <div className="middle">
             <h3>Logout</h3>
