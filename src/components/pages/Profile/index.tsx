@@ -4,7 +4,6 @@ import ChangePhoneNumberModal from "./components/ChangePhoneNumberModal";
 import { ProfileItems } from "./constants";
 import { ReactComponent as EditIcon } from "../../../assets/svgs/edit-bg.svg";
 import { ReactComponent as ArrowLeft } from "../../../assets/svgs/arrow-left-bg.svg";
-import Avatar from "../../../assets/svgs/user-avatar.png";
 import { useDialogHook } from "../../../hooks";
 import ChangePasswordModal from "./components/ChangePasswordModal";
 import ChangeProfilePhoto from "./components/ChangeProfilePhoto";
@@ -21,6 +20,7 @@ const Profile = () => {
   const {
     isLoading,
     error,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     data = [],
   } = useQuery("fetcUserProfile", fetchUserProfile);
 
