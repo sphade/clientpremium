@@ -1,5 +1,6 @@
 import { APP_ROUTES } from '../../routes/path';
 
+
 import PlaneIcon from '../../assets/images/small-air-icon.png';
 import CarIcon from '../../assets/images/small-land-icon.png';
 import BoatIcon from '../../assets/images/small-sea-icon.png';
@@ -7,6 +8,9 @@ import {ReactComponent as EmptyWallet } from '../../assets/svgs/empty-wallet.svg
 import {ReactComponent as Map } from '../../assets/svgs/map.svg';
 import {ReactComponent as GetHelp } from '../../assets/svgs/message-question.svg';
 import {ReactComponent as About } from '../../assets/svgs/about.svg';
+
+
+export const PLACEHOLDER_IMAGE = "https://via.placeholder.com/150";
 
 export const allTravelServices = [
         {

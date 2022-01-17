@@ -12,6 +12,13 @@ import Slider from "react-slick";
 import { singleSettings } from "../CharterPage/AvailablePrivateJets";
 import { Link } from "react-router-dom";
 import { APP_ROUTES } from "../../../routes/path";
+import { makeStyles } from "@mui/styles";
+
+const useDialogStyles = makeStyles({
+  paper: {
+    width: "700px!important",
+  },
+});
 
 const JetPoolingDialog = ({
   open,
@@ -20,8 +27,14 @@ const JetPoolingDialog = ({
   open: boolean;
   handleClose: () => void;
 }) => {
+  const dialogClasses = useDialogStyles();
   return (
-    <BaseModal maxWidth="sm" open={open} onClose={handleClose}>
+    <BaseModal
+      classes={dialogClasses}
+      maxWidth="sm"
+      open={open}
+      onClose={handleClose}
+    >
       <div className="trip__dialog">
         <div className="trip__dialog--image">
           <Slider {...singleSettings}>

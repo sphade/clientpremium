@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { ArrowButton, PrimaryButton } from "../../../reusables";
+import { ArrowButton, PrimaryButton, ScrollButton } from "../../../reusables";
 import PlaneBanner from "../../../assets/images/hero.jpg";
 import SeaBanner from "../../../assets/images/sea-banner.jpg";
 import LandBanner from "../../../assets/images/land-banner.jpg";
@@ -8,12 +8,16 @@ type BannerType = {
   images?: string[];
   headers?: string[];
   subtitle?: string;
+  hasButton?: boolean;
+  scrollId?: string;
 };
 
 const Banner = ({
   images = [LandBanner, SeaBanner, PlaneBanner],
   headers = ["EXPERIENCE PREMIUM", "LUXURY ON THE GO"],
   subtitle = "Enjoy the comfort and pleasure of executive VVIP service, 24/7 travel support.",
+  hasButton = true,
+  scrollId = "find-charter",
 }: BannerType): JSX.Element => {
   return (
     <div className="banner__image">
@@ -33,9 +37,15 @@ const Banner = ({
           ))}
         </h3>
         <p>{subtitle}</p>
-        <PrimaryButton label="Book A Charter" />
+        {hasButton && (
+          <ScrollButton toId={scrollId}>
+            <PrimaryButton label="Book A Charter" />
+          </ScrollButton>
+        )}
         <div className="banner__arrow">
-          <ArrowButton />
+          <ScrollButton toId={scrollId}>
+            <ArrowButton />
+          </ScrollButton>
         </div>
       </div>
     </div>

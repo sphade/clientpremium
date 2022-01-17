@@ -6,15 +6,17 @@ import FullLogo from "../../assets/images/logo-premium.png";
 import { APP_ROUTES } from "../../routes/path";
 import { ReactComponent as BellIcon } from "../../assets/svgs/bell-icon.svg";
 import { CustomDropDown } from "..";
-import { allTravelServices } from "./constant";
+import { allTravelServices, PLACEHOLDER_IMAGE } from "./constant";
 import useGlobalStoreProvider from "./../../context";
 import ProfileDropDown from "./ProfileDropdown";
+import CustomerPopper from "../CustomPopper";
+import NotificationBox from "../../components/pages/Home/Widgets/NotificationBox";
 
 const Navbar = ({ primary = true }: { primary?: boolean }): JSX.Element => {
   const { state } = useGlobalStoreProvider();
 
   const {
-    user: { name = "Anne Hans", photo = "" },
+    user: { name = "", photo = "" },
   } = state;
 
   return (
@@ -67,13 +69,27 @@ const Navbar = ({ primary = true }: { primary?: boolean }): JSX.Element => {
           </div>
           {primary && (
             <div className="navbar__brand--right">
-              <Badge color="error" variant="dot">
-                <BellIcon />
-              </Badge>
+              <CustomerPopper
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "center",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "center",
+                }}
+                buttonElement={
+                  <Badge color="error" variant="dot">
+                    <BellIcon />
+                  </Badge>
+                }
+              >
+                <NotificationBox />
+              </CustomerPopper>
 
               <div className="user--profile">
                 <img
-                  src={photo ? photo : "https://via.placeholder.com/150"}
+                  src={photo ? photo : PLACEHOLDER_IMAGE}
                   alt="user-avater"
                 />
                 <ProfileDropDown buttonText={name} />

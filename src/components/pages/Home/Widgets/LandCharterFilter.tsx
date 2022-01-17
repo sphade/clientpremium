@@ -1,18 +1,17 @@
 import React, { useState } from "react";
 import {
+  CharterTerminalDropdown,
+  CharterTypeDropdown,
   CustomTimePicker,
   DatePicker,
   PrimaryInput,
-  PrimarySelect,
 } from "../../../../reusables";
-import { landCraftType } from "../../CharterPage/constants";
 
-import { ReactComponent as NavigatorIcon } from "./../../../../assets/svgs/navigator.svg";
 import { ReactComponent as LocationIcon } from "./../../../../assets/svgs/location-outlined.svg";
 import { ReactComponent as DecrementIcon } from "./../../../../assets/svgs/decrement.svg";
 import { ReactComponent as IncrementIcon } from "./../../../../assets/svgs/increment.svg";
 
-const LandCharterFilter = () => {
+const LandCharterFilter = ({ type }: { type: string }) => {
   const [passengerCount, setPassengerCount] = useState(1);
 
   const increment = () => setPassengerCount(passengerCount + 1);
@@ -26,12 +25,7 @@ const LandCharterFilter = () => {
     <>
       <div className="charter__content--select">
         <div>
-          <PrimarySelect
-            name="carType"
-            label="Car type"
-            fullWidth={false}
-            options={landCraftType}
-          />
+          <CharterTypeDropdown filter={type} />
         </div>
         <div>
           <DecrementIcon onClick={decrement} />
@@ -42,11 +36,7 @@ const LandCharterFilter = () => {
         </div>
       </div>
       <div className="charter__content--form">
-        <PrimaryInput
-          name="Leaving"
-          label="Pickup Location"
-          icon={<NavigatorIcon />}
-        />
+        <CharterTerminalDropdown filter={type} />
         <PrimaryInput
           name="Leaving"
           label="Charter Duration"

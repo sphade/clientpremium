@@ -1,7 +1,13 @@
 import React, { useState } from "react";
-import { PrimaryButton, PrimarySelect, Tabpane } from "../../../reusables";
+import {
+  CharterTypeDropdown,
+  CustomPopper,
+  PrimaryButton,
+  Tabpane,
+} from "../../../reusables";
 import { PREMIUM_CHARTER_DATA } from "./constants";
-import { airCraftType } from "../CharterPage/constants";
+import { ReactComponent as FilterIcon } from "../../../assets/svgs/filter-icon.svg";
+import PremiumCharterFilter from "./Widgets/PremiumCharterFilter";
 
 const PremiumCharter = () => {
   const [filter, setFilter] = useState("air");
@@ -15,18 +21,27 @@ const PremiumCharter = () => {
   };
 
   return (
-    <article className="premium jumbotron">
+    <article className="premium jumbotron" id="premium-charter">
       <div className="center">
         <h3 className="title">All Premium Charters</h3>
         <Tabpane onChange={onChange} list={["Air", "Sea", "Land"]} />
-        <div>
-          <PrimarySelect
-            name="airCraftType"
-            label="Air craft type"
-            options={airCraftType}
-            className="filter__select"
-            fullWidth={false}
-          />
+        <div className="filter">
+          <CharterTypeDropdown filter={filter} />
+
+          <CustomPopper
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            buttonElement={
+              <button className="filter__button">
+                <FilterIcon />
+                <span>Search by filter</span>
+              </button>
+            }
+          >
+            <PremiumCharterFilter />
+          </CustomPopper>
         </div>
 
         <div className="primary__card--container">
@@ -54,7 +69,7 @@ const PremiumCharter = () => {
         </div>
 
         <div className="cta flex justify-center">
-          <PrimaryButton label="See All Charter" noRounded />
+          <PrimaryButton label="More" />
         </div>
       </div>
     </article>

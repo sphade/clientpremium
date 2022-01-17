@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useLocation } from "react-router-dom"
 
+
 export const useGetParams =() => {
     const location = useLocation();
 
@@ -34,7 +35,7 @@ export const formatNumberToCurrency = ({
 };
 
  export const charterMappings: Record<string, any> = {
-    air: "airCraft",
+    air: "aircraft",
     land: "vehicle",
     sea: "boat",
   };
@@ -43,3 +44,6 @@ export const formatNumberToCurrency = ({
 // 	const decodedToken: JwtPayload = jwtDecode(token);
 // 	return !decodedToken || decodedToken.exp * 1000 < Date.now();
 // };
+
+
+

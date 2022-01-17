@@ -43,8 +43,7 @@ const AvailablePrivateJets = () => {
     return <h3>Error Fetching</h3>;
   }
 
-  const charter =
-    data?.data?.aircrafts || data?.data?.boats || data?.data?.vehicles || [];
+  const charter = data?.aircrafts || data?.boats || data?.vehicles || [];
 
   return (
     <div className="private-jets">

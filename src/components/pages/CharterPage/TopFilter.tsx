@@ -4,17 +4,17 @@ import {
   DatePicker,
   PrimarySelect,
   CustomTimePicker,
+  CharterTypeDropdown,
+  CharterTerminalDropdown,
 } from "../../../reusables";
 import { ReactComponent as NavigatorIcon } from "./../../../assets/svgs/navigator.svg";
 import { ReactComponent as LocationIcon } from "./../../../assets/svgs/location-outlined.svg";
-import { airCraftType, landCraftType, tripType } from "./constants";
+import { tripType } from "./constants";
 import StylishArrow from "../../../assets/images/arrow-style.png";
 import { useCheckCharterType } from "../../../hooks";
 
 const TopFilter = () => {
-  const { charterType, isLand, isAir } = useCheckCharterType();
-
-  console.log({ isLand, isAir });
+  const { charterType, isAir, isLand } = useCheckCharterType();
 
   return (
     <div className="top-filter">
@@ -26,17 +26,31 @@ const TopFilter = () => {
       </div>
       <div className=" center">
         <div className="top-filter__content">
-          <PrimaryInput
-            name="Leaving"
-            label="Leaving from"
-            icon={<NavigatorIcon />}
-          />
-          <PrimaryInput
-            name="Leaving"
-            label="Going to"
-            icon={<LocationIcon />}
-          />
-          {!isLand ? (
+          {isAir ? (
+            <>
+              <PrimaryInput
+                name="Leaving"
+                label="Leaving from"
+                icon={<NavigatorIcon />}
+              />
+              <PrimaryInput
+                name="Leaving"
+                label="Going to"
+                icon={<LocationIcon />}
+              />
+            </>
+          ) : (
+            <>
+              <CharterTerminalDropdown filter={charterType} />
+              <PrimarySelect
+                name="Leaving"
+                label="Cruise Duration"
+                icon={<NavigatorIcon />}
+                options={[]}
+              />
+            </>
+          )}
+          {!isAir ? (
             <>
               <DatePicker label="Departing" />
               <DatePicker label="Returning" />
@@ -49,29 +63,18 @@ const TopFilter = () => {
           )}
         </div>
         <div className="top-filter__content">
-          {!isLand ? (
-            <div>
-              <PrimarySelect
-                name="airCraftType"
-                label="Air craft type"
-                options={airCraftType}
-              />
+          <div>
+            <CharterTypeDropdown filter={charterType} />
+
+            {!isLand && (
               <PrimarySelect
                 name="tripType"
                 label="Trip Type"
                 options={tripType}
               />
-            </div>
-          ) : (
-            <div>
-              <PrimarySelect
-                name="carType"
-                label="Car type"
-                fullWidth={false}
-                options={landCraftType}
-              />
-            </div>
-          )}
+            )}
+          </div>
+
           <div></div>
         </div>
       </div>

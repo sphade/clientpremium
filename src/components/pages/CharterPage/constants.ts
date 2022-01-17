@@ -20,6 +20,21 @@ export const landCraftType = [
         name: 'Others', value: 'Others',
     },
 ]
+
+export const duration = [
+    {
+        name: 'Sedan', value: 'Sedan',
+    },
+    {
+        name: 'Benz', value: 'Benz',
+    },
+    {
+        name: 'Nissan', value: 'Nissan',
+    },
+    {
+        name: 'Others', value: 'Others',
+    },
+]
 export const seaTripType = [
     {
         name: 'Boat cruise', value: 'Boat',

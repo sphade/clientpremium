@@ -1,5 +1,7 @@
 import React from "react";
-import { ArrowButton, PrimaryButton } from "../../../reusables";
+import { Link } from "react-router-dom";
+import { ArrowButton, PrimaryButton, ScrollButton } from "../../../reusables";
+import { APP_ROUTES } from "../../../routes/path";
 import ServiceOneImage from "./../../../assets/images/service-1.jpg";
 
 const PremiumService = () => {
@@ -15,10 +17,14 @@ const PremiumService = () => {
               cursus, felis ut lacinia luctus, nisi nisi gravida ligula, in
               convallis risus odio non felis. Mauris scelerisque nibh velit.{" "}
             </p>
-            <PrimaryButton label="Learn More" noRounded />
+            <Link to={APP_ROUTES.jetPooling}>
+              <PrimaryButton label="Learn More" />
+            </Link>
           </div>
           <div className="service__arrow">
-            <ArrowButton />
+            <ScrollButton toId="premium-charter">
+              <ArrowButton />
+            </ScrollButton>
           </div>
         </div>
         <div className="service__card--image">

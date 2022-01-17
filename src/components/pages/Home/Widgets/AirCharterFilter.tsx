@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import {
+  CharterTypeDropdown,
   CustomCounter,
   DatePicker,
   PrimaryInput,
   PrimarySelect,
 } from "../../../../reusables";
-import { airCraftType, tripType } from "../../CharterPage/constants";
+import { tripType } from "../../CharterPage/constants";
 
 import { ReactComponent as NavigatorIcon } from "./../../../../assets/svgs/navigator.svg";
 import { ReactComponent as LocationIcon } from "./../../../../assets/svgs/location-outlined.svg";
@@ -14,7 +15,7 @@ import { ReactComponent as SingleTripIcon } from "./../../../../assets/svgs/sing
 import { ReactComponent as PlusIcon } from "./../../../../assets/svgs/plus-icon.svg";
 import { Divider } from "@mui/material";
 
-const AirCharterFilter = () => {
+const AirCharterFilter = ({ type }: { type: string }) => {
   const [selectedTripType, setSelectedTripType] = useState();
   const [formNumber, setFormNumber] = useState([1]);
 
@@ -31,12 +32,7 @@ const AirCharterFilter = () => {
     <>
       <div className="charter__content--select air-type">
         <div>
-          <PrimarySelect
-            name="airCraftType"
-            label="Air craft type"
-            fullWidth
-            options={airCraftType}
-          />
+          <CharterTypeDropdown filter={type} />
           <PrimarySelect
             fullWidth
             name="tripType"

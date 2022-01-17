@@ -16,6 +16,7 @@ export interface BaseModalProps extends DialogProps {
   children: ReactNode;
   footer?: ReactNode;
   showCloseIcon?: boolean;
+  width?: string;
 }
 
 // Style declarations
@@ -77,7 +78,8 @@ const BaseModal = ({
 
   return (
     <Dialog
-      style={{ overflow: "unset" }}
+      PaperProps={{ sx: { width: 600 } }}
+      sx={{ overflow: "unset" }}
       onClose={(event, reason) => {
         if (reason !== "backdropClick" && onClose) {
           onClose(event, reason);

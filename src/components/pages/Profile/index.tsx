@@ -3,13 +3,12 @@ import { ProfileListItem } from "./components/widget";
 import ChangePhoneNumberModal from "./components/ChangePhoneNumberModal";
 import { ProfileItems } from "./constants";
 import { ReactComponent as EditIcon } from "../../../assets/svgs/edit-bg.svg";
-import { ReactComponent as ArrowLeft } from "../../../assets/svgs/arrow-left-bg.svg";
 import { useDialogHook } from "../../../hooks";
 import ChangePasswordModal from "./components/ChangePasswordModal";
 import ChangeProfilePhoto from "./components/ChangeProfilePhoto";
 import { fetchUserProfile } from "../../../routes/api";
 import { useQuery } from "react-query";
-import { Preloader } from "../../../reusables";
+import { CustomCard, Preloader } from "../../../reusables";
 import useGlobalStoreProvider from "../../../context";
 
 const Profile = () => {
@@ -53,40 +52,30 @@ const Profile = () => {
 
   return (
     <>
-      <div className="profile booking-summary">
-        <div className="center">
-          <div className="profile__card">
-            <div className="profile__card--header">
-              <ArrowLeft />
-              <h3>PROFILE SETTINGS</h3>
-            </div>
-            <div className="profile__content--details flex">
-              <div className="left--content">
-                <div className="image--container">
-                  <img
-                    src={image ? image : "https://via.placeholder.com/150"}
-                    alt="user-avater"
-                  />
-                  <div className="icon">
-                    <EditIcon />
-                  </div>
-                </div>
-                <button onClick={toggleChangePhotoModal}>Change Photo</button>
-              </div>
-              <div className="right--content">
-                {ProfileItems.map((item) => (
-                  <Fragment key={item.label}>
-                    <ProfileListItem
-                      detail={item}
-                      handleAction={handleAction}
-                    />
-                  </Fragment>
-                ))}
+      <CustomCard header="PROFILE SETTINGS">
+        <div className="profile__content--details flex">
+          <div className="left--content">
+            <div className="image--container">
+              <img
+                src={image ? image : "https://via.placeholder.com/150"}
+                alt="user-avater"
+              />
+              <div className="icon">
+                <EditIcon />
               </div>
             </div>
+            <button onClick={toggleChangePhotoModal}>Change Photo</button>
+          </div>
+          <div className="right--content">
+            {ProfileItems.map((item) => (
+              <Fragment key={item.label}>
+                <ProfileListItem detail={item} handleAction={handleAction} />
+              </Fragment>
+            ))}
           </div>
         </div>
-      </div>
+      </CustomCard>
+
       <ChangePhoneNumberModal
         openModal={open}
         closeModal={togglePhoneNumberModal}

@@ -73,3 +73,67 @@ export const BOAT_TYPE = [
 
     
 ]
+
+
+export const passengersFilter = [
+    {
+        id: 1, 
+        text: '0-6 Pass.'
+    },
+    {
+        id: 2, 
+        text: '6-12 Pass.'
+    },
+    {
+        id: 3, 
+        text: '12-20 Pass.'
+    },
+    {
+        id: 4, 
+        text: '20+ Pass.'
+    },
+]
+
+export const charterPriceFilter = [
+    {
+        id: 1, 
+        text: 'Lowest Price'
+    },
+ 
+    {
+        id: 2, 
+        text: 'Medium Price'
+    },
+    {
+        id: 3, 
+        text: 'Highest Price'
+    },
+]
+
+
+export const mockNotification = [
+    {
+        id: 1,
+        message: 'Your trip payment was Successful',
+        date: 'Dec 10, 2021',
+        read: false,
+    },
+    {
+        id: 2,
+        message: 'N850,000 has been deducted from your wallet.',
+        date: 'Dec 10, 2021',
+        read: false,
+    },
+    {
+        id: 3,
+        message: 'Your wallet has been funded',
+        date: 'Dec 10, 2021',
+        read: false,
+    },
+    {
+        id: 4,
+        message: 'Your trip payment was Successful',
+        date: 'Dec 10, 2021',
+        read: false,
+    },
+]

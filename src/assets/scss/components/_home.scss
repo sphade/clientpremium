@@ -22,11 +22,9 @@
                position: absolute;
                top: 0;
                left: 0;
-               animation-name: fadeOut;
-               animation-timing-function: ease-in-out;
-               animation-iteration-count: infinite;
-               animation-duration: 5s;
-               animation-direction: alternate;
+            
+            -webkit-animation: fadeOut 15s infinite;
+             animation: fadeOut 15s infinite;
 
                &:nth-child(1) {
                 animation-delay: 0s;
@@ -254,19 +252,26 @@
 
         .premium {
             background-color: #F8F8F8;
-
          
-
             .cta {
                 margin-top: 6rem;
                 text-align: center;
             }
 
-
-
-            
-
-           
+            .filter {
+                display: flex;
+                gap: 2rem;
+                &__button {
+                    display: flex;
+                    border: 1px solid black;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 1.3rem 1.5rem;
+                    border-radius: 5px;
+                    gap: 2rem;
+                    border-color: $material-ui-border
+                }
+            }
 
             .primary__card {
                 &--container {
@@ -354,7 +359,6 @@
                 grid-template-columns: repeat(auto-fill, minmax(290px, 1fr) ) ;
                 grid-gap: 2.4rem;
                 margin-top: 6rem;
-                background-color: white;
 
             
                 .card__image {
@@ -512,4 +516,104 @@
     text-align: center;
     text-transform: uppercase;
     font-weight: 500;
+}
+
+.premium__filter {
+    box-shadow: 12px 12px 24px rgba(0, 0, 0, 0.1);
+    max-width: 50rem;
+    background-color: white;
+    border-radius: 5px;
+    padding: 2rem;
+    
+    &--title {
+        font-size: 2.4rem;
+        margin-bottom: 3rem;
+        font-weight: 500;
+    }
+    
+    label {
+        color: #333333;
+        margin-bottom: 1.3rem;
+        display: block;
+    }
+
+
+    .primary__button {
+        margin-top: 4rem;
+        margin-left: auto;
+        max-width: 11rem!important;
+    }
+}
+
+
+.chip {
+    label {
+       color: #333333;
+       margin-bottom: 1.3rem;
+       display: block;
+    }
+
+    &__filter {
+        display: flex;
+        gap: 1.5rem;
+    flex-wrap: wrap;
+
+        &--chip {
+            padding: 0.6rem 1.2rem;
+            background-color: white;
+            border: 1px solid #BDBDBD;
+            border-radius: 5px; 
+            cursor: pointer;
+    
+    
+            &.active {
+    
+            border: 1px solid $primary-orange;
+            color: $primary-orange;
+            }
+        }
+    
+    }
+}
+
+
+.notification {
+    min-height: 60rem;
+    &__contents {
+
+        &--tile {
+            display: flex;
+            gap: 2rem;
+            transition: 1s all ease;
+            cursor: pointer;
+            padding: 2rem 0rem;
+
+            &:hover {
+                background-color: #f5f5f5;
+
+            }
+
+            .message {
+                flex: auto;
+
+                h3 {
+                    font-size: 1.4rem;
+                    font-weight: 500; 
+                }
+
+                p {
+                    color: #BDBDBD;
+                    font-size: 1.2rem;
+                }
+            }
+
+            .svg {
+                flex: none;
+            }
+
+            
+
+        }
+
+    }
 }

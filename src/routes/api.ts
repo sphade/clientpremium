@@ -62,7 +62,9 @@ export const apiRoutes = {
     changePhone: '/user/change-phone',
     changePassword: '/user/change-password',
     changeProfilePhoto: '/user/photo',
-    getHelp: '/help'
+    getHelp: '/help',
+    getCharterType: '/products/type?product=',
+    getTripType: '/trips/type?service=',
 }
 
 
@@ -102,7 +104,7 @@ export const resetPassword =  async (data: Record<string, unknown> ) => {
 
 export const fetchCharter =  async (type: string) => {
     const response = await axios.get(`/${type}`)
-    return response.data;
+    return response.data.data;
 }
 export const fetchCharterById =  async (type: string, id: string) => {
     const response = await axios.get(`/${type}/${id}`)
@@ -138,6 +140,24 @@ export const getHelpApi =  async (data: any) => {
 
     const response = await axios.post(apiRoutes.getHelp, data )
     return response.data;
+}
+
+
+export const getCharterTypeApi =  async (charterType: string) => {
+
+    const response = await axios.get(apiRoutes.getCharterType + charterType)
+    return response.data.data;
+}
+
+export const getTripTypeApi =  async (charterType: string) => {
+
+    const response = await axios.get(apiRoutes.getCharterType + charterType)
+    return response.data.data;
+}
+
+export const getTerminalApi =  async (charterType: string) => {
+    const response = await axios.get(charterType)
+    return response.data.data;
 }
 
 
