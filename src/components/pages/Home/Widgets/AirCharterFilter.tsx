@@ -14,6 +14,7 @@ import { ReactComponent as RoundTripIcon } from "./../../../../assets/svgs/round
 import { ReactComponent as SingleTripIcon } from "./../../../../assets/svgs/single-trip-icon.svg";
 import { ReactComponent as PlusIcon } from "./../../../../assets/svgs/plus-icon.svg";
 import { Divider } from "@mui/material";
+import { flightNumber } from "../constants";
 
 const AirCharterFilter = ({ type }: { type: string }) => {
   const [selectedTripType, setSelectedTripType] = useState();
@@ -44,7 +45,7 @@ const AirCharterFilter = ({ type }: { type: string }) => {
         <CustomCounter text="Passenger" />
       </div>
       {formNumber.map((form, index) => {
-        // const numberIndex: string = (index + 1).toString();
+        const numberIndex: string = (index + 1).toString();
         return (
           <article key={index}>
             {isMultiCity && index !== 0 && (
@@ -53,7 +54,9 @@ const AirCharterFilter = ({ type }: { type: string }) => {
               </div>
             )}
             {isMultiCity && (
-              <h3 style={{ margin: "1rem 0 " }}>{index + 1} Flight </h3>
+              <h3 style={{ margin: "1rem 0 2rem" }}>
+                {flightNumber[numberIndex]} Flight{" "}
+              </h3>
             )}
             <div className="charter__content--form">
               <PrimaryInput

@@ -3,7 +3,7 @@ import CharterCar from '../../../assets/images/charter-car.png'
 import Boat from '../../../assets/images/sea-charter.png'
 
 
-export const flightNumber =  {
+export const flightNumber: Record<string, string> =  {
     '1': "First",
     '2': "Second",
     '3': "Third",
