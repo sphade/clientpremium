@@ -6,10 +6,10 @@ import {
   CustomTimePicker,
   CharterTypeDropdown,
   CharterTerminalDropdown,
+  TripTypeDropdown,
 } from "../../../reusables";
 import { ReactComponent as NavigatorIcon } from "./../../../assets/svgs/navigator.svg";
 import { ReactComponent as LocationIcon } from "./../../../assets/svgs/location-outlined.svg";
-import { tripType } from "./constants";
 import StylishArrow from "../../../assets/images/arrow-style.png";
 import { useCheckCharterType } from "../../../hooks";
 
@@ -66,13 +66,7 @@ const TopFilter = () => {
           <div>
             <CharterTypeDropdown filter={charterType} />
 
-            {!isLand && (
-              <PrimarySelect
-                name="tripType"
-                label="Trip Type"
-                options={tripType}
-              />
-            )}
+            {!isLand && <TripTypeDropdown filter={charterType} />}
           </div>
 
           <div></div>

@@ -57,7 +57,7 @@ export const apiRoutes = {
     forgotPassword: '/user/forgot-password',
     resetPassword: '/user/reset-password',
     login: '/user/login',
-    allVehicles: '/vehicle/',
+    allVehicles: '/products/vehicle/',
     userProfile: '/user/profile',
     changePhone: '/user/change-phone',
     changePassword: '/user/change-password',
@@ -103,7 +103,7 @@ export const resetPassword =  async (data: Record<string, unknown> ) => {
 
 
 export const fetchCharter =  async (type: string) => {
-    const response = await axios.get(`/${type}`)
+    const response = await axios.get(`/products/${type}`)
     return response.data.data;
 }
 export const fetchCharterById =  async (type: string, id: string) => {
@@ -151,7 +151,7 @@ export const getCharterTypeApi =  async (charterType: string) => {
 
 export const getTripTypeApi =  async (charterType: string) => {
 
-    const response = await axios.get(apiRoutes.getCharterType + charterType)
+    const response = await axios.get(apiRoutes.getTripType + charterType)
     return response.data.data;
 }
 
