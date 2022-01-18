@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery } from "react-query";
-import { PrimarySelect } from "..";
+import { PrimarySelect } from "../";
 import { getTripTypeApi } from "../../routes/api";
 
 const TripTypeDropdown = ({ filter }: { filter: string }) => {
