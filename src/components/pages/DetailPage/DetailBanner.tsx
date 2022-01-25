@@ -1,13 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import { useHistory } from "react-router-dom";
 import Slider from "react-slick";
-import PlaneImage4 from "./../../../assets/images/plane-4.png";
-import PlaneImage2 from "./../../../assets/images/plane-2.png";
-import PlaneImage3 from "./../../../assets/images/plane-3.png";
-import car1 from "./../../../assets/images/car-1.png";
-import car2 from "./../../../assets/images/car-2.png";
-import car3 from "./../../../assets/images/car-3.png";
-import Boat from "../../../assets/images/sea-charter.png";
 
 import { ReactComponent as ArrowLeft } from "../../../assets/svgs/outline-arrow-left.svg";
 import { ReactComponent as ArrowLeftIcon } from "../../../assets/svgs/arrow-left.svg";
@@ -21,7 +15,6 @@ import { useCheckCharterType } from "../../../hooks";
 import { formatNumberToCurrency } from "../../../utils";
 
 const settings = {
-  //   className: "center",
   infinite: true,
   className: "custom-slick",
   speed: 500,
@@ -64,7 +57,13 @@ const settings = {
 const DetailBanner = ({ charter }: { charter: Record<string, any> }) => {
   const { isLand, isSea, charterType } = useCheckCharterType();
 
-  const { isAvailable = true, brand = "", model = "", builder = "" } = charter;
+  const {
+    isAvailable = true,
+    brand = "",
+    model = "",
+    builder = "",
+    ProductImages = [],
+  } = charter;
 
   const charterName = `${builder} ${brand} ${model}`;
 
@@ -79,10 +78,10 @@ const DetailBanner = ({ charter }: { charter: Record<string, any> }) => {
         </div>
         {isAvailable && (
           <Link
-            to={
-              APP_ROUTES.bookingSummaryPrimary +
-              `?type=${charterType.toLowerCase()}`
-            }
+            to={APP_ROUTES.getBookingSummaryPrimary({
+              type: charterType.toLowerCase(),
+              id: charter.id,
+            })}
           >
             <PrimaryButton
               label={`Charter ${isLand ? "Car" : isSea ? "Boat" : "Flight"}`}
@@ -93,30 +92,11 @@ const DetailBanner = ({ charter }: { charter: Record<string, any> }) => {
       <div className="detail-banner__hero">
         <div className="detail-banner__hero--images">
           <Slider {...settings}>
-            <div className="center-slider">
-              <img
-                src={isLand ? car1 : isSea ? Boat : PlaneImage4}
-                alt="plane"
-              />
-            </div>
-            <div className="center-slider">
-              <img
-                src={isLand ? car2 : isSea ? Boat : PlaneImage2}
-                alt="plane"
-              />
-            </div>
-            <div className="center-slider">
-              <img
-                src={isLand ? car3 : isSea ? Boat : PlaneImage3}
-                alt="plane"
-              />
-            </div>
-            <div className="center-slider">
-              <img
-                src={isLand ? car1 : isSea ? Boat : PlaneImage3}
-                alt="plane"
-              />
-            </div>
+            {ProductImages.map((image: Record<string, any>) => (
+              <div key={image?.id} className="center-slider">
+                <img src={image.url} alt="plane" />
+              </div>
+            ))}
           </Slider>
         </div>
         <div className="detail-banner__hero--titles center">

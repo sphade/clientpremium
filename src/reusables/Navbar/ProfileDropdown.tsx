@@ -5,9 +5,10 @@ import { Menu, MenuItem } from "@mui/material";
 import { ReactComponent as ArrowDown } from "../../assets/svgs/caret-down-line.svg";
 import { ReactComponent as NavArrow } from "../../assets/svgs/nav-arrow.svg";
 import { ReactComponent as Logout } from "../../assets/svgs/logout.svg";
-import { PLACEHOLDER_IMAGE, userProfileMenu } from "./constant";
+import { userProfileMenu } from "./constant";
 import useGlobalStoreProvider from "../../context";
 import { APP_ROUTES } from "../../routes/path";
+import UserAvatar from "../../components/pages/Profile/components/UserAvatar";
 
 const ProfileDropDown = ({ buttonText }: { buttonText: string }) => {
   const { state, logoutUser } = useGlobalStoreProvider();
@@ -64,7 +65,11 @@ const ProfileDropDown = ({ buttonText }: { buttonText: string }) => {
       >
         <Link to={APP_ROUTES.profile}>
           <MenuItem onClick={handleClose} className="nav-item">
-            <img src={photo ? photo : PLACEHOLDER_IMAGE} alt="user-avater" />
+            {photo ? (
+              <img src={photo} alt="user-avater" />
+            ) : (
+              <UserAvatar small />
+            )}
             <div className="middle">
               <h3>{username}</h3>
               <p>{email}</p>

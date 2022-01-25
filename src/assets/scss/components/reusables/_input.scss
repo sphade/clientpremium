@@ -3,6 +3,7 @@
     margin-bottom: 2rem;
     position: relative;
     min-width: 25rem!important;
+    text-transform: capitalize;
 
      
     &--input {
@@ -69,5 +70,34 @@ label, .MuiFormControlLabel-label {
 .error-input {
     input {
         border: 2px solid #d32f2f!important;
+    }
+}
+
+
+.duration__input {
+    display: flex;
+    width: 100%;
+    font-size: 1.4rem;
+    margin-bottom:2rem;
+    padding:  0.8rem 0rem!important;
+    align-self: flex-start;
+    justify-content:space-between!important;
+    color: #4F4F4F;
+    box-sizing: border-box;
+    flex: auto;
+
+                    border: 1px solid black;
+                    align-items: center;
+                    border-radius: 5px;
+                    border-color: $material-ui-border;
+
+    
+
+    .action {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
     }
 }

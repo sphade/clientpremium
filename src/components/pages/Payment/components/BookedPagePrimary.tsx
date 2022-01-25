@@ -10,13 +10,16 @@ import {
 } from "../../../../reusables";
 import { useDialogHook } from "../../../../hooks";
 import PickupForm from "../PickupForm";
-import { useGetParams } from "../../../../utils";
+import { getUrlQueryEntries } from "../../../../utils";
+import { Link } from "react-router-dom";
+import { APP_ROUTES } from "../../../../routes/path";
 
 const BookedPagePrimary = () => {
   const { open, toggleDialog } = useDialogHook();
-  const { value } = useGetParams();
 
-  const isCarCharter = value === "land";
+  const { type = "" } = getUrlQueryEntries();
+
+  const isCarCharter = type === "land";
   return (
     <article className="payment-method booked-page">
       <div className="payment-method__container booked-page__container">
@@ -60,7 +63,9 @@ const BookedPagePrimary = () => {
             </div>
           )}
           <div className="button-group">
-            <OutlineButton label="back to home" />
+            <Link to={APP_ROUTES.home}>
+              <OutlineButton label="back to home" />
+            </Link>
             {!isCarCharter && (
               <PrimaryButton
                 label="Add car"

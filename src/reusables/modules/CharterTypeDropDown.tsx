@@ -17,11 +17,19 @@ const CharterTypeDropdown = ({ filter }: { filter: string }) => {
     ...ele,
     value: ele.name,
   }));
+
+  const label =
+    filter.toLowerCase() === "air"
+      ? "Air craft type"
+      : filter.toLowerCase() === "sea"
+      ? "Boat Type"
+      : "Car Type";
+
   return (
     <PrimarySelect
       fullWidth={false}
       name="airCraftType"
-      label={`${filter.toLowerCase()} craft type`}
+      label={label}
       options={charterTypeSelect}
     />
   );

@@ -1,5 +1,6 @@
 import { lazy } from "react";
 import { Preloader } from '../reusables';
+import VerifyPayment from "../components/pages/Payment/VerifyPayment";
 
 import { APP_ROUTES, AUTHENTICATED_ROUTES } from './path';
 const SignIn = lazy(() => import('./../components/auth/Signin'));
@@ -90,7 +91,7 @@ export const appRoutes = [
     },
     {
         key: 'payment-method',
-        path: APP_ROUTES.paymentMethod,
+        path: [APP_ROUTES.paymentMethod, `${APP_ROUTES.paymentMethod}/:type/:id`],
         component: PaymentMethod,
 
     },
@@ -98,6 +99,12 @@ export const appRoutes = [
         key: 'booked-page',
         path: APP_ROUTES.bookedPage,
         component: BookedPage,
+
+    },
+    {
+        key: 'verify-payment',
+        path: APP_ROUTES.verifyPayment,
+        component: VerifyPayment,
 
     },
     {

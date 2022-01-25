@@ -1,47 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
 import {
-  CharterTerminalDropdown,
   CharterTypeDropdown,
+  CustomCounter,
+  CustomDurationInput,
   CustomTimePicker,
   DatePicker,
-  PrimaryInput,
+  CustomGoogleAddress,
 } from "../../../../reusables";
 
-import { ReactComponent as LocationIcon } from "./../../../../assets/svgs/location-outlined.svg";
-import { ReactComponent as DecrementIcon } from "./../../../../assets/svgs/decrement.svg";
-import { ReactComponent as IncrementIcon } from "./../../../../assets/svgs/increment.svg";
-
 const LandCharterFilter = ({ type }: { type: string }) => {
-  const [passengerCount, setPassengerCount] = useState(1);
-
-  const increment = () => setPassengerCount(passengerCount + 1);
-  const decrement = () => {
-    if (passengerCount < 2) {
-      return;
-    }
-    setPassengerCount(passengerCount - 1);
-  };
   return (
     <>
       <div className="charter__content--select">
         <div>
           <CharterTypeDropdown filter={type} />
         </div>
-        <div>
-          <DecrementIcon onClick={decrement} />
-          <p>
-            {passengerCount} {passengerCount > 1 ? "Passengers" : "Passenger"}
-          </p>
-          <IncrementIcon onClick={increment} />
-        </div>
+        <CustomCounter text="Passenger" />
       </div>
       <div className="charter__content--form">
-        <CharterTerminalDropdown filter={type} />
-        <PrimaryInput
-          name="Leaving"
-          label="Charter Duration"
-          icon={<LocationIcon />}
-        />
+        <CustomGoogleAddress name="pickup-location" label="Pickup Location" />
+        <CustomDurationInput isHour={false} label="Charter Duration " />
       </div>
       <div className="charter__content--form">
         <DatePicker label="Pick-up date" />

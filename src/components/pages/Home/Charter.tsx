@@ -44,9 +44,11 @@ const Charter = () => {
             )}
           </div>
 
-          <Link to={APP_ROUTES.charter(currentCharter)}>
-            <PrimaryButton label="search" />
-          </Link>
+          <div className="action__button">
+            <Link to={APP_ROUTES.charter(currentCharter)}>
+              <PrimaryButton label="search" />
+            </Link>
+          </div>
         </div>
       </div>
     </div>

@@ -5,6 +5,7 @@
   "dependencies": {
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
+    "@googlemaps/js-api-loader": "^1.13.2",
     "@mui/lab": "^5.0.0-alpha.54",
     "@mui/material": "^5.1.0",
     "@mui/styles": "^5.1.1",
@@ -17,6 +18,7 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "axios": "^0.24.0",
+    "clsx": "^1.1.1",
     "date-fns": "^2.25.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-config-prettier": "8.3.0",
@@ -26,6 +28,7 @@
     "eslint-plugin-react-hooks": "^2.5.1",
     "formik": "^2.2.9",
     "localforage": "^1.10.0",
+    "lodash": "^4.17.21",
     "node-sass": "^6.0.1",
     "notistack": "^2.0.3",
     "react": "^17.0.2",

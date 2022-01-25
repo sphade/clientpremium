@@ -1,37 +1,101 @@
-import React from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useState } from "react";
 import {
   FormControl,
   FormControlLabel,
   Radio,
   RadioGroup,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+import { capitalize } from "lodash";
 
-import { PrimaryButton } from "../../../reusables";
-import { APP_ROUTES } from "../../../routes/path";
+import { Preloader, PrimaryButton } from "../../../reusables";
+// import { APP_ROUTES } from "../../../routes/path";
 
-import PaystackLogo from "../../../assets/images/paystack.png";
-import FlutterwaveLogo from "../../../assets/images/flutterwave.png";
 import WalletLogo from "../../../assets/images/wallet.png";
-import { useGetParams } from "../../../utils";
 
-const paymentMethods = [
-  {
-    logo: PaystackLogo,
-    name: "Paystack",
-  },
-  {
-    logo: FlutterwaveLogo,
-    name: "Flutterwave",
-  },
-  {
-    logo: WalletLogo,
-    name: "Wallet",
-  },
-];
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import {
+  getPaymentMethodsApi,
+  initializePaymentPaystack,
+} from "../../../routes/api";
+import useCustomSnackbar from "../../../hooks/useSnackbar";
+import { getUrlQueryEntries } from "../../../utils";
+import { PaymentMethodsEnum } from "./types";
+import { useHistory } from "react-router-dom";
+import { APP_ROUTES } from "../../../routes/path";
+// import { useAppStorage } from "../../../hooks";
+
+const { PAYSTACK } = PaymentMethodsEnum;
 
 const PaymentMethod = () => {
-  const { search } = useGetParams();
+  const history = useHistory();
+  const [paymentMethod, setPaymentMethod] = useState(PAYSTACK);
+
+  const { price = "0", type = "", id } = getUrlQueryEntries();
+
+  const { succesSnackbar, errorSnackbar } = useCustomSnackbar();
+  // const { addToStore } = useAppStorage();
+
+  const queryClient = useQueryClient();
+
+  const { mutate, isLoading: postLoading } = useMutation(
+    initializePaymentPaystack,
+    {
+      onSuccess: async (data) => {
+        // await addToStore("charter_details", data.data);
+
+        const url = data.data.authorization_url;
+
+        //Window.location.replace('')
+
+        const newWindow = window.open(url, "_self", "");
+
+        if (newWindow) {
+          newWindow.onabort = () => {
+            alert("ahaher");
+          };
+        }
+
+        succesSnackbar(data.message || "Success");
+      },
+      onError: (error: any) => {
+        errorSnackbar(error?.response?.data?.error || "Error");
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries("create");
+      },
+    }
+  );
+
+  const handlePayment = () => {
+    if (paymentMethod === PAYSTACK) {
+      const newPrice = Number(price) * 100;
+      mutate({
+        amount: newPrice,
+        service: type,
+      });
+    } else {
+      history.push(APP_ROUTES.getBookedPage({ type, id }));
+    }
+  };
+
+  const {
+    isLoading,
+    error,
+    data: paymentMethods = [],
+  } = useQuery("fetchPaymentMethods", async () => {
+    const data = await getPaymentMethodsApi();
+    return data;
+  });
+
+  if (isLoading) {
+    return <Preloader />;
+  }
+
+  if (error) {
+    return <h3>Error Fetching</h3>;
+  }
 
   return (
     <article className="payment-method">
@@ -45,19 +109,20 @@ const PaymentMethod = () => {
             <FormControl component="fieldset">
               <RadioGroup
                 aria-label={"title"}
-                defaultValue={paymentMethods[0].name}
+                onChange={(e: any) => setPaymentMethod(e.target.value)}
+                defaultValue={paymentMethod}
                 name="radio-buttons-group"
               >
-                {paymentMethods.map((payment, id) => (
+                {paymentMethods.map((payment: Record<string, any>) => (
                   <FormControlLabel
-                    key={id}
+                    key={payment?.id}
                     className="form-radio"
-                    value={payment.name}
+                    value={payment?.name}
                     control={<Radio />}
                     label={
                       <div>
-                        <img src={payment.logo} alt="logo" />
-                        <h5>{payment.name}</h5>
+                        <img src={payment.logo || WalletLogo} alt="logo" />
+                        <h5>{capitalize(payment.name)}</h5>
                       </div>
                     }
                     labelPlacement="start"
@@ -65,9 +130,14 @@ const PaymentMethod = () => {
                 ))}
               </RadioGroup>
             </FormControl>
-            <Link to={APP_ROUTES.bookedPage + search}>
-              <PrimaryButton label="MAKE PAYMENT" fullWidth />
-            </Link>
+            {/* <Link to={APP_ROUTES.bookedPage + search}> */}
+            <PrimaryButton
+              isLoading={postLoading}
+              onClick={handlePayment}
+              label="MAKE PAYMENT"
+              fullWidth
+            />
+            {/* </Link> */}
           </div>
         </div>
       </div>

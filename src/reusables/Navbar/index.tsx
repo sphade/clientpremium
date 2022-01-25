@@ -6,11 +6,12 @@ import FullLogo from "../../assets/images/logo-premium.png";
 import { APP_ROUTES } from "../../routes/path";
 import { ReactComponent as BellIcon } from "../../assets/svgs/bell-icon.svg";
 import { CustomDropDown } from "..";
-import { allTravelServices, PLACEHOLDER_IMAGE } from "./constant";
+import { allTravelServices } from "./constant";
 import useGlobalStoreProvider from "./../../context";
 import ProfileDropDown from "./ProfileDropdown";
 import CustomerPopper from "../CustomPopper";
 import NotificationBox from "../../components/pages/Home/Widgets/NotificationBox";
+import UserAvatar from "../../components/pages/Profile/components/UserAvatar";
 
 const Navbar = ({ primary = true }: { primary?: boolean }): JSX.Element => {
   const { state } = useGlobalStoreProvider();
@@ -88,10 +89,11 @@ const Navbar = ({ primary = true }: { primary?: boolean }): JSX.Element => {
               </CustomerPopper>
 
               <div className="user--profile">
-                <img
-                  src={photo ? photo : PLACEHOLDER_IMAGE}
-                  alt="user-avater"
-                />
+                {photo ? (
+                  <img src={photo} alt="user-avater" />
+                ) : (
+                  <UserAvatar small />
+                )}
                 <ProfileDropDown buttonText={name} />
               </div>
             </div>

@@ -4,9 +4,8 @@ import {
   CustomCounter,
   DatePicker,
   PrimaryInput,
-  PrimarySelect,
+  TripTypeDropdown,
 } from "../../../../reusables";
-import { tripType } from "../../CharterPage/constants";
 
 import { ReactComponent as NavigatorIcon } from "./../../../../assets/svgs/navigator.svg";
 import { ReactComponent as LocationIcon } from "./../../../../assets/svgs/location-outlined.svg";
@@ -17,7 +16,7 @@ import { Divider } from "@mui/material";
 import { flightNumber } from "../constants";
 
 const AirCharterFilter = ({ type }: { type: string }) => {
-  const [selectedTripType, setSelectedTripType] = useState();
+  const [selectedTripType, setSelectedTripType] = useState("");
   const [formNumber, setFormNumber] = useState([1]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -26,21 +25,15 @@ const AirCharterFilter = ({ type }: { type: string }) => {
     setSelectedTripType(event.target.value);
   };
 
-  const isMultiCity = selectedTripType === "Multi-city";
-  const isRoundTrip = selectedTripType === "Round Trip";
+  const isMultiCity = selectedTripType?.toLowerCase() === "multi-city";
+  const isRoundTrip = selectedTripType?.toLowerCase() === "round trip";
 
   return (
     <>
       <div className="charter__content--select air-type">
         <div>
+          <TripTypeDropdown filter={type} handleChange={handleChange} />
           <CharterTypeDropdown filter={type} />
-          <PrimarySelect
-            fullWidth
-            name="tripType"
-            label="Trip Type"
-            onChange={handleChange}
-            options={tripType}
-          />
         </div>
         <CustomCounter text="Passenger" />
       </div>

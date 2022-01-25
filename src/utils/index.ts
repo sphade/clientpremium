@@ -47,3 +47,44 @@ export const formatNumberToCurrency = ({
 
 
 
+export const getUrlQueryEntries = (
+	urlQuery = window.location.search as string
+): Record<string, string> => {
+	// Get the query end from the search url provided
+	// Example: ?hi=payhippo&g=you
+	const query = urlQuery.replace('?', '');
+
+	// Split if multiple queries
+	const queryGroups = query.split('&');
+
+	// Construct pair empty object
+	const urlPairs: Record<string,any> = {};
+
+	// Loop through each group
+	for (const pair of queryGroups) {
+		// Split pair by '='
+		const splitPair = pair.split('=');
+
+		const [key, value, ...rest] = splitPair;
+
+		// Check to make sure there is no extra bound '='
+		if (splitPair?.length === 2) {
+			// Add to object
+			urlPairs[key] = value;
+		} else {
+			// Assign existing value to a new value variable
+			let newValue = value;
+
+			// For each extra item, append an '=' sign
+			rest.forEach(() => {
+				newValue = `${newValue}=`;
+			});
+
+			// Add to object
+			urlPairs[key] = newValue;
+		}
+	}
+
+	// Return result
+	return urlPairs;
+};

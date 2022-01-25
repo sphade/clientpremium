@@ -1,47 +1,76 @@
 import React, { useEffect } from "react";
 import { Checkbox } from "@mui/material";
 import { Link } from "react-router-dom";
+
 import { ReactComponent as SmallPlane } from "../../../../assets/svgs/small-plane.svg";
 import { useDialogHook } from "../../../../hooks";
-import { PrimaryButton, CustomAlert } from "../../../../reusables";
+import { PrimaryButton, CustomAlert, Preloader } from "../../../../reusables";
 import { APP_ROUTES } from "../../../../routes/path";
-import { useGetParams } from "../../../../utils";
+import {
+  charterMappings,
+  formatNumberToCurrency,
+  getUrlQueryEntries,
+} from "../../../../utils";
 import InsufficientBalanceDialog from "./InsufficientBalanceDialog";
+import { useQuery } from "react-query";
+import { fetchCharterById } from "../../../../routes/api";
+import { DestinationSmall, TripDetails } from "./Widget";
 
 const BookingSummaryPrimary = () => {
-  const { search } = useGetParams();
-
   const { open, toggleDialog } = useDialogHook();
   useEffect(() => {
-    toggleDialog();
+    // toggleDialog();
   }, []);
+
+  const { type, id } = getUrlQueryEntries();
+
+  const charterQuery = charterMappings[type] || "";
+
+  const {
+    isLoading,
+    error,
+    data = [],
+  } = useQuery([id, charterQuery], async () => {
+    const data = await fetchCharterById(charterQuery, id);
+    return data;
+  });
+
+  if (isLoading) {
+    return <Preloader />;
+  }
+
+  if (error) {
+    return <h3>Error Fetching</h3>;
+  }
+
+  console.log({ data });
+
+  const destination = (data?.AircraftDestinations || [])[0]?.Airport || {};
+  const terminal = data?.Airport || {};
+
+  console.log({ destination, terminal });
+
+  const getName = () => {
+    const { builder = "", model = "", brand = "" } = data;
+    return `${brand || builder}, ${model}`;
+  };
+
+  const price = formatNumberToCurrency({ number: data?.price });
 
   return (
     <div className="booking-summary ">
       <div className="center">
         <article className="booking-summary__top-card">
           <div className="booking-summary__top-card--trip">
-            <div className="trip-details">
-              <h3>Lagos, Nigeria</h3>
-              <p>Murtala Muhammed Int</p>
-            </div>
+            <DestinationSmall destination={terminal} />
             <SmallPlane />
-            <div className="trip-details">
-              <h3>Lagos, Nigeria</h3>
-              <p>Murtala Muhammed Int</p>
-            </div>
+            <DestinationSmall destination={destination} />
           </div>
           <div className="vertical-divider"></div>
           <div className="booking-summary__top-card--trip">
-            <div className="trip-details">
-              <h3>Lagos, Nigeria</h3>
-              <p>Murtala Muhammed Int</p>
-            </div>
+            <DestinationSmall destination={destination} />
             <SmallPlane />
-            <div className="trip-details">
-              <h3>Lagos, Nigeria</h3>
-              <p>Murtala Muhammed Int</p>
-            </div>
+            <DestinationSmall destination={terminal} />
           </div>
           <div className="vertical-divider"></div>
 
@@ -71,41 +100,11 @@ const BookingSummaryPrimary = () => {
               <p>Passengers:</p>
               <p>4</p>
             </div>
-            <div className="booking-card__content--details">
-              <h5 className="content-details__title">Departure details</h5>
-              <div className="card--summary">
-                <div>
-                  <p>Dep: 20 Nov 2021</p>
-                  <p>12:00 (Lagos)</p>
-                  <p>Murtala Muhammed...</p>
-                </div>
-                <SmallPlane />
-                <div>
-                  <p>To:</p>
-                  <p>13:25 (Abuja)</p>
-                  <p>Nnamdi Azikiwe Int...</p>
-                </div>
-              </div>
-            </div>
-            <div className="booking-card__content--details">
-              <h5 className="content-details__title">Return details details</h5>
-              <div className="card--summary">
-                <div>
-                  <p>Ret: 20 Nov 2021</p>
-                  <p>18:00 (Abuja)</p>
-                  <p>Nnamdi Azikiwe Int...</p>
-                </div>
-                <SmallPlane />
-                <div>
-                  <p>To:</p>
-                  <p>19:24 (Lagos)</p>
-                  <p>Nnamdi Azikiwe Int...</p>
-                </div>
-              </div>
-            </div>
+            <TripDetails terminal={terminal} destination={destination} />
+            <TripDetails terminal={destination} destination={terminal} />
             <div className="booking-card__content--list">
               <p>Aircraft:</p>
-              <p>Sky Night 6000</p>
+              <p>{getName()}</p>
             </div>
             <div className="booking-card__content--list">
               <p>Booking price:</p>
@@ -113,12 +112,16 @@ const BookingSummaryPrimary = () => {
             </div>
             <div className="booking-card__content--list">
               <p></p>
-              <p>N 1,400, 000</p>
+              <p>{price}</p>
             </div>
             <div className="horizontal-divider"></div>
 
             <Link
-              to={APP_ROUTES.paymentMethod + search}
+              to={APP_ROUTES.getPaymentMethod({
+                type: type,
+                id: id,
+                price: data?.price || 0,
+              })}
               className="booking-card__content--button"
             >
               <PrimaryButton label="Go to Payment" />

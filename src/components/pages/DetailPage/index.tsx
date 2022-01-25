@@ -33,7 +33,7 @@ const DetailPage = () => {
     return <h3>Error Fetching</h3>;
   }
 
-  const charter = data?.data;
+  const charter = data;
 
   return (
     <div style={{ backgroundColor: "white" }}>

@@ -12,7 +12,7 @@ const request = axios.create({
 
 axios.defaults.baseURL = baseURL;
 
-const useAxios = () => {
+export const useAxios = () => {
 
     const {getFromStore} = useAppStorage();
 
@@ -65,6 +65,9 @@ export const apiRoutes = {
     getHelp: '/help',
     getCharterType: '/products/type?product=',
     getTripType: '/trips/type?service=',
+    getSingleCharter: '/products',
+    payment: '/payment',
+    wallet: '/wallet'
 }
 
 
@@ -102,13 +105,13 @@ export const resetPassword =  async (data: Record<string, unknown> ) => {
 }
 
 
-export const fetchCharter =  async (type: string) => {
-    const response = await axios.get(`/products/${type}`)
+export const fetchCharter =  async ({type, filters =''}: { type:string, filters?: string }) => {
+    const response = await axios.get(`/products/${type}${filters}`)
     return response.data.data;
 }
 export const fetchCharterById =  async (type: string, id: string) => {
-    const response = await axios.get(`/${type}/${id}`)
-    return response.data;
+    const response = await axios.get(`${apiRoutes.getSingleCharter}/${type}/${id}`)
+    return response.data.data;
 }
 
 export const fetchUserProfile =  async () => {
@@ -141,6 +144,11 @@ export const getHelpApi =  async (data: any) => {
     const response = await axios.post(apiRoutes.getHelp, data )
     return response.data;
 }
+export const getHelpPhoneNumbersApi =  async () => {
+
+    const response = await axios.get(`${apiRoutes.getHelp}/phone`)
+    return response.data.data;
+}
 
 
 export const getCharterTypeApi =  async (charterType: string) => {
@@ -157,6 +165,29 @@ export const getTripTypeApi =  async (charterType: string) => {
 
 export const getTerminalApi =  async (charterType: string) => {
     const response = await axios.get(charterType)
+    return response.data.data;
+}
+export const getPaymentMethodsApi =  async () => {
+    const response = await axios.get(apiRoutes.payment + '/methods')
+    return response.data.data;
+}
+
+
+
+export const initializePaymentPaystack =  async (data: Record<string, any>) => {
+     const request = useAxios();
+    const response = await request.post(`${apiRoutes.payment}/paystack/initialize`, data )
+    return response.data;
+}
+
+export const getWalletBalanceApi =  async () => {
+     const request = useAxios();
+    const response = await request.get(`${apiRoutes.wallet}/balance`)
+    return response.data.data;
+}
+export const getWalletTransactionsApi =  async () => {
+     const request = useAxios();
+    const response = await request.get(`${apiRoutes.wallet}/transactions`)
     return response.data.data;
 }
 

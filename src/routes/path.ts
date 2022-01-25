@@ -21,11 +21,12 @@ export const APP_ROUTES = {
     charterDetailPage: (type: string, id: string) => `/charter/${type}/${id}`,
     charterSummary: '/charter-summary',
     paymentMethod: '/payment-method',
+    getPaymentMethod: ({type, id, price}: { type: string, id: string, price: string | number}) => `/payment-method/?type=${type}&id=${id}&price=${price}`,
     bookedPage: '/booked-success',
+    getBookedPage: ({type, id}: { type: string, id: string}) => `/booked-success/?type=${type}&id=${id}`,
     pickUpSummary: '/pickup-summary',
     carAddedSuccess: '/car-added-success',
     bookingSummary: '/booking-summary',
-    bookingSummaryPrimary: '/booking-detail',
     jetPooling: '/jet-pooling',
     wallet: '/wallet',
     allTransactions: '/allTransactions',
@@ -34,4 +35,8 @@ export const APP_ROUTES = {
     trip: '/trip',
     profile: '/profile',
     getHelp: '/getHelp',
+    getBookingSummaryPrimary: ({type, id}: { type: string, id: string}) => `/booking-detail/?type=${type}&id=${id}`,
+    bookingSummaryPrimary: '/booking-detail',
+    verifyPayment: '/verify-payment',
+
 }

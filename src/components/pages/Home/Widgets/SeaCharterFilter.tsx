@@ -2,56 +2,42 @@ import React, { useState } from "react";
 import {
   CharterTerminalDropdown,
   CharterTypeDropdown,
+  CustomCounter,
+  CustomDurationInput,
   CustomTimePicker,
   DatePicker,
-  PrimaryInput,
-  PrimarySelect,
+  TripTypeDropdown,
 } from "../../../../reusables";
 
-import { ReactComponent as DecrementIcon } from "./../../../../assets/svgs/decrement.svg";
-import { ReactComponent as IncrementIcon } from "./../../../../assets/svgs/increment.svg";
-import { ReactComponent as LocationIcon } from "./../../../../assets/svgs/location-outlined.svg";
-
-import { BOAT_TYPE } from "../constants";
-
 const SeaCharterFilter = ({ type }: { type: string }) => {
-  const [guestCount, setguestCount] = useState(1);
+  const [tripType, setTripType] = useState("boat cruise");
 
-  const increment = () => setguestCount(guestCount + 1);
-  const decrement = () => {
-    if (guestCount < 2) {
-      return;
-    }
-    setguestCount(guestCount - 1);
-  };
+  const isBoatCruise = tripType === "boat cruise";
+
   return (
     <>
       <div className="charter__content--select">
         <div>
-          <CharterTypeDropdown filter={type} />
-
-          <PrimarySelect
-            name="boatType"
-            label="Boat type"
-            fullWidth
-            options={BOAT_TYPE}
+          <TripTypeDropdown
+            filter={type}
+            handleChange={(e) => setTripType(e.target.value)}
           />
+          <CharterTypeDropdown filter={type} />
         </div>
-        <div>
-          <DecrementIcon onClick={decrement} />
-          <p>
-            {guestCount} {guestCount > 1 ? "Guest (s)" : "Guest"}
-          </p>
-          <IncrementIcon onClick={increment} />
-        </div>
+        <CustomCounter text="Guest" />
       </div>
       <div className="charter__content--form">
-        <CharterTerminalDropdown filter={type} />
-        <PrimaryInput
-          name="Leaving"
-          label="Cruise Duration"
-          icon={<LocationIcon />}
-        />
+        <CharterTerminalDropdown filter={type} className="flex-none" />
+        {isBoatCruise ? (
+          <CustomDurationInput label="Cruise Duration" />
+        ) : (
+          <CharterTerminalDropdown
+            isPickup={false}
+            label="Destination Terminal"
+            filter={type}
+            className="flex-none"
+          />
+        )}
       </div>
       <div className="charter__content--form">
         <DatePicker label="Departure date" />

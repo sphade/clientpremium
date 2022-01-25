@@ -54,7 +54,7 @@
         justify-content: center;
         gap: 2rem;
         flex-wrap: wrap;
-        height: 9rem;;
+        min-height: 9rem;;
 
         &--trip {
             display: flex;
@@ -176,7 +176,7 @@
 }
 
 .vertical-divider {
-    min-height: 100%!important;
+    height: 8rem!important;
     flex: auto;
   width: 0.05rem;
   max-width: 0.05rem;

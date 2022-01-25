@@ -124,10 +124,15 @@
 
              }
 
+             .action__button {
+                 display: flex;
+                 justify-content: center;
+             }
+
              .primary__button {
                     text-align: center;
                     margin: 0 auto;
-                    // display: block;
+                    display: inline-block;
              }
 
              &--form, &--select {
@@ -135,6 +140,8 @@
                  gap: 2rem;
                  position: relative;
                  align-items: center;
+
+                
 
                  .trip-icon {
                     position: absolute;
@@ -258,20 +265,7 @@
                 text-align: center;
             }
 
-            .filter {
-                display: flex;
-                gap: 2rem;
-                &__button {
-                    display: flex;
-                    border: 1px solid black;
-                    justify-content: center;
-                    align-items: center;
-                    padding: 1.3rem 1.5rem;
-                    border-radius: 5px;
-                    gap: 2rem;
-                    border-color: $material-ui-border
-                }
-            }
+         
 
             .primary__card {
                 &--container {
@@ -617,3 +611,18 @@
 
     }
 }
+
+   .filter {
+                display: flex;
+                gap: 2rem;
+                &__button {
+                    display: flex;
+                    border: 1px solid black;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 1.3rem 1.5rem;
+                    border-radius: 5px;
+                    gap: 2rem;
+                    border-color: $material-ui-border
+                }
+            }

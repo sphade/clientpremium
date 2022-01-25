@@ -2,14 +2,12 @@
 import React from "react";
 import Slider from "react-slick";
 import { Link } from "react-router-dom";
-import { useQuery } from "react-query";
-import { OutlineButton, Preloader, PrimaryButton } from "../../../reusables";
+import { OutlineButton, PrimaryButton } from "../../../reusables";
 import { ReactComponent as ArrowLeftIcon } from "../../../assets/svgs/arrow-left.svg";
 import { ReactComponent as ArrowRightIcon } from "../../../assets/svgs/arrow-right.svg";
 import { APP_ROUTES } from "../../../routes/path";
 import { useCheckCharterType } from "../../../hooks";
-import { fetchCharter } from "../../../routes/api";
-import { charterMappings, formatNumberToCurrency } from "../../../utils";
+import { formatNumberToCurrency } from "../../../utils";
 
 export const singleSettings = {
   infinite: true,
@@ -21,29 +19,8 @@ export const singleSettings = {
   prevArrow: <ArrowLeftIcon />,
 };
 
-const AvailablePrivateJets = () => {
+const AvailableCharter = ({ charter }: { charter: Record<string, any> }) => {
   const { isLand, charterType, isSea } = useCheckCharterType();
-
-  const charterQuery = charterMappings[charterType.toLowerCase()] || "";
-
-  const {
-    isLoading,
-    error,
-    data = [],
-  } = useQuery(["fetchCharter", charterQuery], async () => {
-    const data = await fetchCharter(charterQuery);
-    return data;
-  });
-
-  if (isLoading) {
-    return <Preloader />;
-  }
-
-  if (error) {
-    return <h3>Error Fetching</h3>;
-  }
-
-  const charter = data?.aircrafts || data?.boats || data?.vehicles || [];
 
   return (
     <div className="private-jets">
@@ -75,7 +52,12 @@ const AvailablePrivateJets = () => {
               </p>
             </div>
             <div className="button-group">
-              <Link to={APP_ROUTES.bookingSummary}>
+              <Link
+                to={APP_ROUTES.getBookingSummaryPrimary({
+                  type: charterType.toLowerCase(),
+                  id: item.id,
+                })}
+              >
                 <PrimaryButton
                   label={`Charter ${
                     isLand ? "Car" : isSea ? "Boat" : "Flight"
@@ -129,4 +111,4 @@ const AvailablePrivateJets = () => {
   );
 };
 
-export default AvailablePrivateJets;
+export default AvailableCharter;

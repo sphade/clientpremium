@@ -10,6 +10,7 @@ import { fetchUserProfile } from "../../../routes/api";
 import { useQuery } from "react-query";
 import { CustomCard, Preloader } from "../../../reusables";
 import useGlobalStoreProvider from "../../../context";
+import UserAvatar from "./components/UserAvatar";
 
 const Profile = () => {
   const { state } = useGlobalStoreProvider();
@@ -56,10 +57,7 @@ const Profile = () => {
         <div className="profile__content--details flex">
           <div className="left--content">
             <div className="image--container">
-              <img
-                src={image ? image : "https://via.placeholder.com/150"}
-                alt="user-avater"
-              />
+              {image ? <img src={image} alt="user-avater" /> : <UserAvatar />}
               <div className="icon">
                 <EditIcon />
               </div>

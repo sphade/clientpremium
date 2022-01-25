@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Divider } from "@mui/material";
 import { useFormik } from "formik";
 import React from "react";
@@ -50,17 +51,19 @@ const GetHelp = () => {
     <div className="help">
       <div className="center">
         <div className="help__left help__card">
-          {helpInfo.map(({ header, content, hasDivider }) => (
+          {helpInfo().map(({ header, content, hasDivider }) => (
             <div className="help__left--info" key={header}>
               <h4>{header}</h4>
-              {content.map(({ text, icon: Icon }, index) => (
-                <div key={index}>
-                  <div className="help__left--infoCard">
-                    <Icon />
-                    <p>{text}</p>
+              {content.map(
+                ({ text, icon: Icon }: { text?: string; icon?: any }) => (
+                  <div key={text}>
+                    <div className="help__left--infoCard">
+                      {Icon && <Icon />}
+                      <p>{text}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                )
+              )}
               {hasDivider && <Divider className="help__left--divider" />}
             </div>
           ))}

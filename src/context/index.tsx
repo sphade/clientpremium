@@ -1,58 +1,58 @@
-import React, { ReactNode, useEffect, useState } from 'react';
-import { useAppStorage } from '../hooks';
-import { baseReducer } from './reducers';
-import { UserReducerType } from './reducers/userReducer';
+import React, { ReactNode, useEffect, useState } from "react";
+import { useAppStorage } from "../hooks";
+import { baseReducer } from "./reducers";
+import { UserReducerType } from "./reducers/userReducer";
 
 const [rootReducer, initialRootState] = baseReducer;
 const GlobalStoreContext = React.createContext(initialRootState);
 
 export const GlobalStoreProvider = ({ children }: { children: ReactNode }) => {
-    //
+  //
 
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
 
-    const { getFromStore, clearStore } = useAppStorage();
-    const { MUTATE_USER } = UserReducerType;
+  const { getFromStore, clearStore } = useAppStorage();
+  const { MUTATE_USER } = UserReducerType;
 
-    const [state, dispatch] = React.useReducer(rootReducer, initialRootState);
-    //
+  const [state, dispatch] = React.useReducer(rootReducer, initialRootState);
+  //
 
-    const checkAuthenticated = async () => {
-        const user = (await getFromStore('user')) || {};
+  const checkAuthenticated = async () => {
+    const user = (await getFromStore("user")) || {};
 
-        if (user?.token) {
-            setIsAuthenticated(true);
-            dispatch({ type: MUTATE_USER, payload: user });
-        } else {
-            setIsAuthenticated(false);
-        }
-    };
+    if (user?.token) {
+      setIsAuthenticated(true);
+      dispatch({ type: MUTATE_USER, payload: user });
+    } else {
+      setIsAuthenticated(false);
+    }
+  };
 
-    const logoutUser = async () => {
-        await clearStore();
-        setIsAuthenticated(false);
-    };
+  const logoutUser = async () => {
+    await clearStore();
+    setIsAuthenticated(false);
+  };
 
-    useEffect(() => {
-        checkAuthenticated();
-    }, [isAuthenticated]);
+  useEffect(() => {
+    checkAuthenticated();
+  }, [isAuthenticated]);
 
-    const value = { state, dispatch };
-    return (
-        <GlobalStoreContext.Provider
-            value={{ ...value, isAuthenticated, logoutUser, checkAuthenticated }}
-        >
-            {children}
-        </GlobalStoreContext.Provider>
-    );
+  const value = { state, dispatch };
+  return (
+    <GlobalStoreContext.Provider
+      value={{ ...value, isAuthenticated, logoutUser, checkAuthenticated }}
+    >
+      {children}
+    </GlobalStoreContext.Provider>
+  );
 };
 
 const useGlobalStoreProvider = () => {
-    const context = React.useContext(GlobalStoreContext);
-    if (context === undefined) {
-        throw new Error('This must be used within a provider');
-    }
-    return context;
+  const context = React.useContext(GlobalStoreContext);
+  if (context === undefined) {
+    throw new Error("This must be used within a provider");
+  }
+  return context;
 };
 
 export default useGlobalStoreProvider;

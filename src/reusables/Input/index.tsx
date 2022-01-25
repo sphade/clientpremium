@@ -8,6 +8,7 @@ import {
   TextField,
   TextFieldProps,
 } from "@mui/material";
+import { capitalize } from "lodash";
 import { FormikProps, FormikValues } from "formik";
 import { ReactComponent as EyeIcon } from "./../../assets/svgs/eye.svg";
 
@@ -197,7 +198,7 @@ export const PrimarySelect = ({
         </MenuItem>
         {options.map(({ value, name }, index) => (
           <MenuItem key={index} value={value}>
-            {name}
+            {capitalize(name)}
           </MenuItem>
         ))}
       </TextField>
@@ -219,7 +220,7 @@ export const PrimarySelect = ({
       </MenuItem>
       {options.map(({ value, name }, index) => (
         <MenuItem key={index} value={value}>
-          {name}
+          {capitalize(name)}
         </MenuItem>
       ))}
     </TextField>

@@ -6,7 +6,7 @@ import { APP_ROUTES } from "../../../../routes/path";
 
 const EmptyTransaction = () => {
   return (
-    <div className="empty">
+    <div className="empty empty__wallet">
       <EmptyWallet />
       <div>
         <h3 className="h3 light">You currently have no transaction history</h3>

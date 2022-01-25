@@ -10,6 +10,7 @@ import useCustomSnackbar from "../../../../hooks/useSnackbar";
 import { UserReducerType } from "../../../../context/reducers/userReducer";
 import { useAppStorage } from "../../../../hooks";
 import useGlobalStoreProvider from "../../../../context";
+import UserAvatar from "./UserAvatar";
 
 const styles = {
   uploadedBtn: {
@@ -110,14 +111,7 @@ const ChangeProfilePhoto = ({
                         onChange={onImageUpload}
                         className="image--contaixner"
                       >
-                        {isDragging ? (
-                          "Uploading"
-                        ) : (
-                          <img
-                            src="https://via.placeholder.com/150"
-                            alt="user-avater"
-                          />
-                        )}
+                        {isDragging ? "Uploading" : <UserAvatar />}
                         <div className="icon"></div>
                       </div>
                     )}

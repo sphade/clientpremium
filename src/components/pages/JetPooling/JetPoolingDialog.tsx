@@ -9,7 +9,7 @@ import BaseModal from "../../../reusables/BaseModal";
 import { ReactComponent as AirPlaneIcon } from "../../../assets/svgs/air-plane-icon.svg";
 import { Divider } from "@mui/material";
 import Slider from "react-slick";
-import { singleSettings } from "../CharterPage/AvailablePrivateJets";
+import { singleSettings } from "../CharterPage/AvailableCharter";
 import { Link } from "react-router-dom";
 import { APP_ROUTES } from "../../../routes/path";
 import { makeStyles } from "@mui/styles";
@@ -42,7 +42,9 @@ const JetPoolingDialog = ({
             <img src={PlaneImage4} alt="plane" />
             <img src={PlaneImage2} alt="plane" />
           </Slider>
-          <PrimaryButton small classes="image-button" label="jet details" />
+          <Link to={APP_ROUTES.charterDetailPage("air", "2")}>
+            <PrimaryButton small classes="image-button" label="jet details" />
+          </Link>
         </div>
         <div className="trip__details">
           <div>
@@ -85,7 +87,7 @@ const JetPoolingDialog = ({
             <p>Current price per seat:</p>
             <h3>N600,000</h3>
           </div>
-          <Link to={APP_ROUTES.charterDetailPage("air", "2")}>
+          <Link to={APP_ROUTES.bookingSummaryPrimary + `?type=air`}>
             <PrimaryButton label="Join flight" />
           </Link>
         </div>
