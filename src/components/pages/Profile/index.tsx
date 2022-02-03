@@ -11,6 +11,7 @@ import { useQuery } from "react-query";
 import { CustomCard, Preloader } from "../../../reusables";
 import useGlobalStoreProvider from "../../../context";
 import UserAvatar from "./components/UserAvatar";
+import ChangeEmailModal from "./components/ChangeEmailModal";
 
 const Profile = () => {
   const { state } = useGlobalStoreProvider();
@@ -31,6 +32,8 @@ const Profile = () => {
     useDialogHook();
   const { open: openChangePhotoModal, toggleDialog: toggleChangePhotoModal } =
     useDialogHook();
+  const { open: openChangeEmailModal, toggleDialog: toggleChangeEmailModal } =
+    useDialogHook();
 
   // Handle Action
   const handleAction = (action: string) => {
@@ -40,6 +43,9 @@ const Profile = () => {
     }
     if (action === "Change Password") {
       togglePasswordModal();
+    }
+    if (action === "Change Email") {
+      toggleChangeEmailModal();
     }
   };
 
@@ -77,6 +83,10 @@ const Profile = () => {
       <ChangePhoneNumberModal
         openModal={open}
         closeModal={togglePhoneNumberModal}
+      />
+      <ChangeEmailModal
+        openModal={openChangeEmailModal}
+        closeModal={toggleChangeEmailModal}
       />
       <ChangePasswordModal
         openModal={openPasswordModal}

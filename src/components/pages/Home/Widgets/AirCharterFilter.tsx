@@ -2,20 +2,25 @@ import React, { useState } from "react";
 import {
   CharterTypeDropdown,
   CustomCounter,
+  CustomGoogleAddress,
   DatePicker,
-  PrimaryInput,
   TripTypeDropdown,
 } from "../../../../reusables";
 
-import { ReactComponent as NavigatorIcon } from "./../../../../assets/svgs/navigator.svg";
-import { ReactComponent as LocationIcon } from "./../../../../assets/svgs/location-outlined.svg";
 import { ReactComponent as RoundTripIcon } from "./../../../../assets/svgs/round-trip-icon.svg";
 import { ReactComponent as SingleTripIcon } from "./../../../../assets/svgs/single-trip-icon.svg";
 import { ReactComponent as PlusIcon } from "./../../../../assets/svgs/plus-icon.svg";
 import { Divider } from "@mui/material";
 import { flightNumber } from "../constants";
+import { ICustomFormikProps } from "../../../../reusables/Input/types";
 
-const AirCharterFilter = ({ type }: { type: string }) => {
+const AirCharterFilter = ({
+  type,
+  formik,
+}: {
+  type: string;
+  formik?: ICustomFormikProps;
+}) => {
   const [selectedTripType, setSelectedTripType] = useState("");
   const [formNumber, setFormNumber] = useState([1]);
 
@@ -32,10 +37,14 @@ const AirCharterFilter = ({ type }: { type: string }) => {
     <>
       <div className="charter__content--select air-type">
         <div>
-          <TripTypeDropdown filter={type} handleChange={handleChange} />
-          <CharterTypeDropdown filter={type} />
+          <TripTypeDropdown
+            filter={type}
+            handleChange={handleChange}
+            formik={formik}
+          />
+          <CharterTypeDropdown filter={type} formik={formik} />
         </div>
-        <CustomCounter text="Passenger" />
+        <CustomCounter text="Passenger" formik={formik} />
       </div>
       {formNumber.map((form, index) => {
         const numberIndex: string = (index + 1).toString();
@@ -52,23 +61,34 @@ const AirCharterFilter = ({ type }: { type: string }) => {
               </h3>
             )}
             <div className="charter__content--form">
-              <PrimaryInput
-                name="Leaving"
+              <CustomGoogleAddress
+                name="pickup"
                 label="Leaving from"
-                icon={<NavigatorIcon />}
+                iconType="navigator"
+                formik={formik}
               />
-              <PrimaryInput
-                name="Leaving"
+              <CustomGoogleAddress
+                name="destination"
                 label="Going to"
-                icon={<LocationIcon />}
+                iconType="location"
+                formik={formik}
               />
+
               <div className="trip-icon">
                 {isRoundTrip ? <RoundTripIcon /> : <SingleTripIcon />}
               </div>
             </div>
             <div className="charter__content--form">
-              <DatePicker label="Depature Date" />
-              <DatePicker label="Return Date" />
+              <DatePicker
+                name="departureDate"
+                label="Departure Date"
+                formik={formik}
+              />
+              <DatePicker
+                name="returnDate"
+                label="Return Date"
+                formik={formik}
+              />
             </div>
           </article>
         );

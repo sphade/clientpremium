@@ -13,9 +13,6 @@ export const UserReducerType = {
   };
   
 
-
-  
-
 export  function SignupReducer(state: GlobalStateType, action:ActionType) {
     const { STORE_SIGNUP_DETAILS, CLEAR_SIGNUP_DETAILS } = SignupReducerType;
     

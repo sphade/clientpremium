@@ -1,11 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "react-query";
 import { PrimarySelect } from "..";
+import useGlobalStoreProvider from "../../context";
 import { getCharterTypeApi } from "../../routes/api";
 import { charterMappings } from "../../utils";
+import { ICustomFormikProps } from "../Input/types";
+import { CharterReducerActions } from "../../context/reducers/actions";
 
-const CharterTypeDropdown = ({ filter }: { filter: string }) => {
+const { MUTATE_CHARTER } = CharterReducerActions;
+
+const CharterTypeDropdown = ({
+  filter,
+  formik,
+  handleFilters,
+}: {
+  filter: string;
+  formik?: ICustomFormikProps;
+  handleFilters?: (filter: any) => void;
+}) => {
   const charterQuery = charterMappings[filter.toLowerCase()] || "";
+
+  const { dispatch } = useGlobalStoreProvider();
 
   const { data = [] } = useQuery(charterQuery, async () => {
     const data = await getCharterTypeApi(charterQuery);
@@ -25,10 +40,26 @@ const CharterTypeDropdown = ({ filter }: { filter: string }) => {
       ? "Boat Type"
       : "Car Type";
 
+  if (formik) {
+    return (
+      <PrimarySelect
+        fullWidth={false}
+        formik={formik}
+        handleSelectChange={(data: any) => {
+          const value = data;
+          dispatch({ type: MUTATE_CHARTER, payload: { transitType: value } });
+          handleFilters && handleFilters({ category: value });
+        }}
+        name="transitType"
+        label={label}
+        options={charterTypeSelect}
+      />
+    );
+  }
   return (
     <PrimarySelect
       fullWidth={false}
-      name="airCraftType"
+      name="transitType"
       label={label}
       options={charterTypeSelect}
     />

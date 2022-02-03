@@ -1,9 +1,10 @@
 .primary__input {
     // width: 100%;
-    margin-bottom: 2rem;
+    // margin-bottom: 2rem;
     position: relative;
     min-width: 25rem!important;
     text-transform: capitalize;
+    min-height: 10rem!important;
 
      
     &--input {
@@ -41,7 +42,7 @@ label, .MuiFormControlLabel-label {
     font-size: 1.4rem!important;
 }
 
-.MuiTextField-root {
+.custom-field {
     margin-bottom: 3rem!important;
 
 }
@@ -74,18 +75,28 @@ label, .MuiFormControlLabel-label {
 }
 
 
+.duration__box {
+    min-height: 8.5rem!important;
+    align-self: flex-start!important;
+    min-width: 40rem;
+
+    .error {
+        color: #d32f2f;
+        padding-left: 1rem
+    }
+}
+
 .duration__input {
     display: flex;
+    align-self: flex-start!important;
     width: 100%;
+    flex: none!important;
     font-size: 1.4rem;
-    margin-bottom:2rem;
+    margin-bottom:0.3rem;
     padding:  0.8rem 0rem!important;
-    align-self: flex-start;
     justify-content:space-between!important;
     color: #4F4F4F;
     box-sizing: border-box;
-    flex: auto;
-
                     border: 1px solid black;
                     align-items: center;
                     border-radius: 5px;

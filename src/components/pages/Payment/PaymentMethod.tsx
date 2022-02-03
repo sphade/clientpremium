@@ -15,65 +15,77 @@ import { Preloader, PrimaryButton } from "../../../reusables";
 import WalletLogo from "../../../assets/images/wallet.png";
 
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import {
-  getPaymentMethodsApi,
-  initializePaymentPaystack,
-} from "../../../routes/api";
+import { getPaymentMethodsApi, initializePayment } from "../../../routes/api";
 import useCustomSnackbar from "../../../hooks/useSnackbar";
-import { getUrlQueryEntries } from "../../../utils";
 import { PaymentMethodsEnum } from "./types";
 import { useHistory } from "react-router-dom";
 import { APP_ROUTES } from "../../../routes/path";
+import { useRouterState } from "../../../hooks";
 // import { useAppStorage } from "../../../hooks";
 
-const { PAYSTACK } = PaymentMethodsEnum;
+const { PAYSTACK, FLUTTER_WAVE } = PaymentMethodsEnum;
 
 const PaymentMethod = () => {
   const history = useHistory();
   const [paymentMethod, setPaymentMethod] = useState(PAYSTACK);
 
-  const { price = "0", type = "", id } = getUrlQueryEntries();
+  const [routerState] = useRouterState();
 
   const { succesSnackbar, errorSnackbar } = useCustomSnackbar();
-  // const { addToStore } = useAppStorage();
 
   const queryClient = useQueryClient();
 
-  const { mutate, isLoading: postLoading } = useMutation(
-    initializePaymentPaystack,
-    {
-      onSuccess: async (data) => {
-        // await addToStore("charter_details", data.data);
+  const { mutate, isLoading: postLoading } = useMutation(initializePayment, {
+    onSuccess: async (data) => {
+      // await addToStore("charter_details", data.data);
 
-        const url = data.data.authorization_url;
+      const url = data.data.link;
 
-        //Window.location.replace('')
+      const newWindow = window.open(url, "_self", "");
 
-        const newWindow = window.open(url, "_self", "");
+      if (newWindow) {
+        newWindow.onabort = () => {
+          alert("ahaher");
+        };
+      }
 
-        if (newWindow) {
-          newWindow.onabort = () => {
-            alert("ahaher");
-          };
-        }
-
-        succesSnackbar(data.message || "Success");
-      },
-      onError: (error: any) => {
-        errorSnackbar(error?.response?.data?.error || "Error");
-      },
-      onSettled: () => {
-        queryClient.invalidateQueries("create");
-      },
-    }
-  );
+      succesSnackbar(data.message || "Success");
+    },
+    onError: (error: any) => {
+      errorSnackbar(error?.response?.data?.error || "Error");
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries("create");
+    },
+  });
 
   const handlePayment = () => {
-    if (paymentMethod === PAYSTACK) {
-      const newPrice = Number(price) * 100;
+    const {
+      pickup = "",
+      departureDate = "",
+      id = "",
+      type = "",
+      // price = "",
+      terminalId = "",
+      destinationTerminalId = "",
+    } = routerState;
+    if (paymentMethod === FLUTTER_WAVE) {
+      const newPrice = Number(3000);
+
+      const metadata = {
+        ...routerState,
+        destination: "Ikeja, Lagos",
+        pickupLocation: pickup,
+        pickupDate: departureDate,
+        vehicleId: id,
+        amount: newPrice,
+        ...(terminalId && { terminalId }),
+        ...(destinationTerminalId && { destinationTerminalId }),
+      };
+
       mutate({
         amount: newPrice,
-        service: type,
+        metadata,
       });
     } else {
       history.push(APP_ROUTES.getBookedPage({ type, id }));

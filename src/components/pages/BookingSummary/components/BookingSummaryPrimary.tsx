@@ -1,26 +1,39 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect } from "react";
 import { Checkbox } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 
 import { ReactComponent as SmallPlane } from "../../../../assets/svgs/small-plane.svg";
-import { useDialogHook } from "../../../../hooks";
+import {
+  useCheckCharterType,
+  useDialogHook,
+  useRouterState,
+} from "../../../../hooks";
 import { PrimaryButton, CustomAlert, Preloader } from "../../../../reusables";
 import { APP_ROUTES } from "../../../../routes/path";
 import {
   charterMappings,
   formatNumberToCurrency,
+  getCharterName,
   getUrlQueryEntries,
 } from "../../../../utils";
 import InsufficientBalanceDialog from "./InsufficientBalanceDialog";
 import { useQuery } from "react-query";
 import { fetchCharterById } from "../../../../routes/api";
-import { DestinationSmall, TripDetails } from "./Widget";
+import { DestinationSmall, NoDestinalTripDetails, TripDetails } from "./Widget";
+import { isEmpty } from "lodash";
 
 const BookingSummaryPrimary = () => {
+  const { isLand, charterType } = useCheckCharterType();
+
   const { open, toggleDialog } = useDialogHook();
   useEffect(() => {
     // toggleDialog();
   }, []);
+
+  const [routerState] = useRouterState();
+
+  const history = useHistory();
 
   const { type, id } = getUrlQueryEntries();
 
@@ -39,16 +52,31 @@ const BookingSummaryPrimary = () => {
     return <Preloader />;
   }
 
-  if (error) {
+  if (error || isEmpty(routerState)) {
     return <h3>Error Fetching</h3>;
   }
 
-  console.log({ data });
+  const {
+    tripType,
+    departureDate,
+    duration,
+    destination,
+    passenger,
+    departureTime,
+  } = routerState;
 
-  const destination = (data?.AircraftDestinations || [])[0]?.Airport || {};
-  const terminal = data?.Airport || {};
+  let { pickup } = routerState;
 
-  console.log({ destination, terminal });
+  const noDestination = isLand || ["boat cruise"].includes(tripType);
+  const noTerminal = isLand;
+
+  pickup = { name: pickup, departureDate, departureTime };
+
+  const destinationTerminal = (data?.destinations || [])[0];
+
+  if (!noTerminal) {
+    pickup = { ...pickup, ...data?.pickupTerminal };
+  }
 
   const getName = () => {
     const { builder = "", model = "", brand = "" } = data;
@@ -57,14 +85,38 @@ const BookingSummaryPrimary = () => {
 
   const price = formatNumberToCurrency({ number: data?.price });
 
+  const charterTypeName = getCharterName(charterType);
+
+  //functions
+  const goToPayment = () => {
+    history.push(
+      APP_ROUTES.getPaymentMethod({
+        type: type,
+        id: id,
+        price: data?.price || 0,
+      }),
+      {
+        ...routerState,
+        price: data?.price || 0,
+        type,
+        id,
+        ...(pickup?.id && { terminalId: pickup?.id }),
+        ...(destinationTerminal &&
+          destinationTerminal?.id && {
+            destinationTerminalId: destinationTerminal?.id,
+          }),
+      }
+    );
+  };
+
   return (
     <div className="booking-summary ">
       <div className="center">
-        <article className="booking-summary__top-card">
+        {/* <article className="booking-summary__top-card">
           <div className="booking-summary__top-card--trip">
             <DestinationSmall destination={terminal} />
             <SmallPlane />
-            <DestinationSmall destination={destination} />
+            <DestinationSmall departure={false} destination={destination} />
           </div>
           <div className="vertical-divider"></div>
           <div className="booking-summary__top-card--trip">
@@ -75,7 +127,7 @@ const BookingSummaryPrimary = () => {
           <div className="vertical-divider"></div>
 
           <button>Edit</button>
-        </article>
+        </article> */}
 
         <article className="booking-summary__booking-card share__card">
           <h3 className="share__info">
@@ -92,18 +144,26 @@ const BookingSummaryPrimary = () => {
           <h3 className="booking-card__title">BOOKING SUMMARY</h3>
           <div className="horizontal-divider"></div>
           <div className="booking-card__content">
-            <div className="booking-card__content--list">
-              <p>Booking type:</p>
-              <p>Return trip</p>
-            </div>
+            {tripType && (
+              <div className="booking-card__content--list">
+                <p>Booking type:</p>
+                <p>{tripType}</p>
+              </div>
+            )}
             <div className="booking-card__content--list">
               <p>Passengers:</p>
-              <p>4</p>
+              <p>{passenger}</p>
             </div>
-            <TripDetails terminal={terminal} destination={destination} />
-            <TripDetails terminal={destination} destination={terminal} />
+            {noDestination ? (
+              <NoDestinalTripDetails terminal={pickup} />
+            ) : (
+              <TripDetails
+                terminal={pickup}
+                destination={destinationTerminal}
+              />
+            )}
             <div className="booking-card__content--list">
-              <p>Aircraft:</p>
+              <p>{charterTypeName}:</p>
               <p>{getName()}</p>
             </div>
             <div className="booking-card__content--list">
@@ -116,16 +176,9 @@ const BookingSummaryPrimary = () => {
             </div>
             <div className="horizontal-divider"></div>
 
-            <Link
-              to={APP_ROUTES.getPaymentMethod({
-                type: type,
-                id: id,
-                price: data?.price || 0,
-              })}
-              className="booking-card__content--button"
-            >
-              <PrimaryButton label="Go to Payment" />
-            </Link>
+            <div className="booking-card__content--button">
+              <PrimaryButton onClick={goToPayment} label="Go to Payment" />
+            </div>
 
             <CustomAlert
               header="Cancellation Policy"

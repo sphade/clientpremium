@@ -7,23 +7,27 @@ const CustomCard = ({
   header,
   children,
   goBack,
+  isModal = false,
 }: {
   header?: string;
   children: ReactNode | ReactNode[];
   goBack?: () => void;
+  isModal?: boolean;
 }) => {
   const history = useHistory();
   return (
     <div className="customCard booking-summary">
-      <div className="center">
+      <div className={isModal ? "" : "center"}>
         <div className="customCard__card">
           {header && (
             <div className="customCard__card--header">
-              <IconButton
-                onClick={() => (goBack ? goBack() : history.goBack())}
-              >
-                <ArrowLeft />
-              </IconButton>
+              {goBack && (
+                <IconButton
+                  onClick={() => (goBack ? goBack() : history.goBack())}
+                >
+                  <ArrowLeft />
+                </IconButton>
+              )}
               <h3>{header}</h3>
             </div>
           )}

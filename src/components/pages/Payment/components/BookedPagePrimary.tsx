@@ -23,13 +23,15 @@ const BookedPagePrimary = () => {
   return (
     <article className="payment-method booked-page">
       <div className="payment-method__container booked-page__container">
-        <div className="card__header">
+        <div className="card__header flex items-center justify-center gap-6">
           <img src={EmojiImage} alt="emoji" />
-          <h3>
-            <StarIcon />
-            <span>Your trip has successfully been booked</span>
-          </h3>
-          <h4>Check your email for your booking information</h4>
+          <div>
+            <h3>
+              <StarIcon />
+              <span>Your trip has successfully been booked</span>
+            </h3>
+            <h4>Check your email for your booking information</h4>
+          </div>
         </div>
         <div className="card__body">
           <p>In case of enquiries or emergencies</p>

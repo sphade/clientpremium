@@ -5,8 +5,8 @@ export const AUTHENTICATED_ROUTES = {
     singupProvideDetails: '/auth/signup/provide-details',
     signupotp: '/auth/signup/otp',
     forgotPassword: '/auth/forgot-password',
-    terms: '/terms',
-    privacyNotice: '/privacyNotice',
+    terms: '/auth/terms',
+    privacyNotice: '/auth/privacyNotice',
 
 }
 

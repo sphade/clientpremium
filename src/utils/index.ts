@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { lowerCase, startCase } from "lodash";
 import { useLocation } from "react-router-dom"
 
 
@@ -45,6 +46,13 @@ export const formatNumberToCurrency = ({
 // 	return !decodedToken || decodedToken.exp * 1000 < Date.now();
 // };
 
+export const getCharterName = (filter: string) => {
+	return filter.toLowerCase() === "air"
+      ? "Air craft"
+      : filter.toLowerCase() === "sea"
+      ? "Boat"
+      : "Car";
+}
 
 
 export const getUrlQueryEntries = (
@@ -88,3 +96,8 @@ export const getUrlQueryEntries = (
 	// Return result
 	return urlPairs;
 };
+
+
+
+/** Convert string to title case */
+export const convertToTitleCase = (string: string) => startCase(lowerCase(string));

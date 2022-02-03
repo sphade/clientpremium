@@ -9,7 +9,9 @@ export const ProfileItems = [
     {
         label: 'Email',
         text: 'Ugobauz46@gmail.com',
-        key: 'email'
+        key: 'email',
+        hasAction: true,
+        action: "Change Email"
 
     },
     {

@@ -3,13 +3,12 @@ import React, { useState } from "react";
 import { PrimaryButton, PrimaryInput, DatePicker } from "../../../reusables";
 import Plane from "../../../assets/images/plane-5.png";
 import { ReactComponent as ArrowRight } from "./../../../assets/svgs/arrow-right-secondary.svg";
-import { ReactComponent as NavigatorIcon } from "./../../../assets/svgs/navigator.svg";
-import { ReactComponent as LocationIcon } from "./../../../assets/svgs/location-outlined.svg";
 import { ReactComponent as CloseIcon } from "./../../../assets/svgs/close.svg";
 
 import { PREMIUM_CHARTER_DATA } from "../Home/constants";
 import { useDialogHook } from "../../../hooks";
 import JetPoolingDialog from "./JetPoolingDialog";
+import JetpoolingCard from "./components/JetpoolingCard";
 
 const AvailableJetPools = () => {
   const [filter, setFilter] = useState("air");
@@ -36,14 +35,10 @@ const AvailableJetPools = () => {
             <PrimaryInput
               name="Leaving"
               label="Leaving from"
-              icon={<NavigatorIcon />}
+              iconType="navigator"
             />
-            <PrimaryInput
-              name="Leaving"
-              label="Going to"
-              icon={<LocationIcon />}
-            />
-            <DatePicker label="Departing" />
+            <PrimaryInput name="Leaving" label="Going to" iconType="location" />
+            <DatePicker name="departure" label="Departing" />
             <PrimaryButton label="Search" small />
           </div>
           <div className="reset__filter">
@@ -55,26 +50,7 @@ const AvailableJetPools = () => {
       <h3 className="title">Available Jet Pools</h3>
       <div className="jet-pooling__cards">
         {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
-          <div onClick={toggleDialog} key={item} className="jet-pooling__card">
-            <div className="image">
-              <img src={Plane} alt="" />
-            </div>
-            <div className="content">
-              <div>
-                <h3>Abuja (Nigeria)</h3>
-                <p>Nnamdi Azikiw...</p>
-              </div>
-              <ArrowRight />
-              <div>
-                <h3>Abuja (Nigeria)</h3>
-                <p>Nnamdi Azikiw...</p>
-              </div>
-            </div>
-            <div className="available__cta">
-              <span>Available from</span>
-              <span className="action"> 22 Nov 2021</span>
-            </div>
-          </div>
+          <JetpoolingCard key={item} toggleDialog={toggleDialog} />
         ))}
       </div>
       <div className="private-jets__footer">

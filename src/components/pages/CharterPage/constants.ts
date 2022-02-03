@@ -65,9 +65,18 @@ export const filters = {
             value: '2-5',
             label: '2-5 Passengers',
             key: 'capacity'
-        }, {
-                value:'6-20', label: '6+ passengers',
-            key: 'capacity'}],
+        }, 
+        {
+                value:'6', 
+                label: '6+ passengers',
+            key: 'capacity'
+        },
+        {
+                value:'', 
+                label: 'All',
+                key: 'capacity'
+        },
+        ],
     },
     prices: {
         title: 'Prices',
@@ -91,7 +100,12 @@ export const filters = {
                 value: '85000-100000',
                 label: 'N85,000 and more',
                 key: 'price'
-            }
+            },
+              {
+                value:'', 
+                label: 'All',
+                key: 'price'
+        },
            ],
     },
     year: {
@@ -100,33 +114,38 @@ export const filters = {
             {
                 value: '2015-2016',
                 label:'2015-2016',
-                year: 'year'
+                key: 'year'
             },
             {
                 value:'2016-2017',
                 label: '2016-2017',
-                year: 'year'
+                key: 'year'
             },
             {
                 value:'2017-2018',
                 label: '2017-2018',
-                year: 'year'
+                key: 'year'
             },
             {
                 value: '2018-2019',
                 label: '2018-2019',
-                year: 'year'
+                key: 'year'
             },
             {
                 value: '2019-2020',
                 label: '2019-2020',
-                year: 'year'
+                key: 'year'
             },
             {
                 value: '2020-2021',
                 label: '2020-2021',
-                year: 'year'
+                key: 'year'
             },
+              {
+                value:'', 
+                label: 'All',
+                key: 'year'
+        },
             
              ],
     },

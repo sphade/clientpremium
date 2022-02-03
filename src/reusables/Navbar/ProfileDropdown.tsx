@@ -34,6 +34,7 @@ const ProfileDropDown = ({ buttonText }: { buttonText: string }) => {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
+        className="flex gap-2 items-center"
       >
         {buttonText}{" "}
         <span>

@@ -101,6 +101,7 @@ const GetHelp = () => {
             />
             <PrimaryButton
               label="Submit"
+              classes="!mt-10"
               isLoading={isLoading}
               onClick={handleSubmit}
               style={{ backgroundColor: "black" }}

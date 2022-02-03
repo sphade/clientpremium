@@ -2,8 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { Loader } from "@googlemaps/js-api-loader";
 import { PrimaryInput } from ".";
 import { TextFieldProps } from "@mui/material";
-
-import { PrimaryInputProps } from "./";
+import { PrimaryInputProps } from "./types";
 
 const loader = new Loader({
   apiKey: process.env.GOOGLE_API_KEY || "",
@@ -17,7 +16,6 @@ const CustomGoogleAddress = (props: PrimaryInputProps & TextFieldProps) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onChangeAddress = (autocomplete: any) => {
     const location = autocomplete.getPlace();
-    console.log(location);
   };
 
   const initAutoComplete = () => {

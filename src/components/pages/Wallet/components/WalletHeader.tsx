@@ -10,9 +10,12 @@ import { OutlineButton } from "../../../../reusables";
 import { useQuery } from "react-query";
 import { getWalletBalanceApi } from "../../../../routes/api";
 import { formatNumberToCurrency } from "../../../../utils";
+import FundWalletModal from "./FundWalletModal";
 
 const WalletHeader = () => {
   const { open: hidden, toggleDialog: toggleHidden } = useDialogHook();
+  const { open: openFundWalletModal, toggleDialog: toggleFundWalletModal } =
+    useDialogHook();
 
   const { data: walletBalance = { balance: 0 } } = useQuery(
     `wallet_balance`,
@@ -26,7 +29,7 @@ const WalletHeader = () => {
     number: walletBalance?.balance,
   });
 
-  const star = (walletBalance?.balance)
+  const star = (walletBalance?.balance || 0)
     .toString()
     .split("")
     .reduce((acc: string) => (acc += "*"), "*");
@@ -44,13 +47,22 @@ const WalletHeader = () => {
         </IconButton>
       </div>
       <div className="wallet__header--buttonGroup">
-        <Link to={APP_ROUTES.walletFunded}>
-          <OutlineButton small classes="secondary" label="Fund wallet" />
-        </Link>
+        <div>
+          <OutlineButton
+            onClick={toggleFundWalletModal}
+            small
+            classes="secondary"
+            label="Fund wallet"
+          />
+        </div>
         <Link to={APP_ROUTES.withdrawFunds}>
           <OutlineButton small classes="secondary" label="Withdraw funds" />
         </Link>
       </div>
+      <FundWalletModal
+        openModal={openFundWalletModal}
+        closeModal={toggleFundWalletModal}
+      />
     </div>
   );
 };

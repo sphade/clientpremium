@@ -31,17 +31,16 @@
     &__content {
         display: flex;
         padding-top: 1rem;
-        // flex-wrap: wrap;
-        gap: 2rem;
+        column-gap: 2rem;
 
          @include responsive($tablet) {
         flex-wrap: wrap;
     }
 
         & > div {
-            display: flex;
-            width: 100%;
-        gap: 2rem;
+        display: flex;
+        width: 100%;
+        column-gap: 2rem;
 
          @include responsive($tablet) {
         flex-wrap: wrap;

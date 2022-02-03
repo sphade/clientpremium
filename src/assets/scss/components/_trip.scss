@@ -4,6 +4,20 @@
         width: 80rem;
     }
 
+    .trip__history {
+        margin-top: 4rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3rem;
+        text-align: center;
+
+        .book_trip--button {
+           display: flex;
+           justify-content: center;
+        }
+    }
+
     .pending__trips {
         margin-bottom: 2.4rem;
         display: flex;

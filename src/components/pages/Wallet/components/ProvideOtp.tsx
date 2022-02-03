@@ -6,32 +6,42 @@ import { useStepsProps } from "../../../../hooks/types";
 
 import { CustomCard, LinkButton, PrimaryButton } from "../../../../reusables";
 
-const ProvideOtp = ({ steps }: { steps: useStepsProps }) => {
+const ProvideOtp = ({
+  handleSubmit,
+  isLoading = false,
+  details = {},
+}: {
+  steps: useStepsProps;
+  isLoading?: boolean;
+  handleSubmit?: (otp: string) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  details?: Record<string, any>;
+}) => {
   // Destructure next step from steps
-  const { nextStep, previousStep } = steps;
   //Handle countdownt imer
   const {
     minutesLeft,
     secondsLeft,
     // start: startOtpCountdown,
     isOver,
-    isRunning,
   } = useCountdown({ minutes: 2 });
 
   //handle Otp
   const [otp, setOtp] = useState("");
 
-  // //Start countdown on page load
-  // useEffect(() => {
-  //   startOtpCountdown();
-  // }, []);
+  const {
+    phoneNumber = "",
+    okText = "Withdraw Fund",
+    isModal = false,
+    header = "Phone Number Verification",
+  } = details;
 
   return (
-    <CustomCard header="PHONE NUMBER" goBack={previousStep}>
+    <CustomCard header={header} isModal={isModal}>
       <div className="signup__otp">
         <p className="phone__number">
           Enter the 6 digit verification code sent to:
-          <span>+234 8038455124</span>
+          <span>{phoneNumber}</span>
         </p>
         <div className="otp__box">
           <OtpInput
@@ -56,11 +66,15 @@ const ProvideOtp = ({ steps }: { steps: useStepsProps }) => {
           </span>{" "}
         </p>
         <PrimaryButton
-          label="Withdraw Fund"
-          disabled={isRunning}
-          onClick={nextStep}
+          label={okText}
+          isLoading={isLoading}
+          onClick={() => {
+            handleSubmit && handleSubmit(otp);
+          }}
         />
-        <LinkButton label="Didn’t get the code? Use email" />
+        <div className="mt-8">
+          <LinkButton label="Didn’t get the code? Use email" />
+        </div>
       </div>
     </CustomCard>
   );

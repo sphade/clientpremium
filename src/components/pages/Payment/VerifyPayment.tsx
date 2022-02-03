@@ -1,9 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect } from "react";
-import { useMutation, useQueryClient } from "react-query";
+import { useQuery } from "react-query";
 import { useHistory } from "react-router-dom";
+import { isEmpty, pick } from "lodash";
 import useCustomSnackbar from "../../../hooks/useSnackbar";
 import { Preloader } from "../../../reusables";
-import { useAxios } from "../../../routes/api";
+import {
+  bookCharterApi,
+  fundWalletApi,
+  verifyPaymentApi,
+} from "../../../routes/api";
 import { APP_ROUTES } from "../../../routes/path";
 import { getUrlQueryEntries } from "../../../utils";
 
@@ -11,53 +17,115 @@ const VerifyPayment = () => {
   console.log("verify payments");
   const history = useHistory();
 
-  const request = useAxios();
-
-  const queryClient = useQueryClient();
-
   const { succesSnackbar, errorSnackbar } = useCustomSnackbar();
-  const { reference = "" } = getUrlQueryEntries();
+  const { transaction_id = "" } = getUrlQueryEntries();
 
-  const { mutate, isLoading } = useMutation(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    async (data: Record<string, any>) => {
-      const response = await request.post(
-        `/charter/land/3fcf2405-47a4-4280-a64a-2c1022645d00&price=50000`,
-        data
-      );
-      return response.data;
-    },
-    {
-      onSuccess: async (data) => {
-        console.log({ data });
-        succesSnackbar(data?.message || "Success");
-        history.push(APP_ROUTES.bookedPage);
-      },
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      onError: (error: any) => {
-        errorSnackbar(error?.response?.data?.error || "Error");
-      },
-      onSettled: () => {
-        queryClient.invalidateQueries("create");
-      },
+  const { isLoading: verifyLoading, data: verifyData } = useQuery(
+    transaction_id,
+    async () => {
+      const data = await verifyPaymentApi(transaction_id);
+      return data;
     }
   );
 
+  const bookCharter = async ({
+    type,
+    id,
+    data,
+    subType,
+  }: {
+    type: string;
+    id: string;
+    data: Record<string, any>;
+    subType: string;
+  }) => {
+    try {
+      const response = await bookCharterApi({ type, id, data, subType });
+
+      succesSnackbar(response?.message || "Success");
+
+      history.push(APP_ROUTES.bookedPage);
+    } catch (error: any) {
+      errorSnackbar(error?.response?.data?.error || "Error");
+    }
+  };
+
+  const fundWallet = async ({ data }: { data: Record<string, any> }) => {
+    try {
+      const response = await fundWalletApi(data);
+
+      succesSnackbar(response?.message || "Success");
+
+      history.push(APP_ROUTES.walletFunded);
+    } catch (error: any) {
+      errorSnackbar(error?.response?.data?.error || "Error");
+    }
+  };
+
   useEffect(() => {
-    const data = {
-      duration: "daily",
-      destination: "Ikeja, Lagos",
-      pickupLocation: "Ijaye, Lagos",
-      pickupDate: "22021-12-28 23:00:00+00",
-      amount: 8500000,
-      reference: reference,
-      provider: "paystack",
-    };
+    if (verifyData && verifyData?.isPaymentSuccessful) {
+      const { metadata = {} } = verifyData;
 
-    mutate(data);
-  }, []);
+      const charterBookings = ["land", "sea"];
+      const walletFunding = ["wallet"];
 
-  if (isLoading) {
+      const { type = "", tripType = "" } = metadata;
+      let subType = "";
+      let data = {};
+      if (type === "land") {
+        data = {
+          ...pick(metadata, ["destination"]),
+          pickupLocation: metadata?.pickup || "",
+          pickupDate: metadata?.departureDate || "",
+          amount: Number(metadata.amount || 0),
+          duration: Number(metadata.duration || 1),
+          reference: transaction_id,
+        };
+      } else if (type === "sea") {
+        if (tripType === "boat cruise") {
+          data = {
+            passengers: Number(metadata?.passenger || 1),
+            departureDate: metadata?.departureDate || "",
+            duration: Number(metadata.duration || 1),
+            amount: Number(metadata.amount || 0),
+            reference: transaction_id,
+            pickupTerminalId: metadata?.terminalId || "",
+          };
+          subType = "cruise";
+        } else if (tripType === "boat trip") {
+          data = {
+            passengers: Number(metadata?.passenger || 1),
+            departureDate: metadata?.departureDate || "",
+            amount: Number(metadata.amount || 0),
+            reference: transaction_id,
+            pickupTerminalId: metadata?.terminalId || "",
+            destinationTerminalId: metadata?.destinationTerminalId || "",
+          };
+          subType = "trip";
+        }
+      } else if (type === "wallet") {
+        data = {
+          amount: Number(metadata.amount || 0),
+          reference: transaction_id,
+        };
+      }
+
+      if (isEmpty(data)) return;
+
+      if (charterBookings.includes(type)) {
+        bookCharter({
+          type: metadata?.type,
+          id: metadata?.vehicleId,
+          data,
+          subType,
+        });
+      } else if (walletFunding.includes(type)) {
+        fundWallet({ data });
+      }
+    }
+  }, [verifyData]);
+
+  if (verifyLoading) {
     return <Preloader />;
   }
   return (

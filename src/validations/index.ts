@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { TCharter } from './types';
 
 
 export const provideDetailsValidation = () => Yup.lazy( formValues => {
@@ -79,6 +80,10 @@ export const changePhoneValidation = Yup.object({
        
  
   });
+export const fundWalletValidation = Yup.object({
+         amount: Yup.number()
+          .required('Enter a valid amount'),
+  });
 
 
 export const forgotPasswordValidaiton = Yup.object({
@@ -129,3 +134,44 @@ export const getHelpValidation =  Yup.object({
           message: Yup.string().required('Enter your message').min(10, "Password must be greater than 9 characters").trim()
        
     })
+
+export const charterValidation = ({type} :{type: TCharter}) => Yup.lazy( formValues => {
+
+    const tripType = formValues['tripType'];
+
+    const defaultMessage = "This field is required"
+
+    const validations = {
+        air: Yup.object({
+            pickup: Yup.string().trim().required(defaultMessage),
+            destination: Yup.string().trim().required(defaultMessage),
+            departureDate: Yup.string().trim().required(defaultMessage),
+            returnDate: Yup.string().trim().required(defaultMessage),
+            passenger: Yup.number().required(defaultMessage),
+            tripType: Yup.string().trim().required(defaultMessage),
+            transitType: Yup.string().trim().required(defaultMessage),
+        }),
+        sea: Yup.object({
+            pickup: Yup.string().trim().required(defaultMessage),
+            ...(tripType === 'boat trip' ?
+                {destination: Yup.string().trim().required(defaultMessage),}
+                :
+                {duration: Yup.number().required(defaultMessage),}
+            ),
+            departureDate: Yup.string().trim().required(defaultMessage),
+            departureTime: Yup.string().trim().required(defaultMessage),
+            passenger: Yup.number().required(defaultMessage),
+            tripType: Yup.string().trim().required(defaultMessage),
+            transitType: Yup.string().trim().required(defaultMessage),
+        }),
+        land: Yup.object({
+            pickup: Yup.string().trim().required(defaultMessage),
+            duration: Yup.number().required(defaultMessage),
+            departureDate: Yup.string().trim().required(defaultMessage),
+            departureTime: Yup.string().trim().required(defaultMessage),
+            passenger: Yup.number().required(defaultMessage),
+            transitType: Yup.string().trim().required(defaultMessage),
+        }),
+    }
+    return validations[type];
+})

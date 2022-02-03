@@ -9,6 +9,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "react-phone-input-2/lib/material.css";
 
 import App from "./App";
+import "./index.css";
 import "./app.scss";
 import { Preloader } from "./reusables";
 import { GlobalStoreProvider } from "./context";
@@ -39,7 +40,9 @@ ReactDOM.render(
         >
           <QueryClientProvider client={queryClient}>
             <BrowserRouter>
+              {/* <SimpleReactLightbox> */}
               <App />
+              {/* </SimpleReactLightbox> */}
             </BrowserRouter>
           </QueryClientProvider>
         </SnackbarProvider>

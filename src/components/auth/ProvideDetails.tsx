@@ -122,7 +122,7 @@ const ProvideDetails = () => {
           <p>
             By creating a Bossbus Premium Account, I understand and agree to
             Bossbus’s Privacy Notice and
-            <Link to={AUTHENTICATED_ROUTES.terms}>Terms of Use</Link>
+            <Link to={AUTHENTICATED_ROUTES.terms}> Terms of Use</Link>
           </p>
         </div>
 

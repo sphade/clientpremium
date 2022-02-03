@@ -7,23 +7,48 @@ import {
   DatePicker,
   CustomGoogleAddress,
 } from "../../../../reusables";
+import { ICustomFormikProps } from "../../../../reusables/Input/types";
 
-const LandCharterFilter = ({ type }: { type: string }) => {
+const LandCharterFilter = ({
+  type,
+  formik,
+}: {
+  type: string;
+  formik: ICustomFormikProps;
+}) => {
   return (
     <>
       <div className="charter__content--select">
         <div>
-          <CharterTypeDropdown filter={type} />
+          <CharterTypeDropdown filter={type} formik={formik} />
         </div>
-        <CustomCounter text="Passenger" />
+        <CustomCounter text="Passenger" formik={formik} />
       </div>
       <div className="charter__content--form">
-        <CustomGoogleAddress name="pickup-location" label="Pickup Location" />
-        <CustomDurationInput isHour={false} label="Charter Duration " />
+        <CustomGoogleAddress
+          name="pickup"
+          label="Pickup Location"
+          iconType="navigator"
+          formik={formik}
+        />
+        <CustomDurationInput
+          isHour={false}
+          label="Charter Duration"
+          formik={formik}
+        />
       </div>
       <div className="charter__content--form">
-        <DatePicker label="Pick-up date" />
-        <CustomTimePicker label="Pick-up time" />
+        <DatePicker
+          name="departureDate"
+          label="Pick-up Date"
+          formik={formik}
+          type="date"
+        />
+        <CustomTimePicker
+          name="departureTime"
+          label="Pick-up time"
+          formik={formik}
+        />
       </div>
     </>
   );

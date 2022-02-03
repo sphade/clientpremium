@@ -14,7 +14,7 @@ const PremiumCharterFilter = () => {
 
         <PrimaryInput size="small" name="Leaving" endIcon={<SearchIcon />} />
         <label>By date of availability:</label>
-        <DatePicker size="small" />
+        <DatePicker name="date" size="small" />
 
         <Stack gap="2rem">
           <CustomChips

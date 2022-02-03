@@ -1,5 +1,6 @@
 import {  useParams } from 'react-router-dom';
 import { CHARTER_TYPE, PREMIUM_CHARTER_DATA } from '../components/pages/Home/constants';
+import { getUrlQueryEntries } from '../utils';
 import { CharterType, } from './types';
 
 const useCheckCharterType = (): {
@@ -18,8 +19,10 @@ const useCheckCharterType = (): {
 } => {
 
 	const params:  Record<string,string> = useParams();
+	const { type: paramsType } = getUrlQueryEntries();
 	
-	const type = params?.type
+	const type = params?.type || paramsType
+
 
 	let charterType = CharterType.AIR
 

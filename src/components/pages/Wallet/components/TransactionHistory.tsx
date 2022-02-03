@@ -1,6 +1,8 @@
+import clsx from "clsx";
 import React from "react";
 import { useQuery } from "react-query";
 import { getWalletTransactionsApi } from "../../../../routes/api";
+import { convertToTitleCase } from "../../../../utils";
 import { transaction_history_mock_data, TRANSACTION_TYPE } from "../constants";
 import EmptyTransaction from "./EmptyTransaction";
 
@@ -26,21 +28,39 @@ const TransactionHistory = ({ showAll }: { showAll?: boolean }) => {
         .map(
           (
             {
-              name,
-              date,
-              type,
+              purpose,
+              reference,
+              txnType,
               amount,
-            }: { name?: string; date?: string; type?: string; amount?: string },
+            }: {
+              purpose?: string;
+              reference?: string;
+              txnType?: string;
+              amount?: string;
+            },
             index: number
           ) => (
-            <div className="transaction__history" key={index}>
+            <div
+              className="transaction__history flex justify-between"
+              key={index}
+            >
               <div className="transaction__history--left">
-                <p>{name}</p>
-                <h5>{date}</h5>
+                <p>{convertToTitleCase(purpose || "")}</p>
+                <h5>{reference}</h5>
               </div>
-              <div className="transaction__history--right">
-                <h3 className={type?.toLowerCase()}>
-                  {type === TRANSACTION_TYPE.CREDIT ? "+" : "-"}N{amount}
+              <div
+                className={clsx(
+                  "transaction__history--right",
+                  txnType?.toUpperCase() === TRANSACTION_TYPE.CREDIT
+                    ? "text-green-500"
+                    : "text-red-500"
+                )}
+              >
+                <h3>
+                  {txnType?.toUpperCase() === TRANSACTION_TYPE.CREDIT
+                    ? "+"
+                    : "-"}
+                  N{amount}
                 </h3>
               </div>
             </div>

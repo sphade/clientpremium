@@ -1,4 +1,8 @@
 import React from "react";
+import Slider from "react-slick";
+import { Link } from "react-router-dom";
+import { Divider } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 
 import PlaneImage4 from "./../../../assets/images/plane-4.png";
 import PlaneImage2 from "./../../../assets/images/plane-2.png";
@@ -7,12 +11,8 @@ import PlaneImage3 from "./../../../assets/images/plane-3.png";
 import { CustomAlert, CustomCounter, PrimaryButton } from "../../../reusables";
 import BaseModal from "../../../reusables/BaseModal";
 import { ReactComponent as AirPlaneIcon } from "../../../assets/svgs/air-plane-icon.svg";
-import { Divider } from "@mui/material";
-import Slider from "react-slick";
-import { singleSettings } from "../CharterPage/AvailableCharter";
-import { Link } from "react-router-dom";
 import { APP_ROUTES } from "../../../routes/path";
-import { makeStyles } from "@mui/styles";
+import { singleSettings } from "../CharterPage/components/CharterCard";
 
 const useDialogStyles = makeStyles({
   paper: {

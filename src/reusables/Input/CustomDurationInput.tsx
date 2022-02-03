@@ -1,23 +1,43 @@
-import React, { useState } from "react";
+import React from "react";
 import { ReactComponent as Timer } from "../../assets/svgs/timer.svg";
 import { ReactComponent as Add } from "../../assets/svgs/button-add.svg";
 import { ReactComponent as Subtract } from "../../assets/svgs/button-subtract.svg";
+import { ICustomFormikProps } from "./types";
 
 const CustomDurationInput = ({
   label,
   isHour = true,
+  formik,
+  name = "duration",
 }: {
   label: string;
   isHour?: boolean;
+  formik?: ICustomFormikProps;
+  name?: string;
 }) => {
-  const [count, setCount] = useState(1);
+  let count = 1;
 
-  const increment = () => setCount(count + 1);
-  const decrement = () => {
-    if (count < 2) {
-      return;
+  if (formik) {
+    const { values } = formik;
+    count = values[name] || 1;
+  }
+
+  const increment = () => {
+    if (formik) {
+      const { setFieldValue } = formik;
+      const newValue = count + 1;
+      setFieldValue(name, newValue);
     }
-    setCount(count - 1);
+  };
+  const decrement = () => {
+    if (formik) {
+      const { setFieldValue } = formik;
+      if (count < 2) {
+        return;
+      }
+      const newValue = count - 1;
+      setFieldValue(name, newValue);
+    }
   };
 
   const formatTime = () => {
@@ -36,19 +56,21 @@ const CustomDurationInput = ({
   };
 
   return (
-    <button className="duration__input">
-      <div className="action">
-        <Timer />
-        <span>{label}</span>
-      </div>
-      <div className="action">
-        <Subtract onClick={decrement} />
-        <span>
-          {count} {formatTime()}
-        </span>
-        <Add onClick={increment} />
-      </div>
-    </button>
+    <div className="w-full duration__box">
+      <button className="duration__input">
+        <div className="action">
+          <Timer />
+          <span>{label}</span>
+        </div>
+        <div className="action">
+          <Subtract onClick={decrement} />
+          <span>
+            {count} {formatTime()}
+          </span>
+          <Add onClick={increment} />
+        </div>
+      </button>
+    </div>
   );
 };
 

@@ -1,20 +1,70 @@
-import React from "react";
-import {
-  PrimaryInput,
-  DatePicker,
-  PrimarySelect,
-  CustomTimePicker,
-  CharterTypeDropdown,
-  CharterTerminalDropdown,
-  TripTypeDropdown,
-} from "../../../reusables";
-import { ReactComponent as NavigatorIcon } from "./../../../assets/svgs/navigator.svg";
-import { ReactComponent as LocationIcon } from "./../../../assets/svgs/location-outlined.svg";
+import React, { useEffect } from "react";
+
 import StylishArrow from "../../../assets/images/arrow-style.png";
 import { useCheckCharterType } from "../../../hooks";
+import useGlobalStoreProvider from "../../../context";
+import AirFilter from "./components/AirFilter";
+import { useFormik } from "formik";
+import LandFilter from "./components/LandFilter";
+import SeaFilter from "./components/SeaFilter";
 
-const TopFilter = () => {
-  const { charterType, isAir, isLand } = useCheckCharterType();
+const TopFilter = ({
+  handleFilters,
+}: {
+  handleFilters: (filter: any) => void;
+}) => {
+  const { charterType, isAir, isLand, isSea } = useCheckCharterType();
+
+  const {
+    state: { charter },
+  } = useGlobalStoreProvider();
+
+  const formik = useFormik({
+    initialValues: {
+      pickup: "",
+      destination: "",
+      departureDate: "",
+      returnDate: "",
+      passenger: 1,
+      tripType: "",
+      transitType: "",
+      duration: 1,
+      departureTime: "",
+    },
+    onSubmit: async (values) => {
+      console.log(values);
+    },
+  });
+
+  const { setValues } = formik;
+
+  // Set existing values to form field
+  useEffect(() => {
+    // Destructure form admin user
+    const {
+      pickup = "",
+      destination = "",
+      departureDate = "",
+      returnDate = "",
+      passenger = 1,
+      tripType = "",
+      transitType = "",
+      duration = 1,
+      departureTime = "",
+    } = charter;
+
+    setValues({
+      pickup,
+      destination,
+      departureDate,
+      returnDate,
+      passenger,
+      tripType,
+      transitType,
+      duration,
+      departureTime,
+    });
+  }, [charter]);
 
   return (
     <div className="top-filter">
@@ -25,52 +75,9 @@ const TopFilter = () => {
         </div>
       </div>
       <div className=" center">
-        <div className="top-filter__content">
-          {isAir ? (
-            <>
-              <PrimaryInput
-                name="Leaving"
-                label="Leaving from"
-                icon={<NavigatorIcon />}
-              />
-              <PrimaryInput
-                name="Leaving"
-                label="Going to"
-                icon={<LocationIcon />}
-              />
-            </>
-          ) : (
-            <>
-              <CharterTerminalDropdown filter={charterType} />
-              <PrimarySelect
-                name="Leaving"
-                label="Cruise Duration"
-                icon={<NavigatorIcon />}
-                options={[]}
-              />
-            </>
-          )}
-          {!isAir ? (
-            <>
-              <DatePicker label="Departing" />
-              <DatePicker label="Returning" />
-            </>
-          ) : (
-            <>
-              <CustomTimePicker label="Pick-up time" />
-              <CustomTimePicker label="Duration" />
-            </>
-          )}
-        </div>
-        <div className="top-filter__content">
-          <div>
-            <CharterTypeDropdown filter={charterType} />
-
-            {!isLand && <TripTypeDropdown filter={charterType} />}
-          </div>
-
-          <div></div>
-        </div>
+        {isAir && <AirFilter formik={formik} />}
+        {isLand && <LandFilter handleFilters={handleFilters} formik={formik} />}
+        {isSea && <SeaFilter formik={formik} handleFilters={handleFilters} />}
       </div>
     </div>
   );

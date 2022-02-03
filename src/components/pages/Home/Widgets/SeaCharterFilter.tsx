@@ -1,47 +1,68 @@
-import React, { useState } from "react";
+import React from "react";
 import {
-  CharterTerminalDropdown,
   CharterTypeDropdown,
   CustomCounter,
   CustomDurationInput,
+  CustomGoogleAddress,
   CustomTimePicker,
   DatePicker,
   TripTypeDropdown,
 } from "../../../../reusables";
 
-const SeaCharterFilter = ({ type }: { type: string }) => {
-  const [tripType, setTripType] = useState("boat cruise");
+import { ICustomFormikProps } from "../../../../reusables/Input/types";
+
+const SeaCharterFilter = ({
+  type,
+  formik,
+}: {
+  type: string;
+  formik: ICustomFormikProps;
+}) => {
+  const { values } = formik;
+
+  const { tripType = "" } = values;
 
   const isBoatCruise = tripType === "boat cruise";
-
+  ``;
   return (
     <>
       <div className="charter__content--select">
         <div>
-          <TripTypeDropdown
-            filter={type}
-            handleChange={(e) => setTripType(e.target.value)}
-          />
-          <CharterTypeDropdown filter={type} />
+          <TripTypeDropdown filter={type} formik={formik} />
+          <CharterTypeDropdown filter={type} formik={formik} />
         </div>
-        <CustomCounter text="Guest" />
+        <CustomCounter text="Guest" formik={formik} />
       </div>
       <div className="charter__content--form">
-        <CharterTerminalDropdown filter={type} className="flex-none" />
+        <CustomGoogleAddress
+          name="pickup"
+          label="Pickup Location"
+          iconType="navigator"
+          formik={formik}
+        />
         {isBoatCruise ? (
-          <CustomDurationInput label="Cruise Duration" />
+          <CustomDurationInput label="Cruise Duration" formik={formik} />
         ) : (
-          <CharterTerminalDropdown
-            isPickup={false}
+          <CustomGoogleAddress
+            name="destination"
             label="Destination Terminal"
-            filter={type}
-            className="flex-none"
+            iconType="location"
+            formik={formik}
           />
         )}
       </div>
       <div className="charter__content--form">
-        <DatePicker label="Departure date" />
-        <CustomTimePicker label="Departure time" />
+        <DatePicker
+          name="departureDate"
+          label="Departure Date"
+          formik={formik}
+          type="date"
+        />
+        <CustomTimePicker
+          name="departureTime"
+          label="Departure time"
+          formik={formik}
+        />
       </div>
     </>
   );

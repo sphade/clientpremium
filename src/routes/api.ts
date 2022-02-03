@@ -60,6 +60,7 @@ export const apiRoutes = {
     allVehicles: '/products/vehicle/',
     userProfile: '/user/profile',
     changePhone: '/user/change-phone',
+    changeEmail: '/user/change-email',
     changePassword: '/user/change-password',
     changeProfilePhoto: '/user/photo',
     getHelp: '/help',
@@ -67,7 +68,8 @@ export const apiRoutes = {
     getTripType: '/trips/type?service=',
     getSingleCharter: '/products',
     payment: '/payment',
-    wallet: '/wallet'
+    wallet: '/wallet',
+    userTrips: '/user/trips'
 }
 
 
@@ -125,6 +127,11 @@ export const changePhoneNumber =  async (data: Record<string, unknown> ) => {
     const response = await request.patch(apiRoutes.changePhone, data )
     return response.data;
 }
+export const changeEmail =  async (data: Record<string, unknown> ) => {
+    const request = useAxios();
+    const response = await request.patch(apiRoutes.changeEmail, data )
+    return response.data;
+}
 export const changePassword =  async (data: Record<string, unknown> ) => {
     const request = useAxios();
 
@@ -174,9 +181,9 @@ export const getPaymentMethodsApi =  async () => {
 
 
 
-export const initializePaymentPaystack =  async (data: Record<string, any>) => {
+export const initializePayment =  async (data: Record<string, any>) => {
      const request = useAxios();
-    const response = await request.post(`${apiRoutes.payment}/paystack/initialize`, data )
+    const response = await request.post(`${apiRoutes.payment}/initialize`, data )
     return response.data;
 }
 
@@ -190,6 +197,43 @@ export const getWalletTransactionsApi =  async () => {
     const response = await request.get(`${apiRoutes.wallet}/transactions`)
     return response.data.data;
 }
+export const verifyPaymentApi =  async (reference: string) => {
+     const request = useAxios();
+    const response = await request.get(`${apiRoutes.payment}/verify/${reference}`)
+    return response.data.data;
+}
+
+
+export const bookCharterApi =  async ({type, id, data, subType}: {type: string, id: string, data: Record<string,any>, subType?: string }) => {
+     const request = useAxios();
+     const url = subType ? `/charter/${type}/${subType}/${id}` : `/charter/${type}/${id}`
+    const response = await request.post(url, data)
+    return response.data.data;
+}
+
+
+export const getUserTripsApi =  async () => {
+     const request = useAxios();
+    const response = await request.get(apiRoutes.userTrips);
+    return response.data.data;
+}
+
+export const sendUpdatePhoneOtp =  async (data: Record<string, any>) => {
+     const request = useAxios();
+    const response = await request.post('/user/change-phone-otp', data);
+    return response.data.data;
+}
+export const sendUpdateEmailOtp =  async (data: Record<string, any>) => {
+     const request = useAxios();
+    const response = await request.post('/user/change-email-otp', data);
+    return response.data.data;
+}
+export const fundWalletApi =  async (data: Record<string, any>) => {
+     const request = useAxios();
+    const response = await request.post('/wallet/fund', data);
+    return response.data.data;
+}
+
 
 
 

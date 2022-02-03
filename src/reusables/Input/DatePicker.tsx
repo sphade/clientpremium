@@ -4,77 +4,106 @@ import { DateTimePicker, TimePicker } from "@mui/lab";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { TextField, TextFieldProps } from "@mui/material";
+import { DatePickerProps } from "./types";
+import { PrimaryInput } from "..";
 
 // eslint-disable-next-line
-export const DatePicker = (props: any & TextFieldProps): JSX.Element => {
+export const DatePicker = ({
+  formik,
+  name,
+  fullWidth,
+  type = "datetime-local",
+  ...rest
+}: DatePickerProps & TextFieldProps): JSX.Element => {
   const [value] = React.useState(new Date("2014-08-18T21:11:54"));
 
-  const handleChange = (newValue: string | null) => {
+  const onChange = (newValue: string | null) => {
     if (newValue) {
       // setValue(newValue);
     }
   };
-  // const inputProps = {
-  //     ...(icon &&
-  //         rest?.type !== 'password' && {
-  //             startAdornment: (
-  //                 <InputAdornment position="start">
-  //                     <SvgIcon color="primary">{icon}</SvgIcon>
-  //                 </InputAdornment>
-  //             ),
-  //         }),
 
-  //     notched: false,
-  //     ...rest?.InputProps,
-  // };
+  if (formik) {
+    return (
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <PrimaryInput
+          type={type}
+          formik={formik}
+          name={name}
+          placeholder="Pick date and time"
+          fullWidth={fullWidth}
+          {...rest}
+        />
+      </LocalizationProvider>
+    );
+  }
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DateTimePicker
         value={value}
-        {...props}
         ampmInClock
-        // timeIcon={<ClockIcon />}
-        onChange={handleChange}
+        onChange={onChange}
         InputAdornmentProps={{ position: "start" }}
-        renderInput={(params) => <TextField {...props} {...params} fullWidth />}
+        renderInput={(params) => <TextField {...rest} {...params} fullWidth />}
       />
     </LocalizationProvider>
   );
 };
 
-export const CustomTimePicker = (props: any): JSX.Element => {
+export const CustomTimePicker = ({
+  formik,
+  name,
+  fullWidth,
+  ...rest
+}: DatePickerProps & TextFieldProps): JSX.Element => {
   const [value] = React.useState(new Date("2014-08-18T21:11:54"));
 
-  const handleChange = (newValue: string | null) => {
-    if (newValue) {
-      // setValue(newValue);
-    }
+  const onChange = (newValue: string | null) => {
+    console.log(newValue);
   };
-  // const inputProps = {
-  //     ...(icon &&
-  //         rest?.type !== 'password' && {
-  //             startAdornment: (
-  //                 <InputAdornment position="start">
-  //                     <SvgIcon color="primary">{icon}</SvgIcon>
-  //                 </InputAdornment>
-  //             ),
-  //         }),
 
-  //     notched: false,
-  //     ...rest?.InputProps,
-  // };
+  if (formik) {
+    const { values, handleChange } = formik;
+
+    const changeTime = (newValue: string | null) => {
+      if (newValue) {
+        const value = new Date(newValue).getTime();
+        handleChange({ target: { name, value: value } });
+      }
+    };
+
+    return (
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <TimePicker
+          value={values[name]}
+          onChange={changeTime}
+          InputAdornmentProps={{ position: "start" }}
+          renderInput={(params) => (
+            <PrimaryInput
+              disabled
+              {...params}
+              formik={formik}
+              name={name}
+              placeholder="Pick date and time"
+              fullWidth={fullWidth}
+              {...rest}
+            />
+          )}
+        />
+      </LocalizationProvider>
+    );
+  }
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <TimePicker
         value={value}
-        {...props}
         ampmInClock
         // timeIcon={<ClockIcon />}
-        onChange={handleChange}
+        onChange={onChange}
         InputAdornmentProps={{ position: "start" }}
-        renderInput={(params) => <TextField {...props} {...params} fullWidth />}
+        renderInput={(params) => <TextField {...rest} {...params} fullWidth />}
       />
     </LocalizationProvider>
   );
