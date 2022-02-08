@@ -54,13 +54,14 @@ export const useBookingSummary = ({
     if (shareFlight) {
       let sharedData: Record<string, any> = {
         ...extraData,
-        tripType: tripType,
+        tripType: tripType === "round trip" ? "round-trip" : tripType,
         isShared: true,
         departureCity: typeof pickup !== "string" ? pickup?.name : pickup,
         destinationCity: destination,
         departureDate: departureDate,
         passengers: passenger,
         amount: data?.price,
+        provider: "wallet",
       };
 
       if (tripType === "round trip") {
@@ -69,8 +70,6 @@ export const useBookingSummary = ({
           returnDate: routerState?.returnDate,
         };
       }
-
-      console.log({ sharedData, routerState });
 
       try {
         const response = await bookCharterApi({
@@ -81,6 +80,7 @@ export const useBookingSummary = ({
         });
 
         succesSnackbar(response?.message || "Success");
+        history.push(`${APP_ROUTES.bookedPage}/?type=${type}`);
       } catch (error: any) {
         errorSnackbar(error?.response?.data?.error || "Error");
       }

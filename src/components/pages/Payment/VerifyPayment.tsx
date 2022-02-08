@@ -95,13 +95,13 @@ const VerifyPayment = () => {
 
       let subType = "";
 
-      const { isShared = false } = metadata;
+      console.log({ metadata });
       let data = {};
 
       if (type === "air") {
         data = {
           tripType: metadata?.tripType,
-          isShared: isShared,
+          isShared: false,
           departureCity: metadata?.pickup,
           destinationCity: metadata?.destination,
           passengers: Number(metadata?.passenger || 1),
@@ -165,10 +165,8 @@ const VerifyPayment = () => {
       if (charterBookings.includes(type)) {
         data = {
           ...data,
-          provider: isShared ? "wallet" : "paystack",
+          provider: "paystack",
         };
-
-        console.log({ data });
         bookCharter({
           type: metadata?.type,
           id: metadata?.vehicleId,

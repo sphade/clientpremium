@@ -7,9 +7,11 @@ import {
 
 const ShareFlights = ({
   goToPayment,
+  passengers = 1,
 }: {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   goToPayment: ({ extraData }: { extraData?: Record<string, any> }) => void;
+  passengers: string | number;
 }) => {
   const [currentCount, setCurrentCount] = useState(1);
   const getCount = (count: number) => {
@@ -20,8 +22,10 @@ const ShareFlights = ({
     <div className="booking-summary__booking-card !px-16">
       <div className="trip__passengers">
         <h3>How many seats are you willing to share?</h3>
-        <p>{currentCount} of 20 seats empty</p>
-        <CustomCounter getCount={getCount} />
+        <p>
+          {currentCount} of {passengers} seats empty
+        </p>
+        <CustomCounter maxCount={Number(passengers)} getCount={getCount} />
       </div>
       <CustomAlert
         header="Notice"

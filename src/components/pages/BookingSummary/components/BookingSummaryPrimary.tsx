@@ -40,6 +40,8 @@ const BookingSummaryPrimary = () => {
 
   const bookSummaryData = getExtraDatas();
 
+  const { passenger } = bookSummaryData;
+
   if (isLoading) {
     return <Preloader />;
   }
@@ -82,7 +84,7 @@ const BookingSummaryPrimary = () => {
         )}
 
         {shareFlight ? (
-          <ShareFlights goToPayment={goToPayment} />
+          <ShareFlights passengers={passenger} goToPayment={goToPayment} />
         ) : (
           <BookingSummaryCard data={bookSummaryData} />
         )}

@@ -10,6 +10,7 @@ const CustomCounter = ({
   formik,
   name = "passenger",
   getCount,
+  maxCount = 100000,
 }: {
   text?: string;
   outlined?: boolean;
@@ -17,10 +18,17 @@ const CustomCounter = ({
   formik?: ICustomFormikProps;
   name?: string;
   getCount?: (count: number) => void;
+  maxCount?: number;
 }) => {
   const [count, setCount] = useState(1);
 
-  const increment = () => setCount(count + 1);
+  const increment = () => {
+    if (count >= maxCount) {
+      return;
+    }
+
+    setCount(count + 1);
+  };
   const decrement = () => {
     if (count < 2) {
       return;
