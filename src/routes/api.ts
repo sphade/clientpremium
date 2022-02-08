@@ -69,7 +69,8 @@ export const apiRoutes = {
     getSingleCharter: '/products',
     payment: '/payment',
     wallet: '/wallet',
-    userTrips: '/user/trips'
+    userTrips: '/user/trips',
+    jetPooling: '/jet-pooling'
 }
 
 
@@ -235,7 +236,16 @@ export const fundWalletApi =  async (data: Record<string, any>) => {
 }
 
 
+export const getJetPoolingList =  async () => {
+    const response = await axios.get(apiRoutes.jetPooling)
+    return response.data.data;
+}
 
+export const bookJetPoolingApi =  async ({id, data}: {id: string, data: Record<string, any>}) => {
+     const request = useAxios();
+    const response = await request.post(`/airpooling/${id}`, data);
+    return response.data.data;
+}
 
 
 

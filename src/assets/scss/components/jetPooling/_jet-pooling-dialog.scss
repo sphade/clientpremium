@@ -43,20 +43,7 @@
             }
         }
 
-        &__passengers {
-            margin: 2rem 0;
-            background-color:  #F7F7F7;
-            padding: 3rem 3rem;
-            flex-direction: column;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-
-            .custom__counter {
-                transform: scale(1.4);
-                color: $primary-orange
-            }
-        }
+      
 
         &__pricing {
             display: flex;
@@ -91,4 +78,24 @@
             }
         }
    }
+}
+
+
+
+.trip {
+
+    &__passengers {
+              margin: 2rem 0;
+              background-color:  #F7F7F7;
+              padding: 3rem 3rem;
+              flex-direction: column;
+              display: flex;
+              align-items: center;
+              gap: 1rem;
+    
+              .custom__counter {
+                  transform: scale(1.4);
+                  color: $primary-orange
+              }
+          }
 }

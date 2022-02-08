@@ -9,12 +9,14 @@ const CustomCounter = ({
   mb = false,
   formik,
   name = "passenger",
+  getCount,
 }: {
   text?: string;
   outlined?: boolean;
   mb?: boolean;
   formik?: ICustomFormikProps;
   name?: string;
+  getCount?: (count: number) => void;
 }) => {
   const [count, setCount] = useState(1);
 
@@ -31,6 +33,10 @@ const CustomCounter = ({
       const { setFieldValue } = formik;
 
       setFieldValue(name, count);
+    }
+
+    if (getCount) {
+      getCount(count);
     }
   }, [count]);
 

@@ -1,11 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   DatePicker,
   OutlineButton,
   PrimaryButton,
   PrimaryInput,
 } from "../../../reusables";
-import JetpoolingCard from "../JetPooling/components/JetpoolingCard";
+import { APP_ROUTES } from "../../../routes/path";
+import HomeJetPoolingContainer from "./Widgets/HomeJetPoolingContainer";
 
 const HomeJetPooling = () => {
   return (
@@ -34,13 +36,13 @@ const HomeJetPooling = () => {
             <OutlineButton label="Reset Filter" classes="!flex-none" small />
           </div>
         </div>
-        <div className="jet-pooling__cards lg:justify-between !mt-10 flex-wrap lg:flex-nowrap justify-center">
-          {[1, 2, 3, 4].map((item) => (
-            <JetpoolingCard key={item} />
-          ))}
+        <div className="jet-pooling__cards  !mt-10 flex-wrap lg:flex-nowrap !justify-center">
+          <HomeJetPoolingContainer />
         </div>
         <div className="flex justify-center mt-20">
-          <PrimaryButton label="All jet pools" className="flex-none" />
+          <Link to={APP_ROUTES.jetPooling}>
+            <PrimaryButton label="All jet pools" className="flex-none" />
+          </Link>
         </div>
       </div>
     </div>

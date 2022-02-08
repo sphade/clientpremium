@@ -1,47 +1,66 @@
-import React from 'react'
-import { PrimarySelect } from '../../../../reusables'
-import { ReactComponent as NavigatorIcon } from '../../../../assets/svgs/navigator.svg'
-import { ReactComponent as ArrowRight } from '../../../../assets/svgs/arrow-circle-right.svg'
-
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useState } from "react";
+import { PrimarySelect } from "../../../../reusables";
+import { getAllTripFilters } from "../../../../utils";
+import EmptyTripHistory from "./EmptyTripHistory";
+import TripHistoryCard from "./TripHistoryCard";
 
 export const tripType = [
-    {
-        name: 'All', value: 'All'
-    },
-    {
-        name: 'Land', value: 'Land'
-    },
-    {
-        name: 'Sea', value: 'Sea'
-    },
-    {
-        name: 'Air', value: 'Air'
-    },
-]
-const PendingTrips = () => {
-    return (
-        <div className="pending__container">
-             <PrimarySelect
-                        fullWidth={false}
-                         name="tripType"
-                         options={tripType}
-                    />
-        { [1,2,3,4].map((index) => ((
-                <div className="pending__trips"  key={index}>
-                    <NavigatorIcon className="navigator" />
-                    <div className="pending__trips--content">
-                        <h3>Murtala Muhammed Airport (Lagos)</h3>
-                        <p>25 Dec 2021   04:00pm</p>
-                        <p>N 600,000</p>
-                    </div>
-                    <ArrowRight className="arrow-right" />
-                    </div>
-                
-            )))}
-            </div>
-    )
-}
+  {
+    name: "All",
+    value: "All",
+  },
+  {
+    name: "Land",
+    value: "Land",
+  },
+  {
+    name: "Sea",
+    value: "Sea",
+  },
+  {
+    name: "Air",
+    value: "Air",
+  },
+];
 
-export default PendingTrips
+const PendingTrips = ({ trips }: { trips: Record<string, any> }) => {
+  const { allPendingTrips, allPendingSegmented } = getAllTripFilters({
+    data: trips,
+  });
 
+  const [allTrips, setAllTrips] = useState(allPendingTrips);
+
+  const handleChangeCurrentTrip = (e: any) => {
+    const value: string = (e.target.value || "").toLowerCase();
+    let selectedTrips = allPendingTrips;
+    if (value !== "all") {
+      selectedTrips = allPendingSegmented[value] || [];
+    }
+    setAllTrips(selectedTrips);
+  };
+
+  return (
+    <div className="pending__container">
+      <PrimarySelect
+        makeEmpty={false}
+        onChange={handleChangeCurrentTrip}
+        fullWidth={false}
+        name="tripType"
+        label="Trip type"
+        options={tripType}
+      />
+      {allTrips.length ? (
+        <>
+          {allTrips.map((trip: any, index: number) => (
+            <TripHistoryCard key={index} trip={trip} />
+          ))}
+        </>
+      ) : (
+        <EmptyTripHistory />
+      )}
+    </div>
+  );
+};
+
+export default PendingTrips;

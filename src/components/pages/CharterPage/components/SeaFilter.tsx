@@ -16,6 +16,7 @@ const SeaFilter = ({
   handleFilters,
 }: {
   formik: ICustomFormikProps;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   handleFilters: (filter: any) => void;
 }) => {
   const { charterType } = useCheckCharterType();

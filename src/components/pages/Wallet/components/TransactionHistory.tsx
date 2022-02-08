@@ -2,41 +2,42 @@ import clsx from "clsx";
 import React from "react";
 import { useQuery } from "react-query";
 import { getWalletTransactionsApi } from "../../../../routes/api";
-import { convertToTitleCase } from "../../../../utils";
+import {
+  convertToTitleCase,
+  formatNumberToCurrency,
+  getFullDate,
+} from "../../../../utils";
 import { transaction_history_mock_data, TRANSACTION_TYPE } from "../constants";
 import EmptyTransaction from "./EmptyTransaction";
 
 const TransactionHistory = ({ showAll }: { showAll?: boolean }) => {
-  const { data: allTransactions = { transactions: [] } } = useQuery(
-    `wallet_transactions`,
-    async () => {
-      const data = await getWalletTransactionsApi();
-      return data;
-    }
-  );
+  const { data } = useQuery(`wallet_transactionsafaf`, async () => {
+    const data = await getWalletTransactionsApi();
+    return data;
+  });
 
-  const { transactions } = allTransactions;
-
-  if (!transactions.length) {
+  const allTransactions = data?.data || [];
+  if (!allTransactions.length) {
     return <EmptyTransaction />;
   }
 
   return (
     <div className="transaction">
-      {transactions
+      {allTransactions
         .slice(0, showAll ? transaction_history_mock_data.length : 5)
         .map(
           (
             {
               purpose,
-              reference,
               txnType,
-              amount,
+              amount = "0",
+              createdAt = "",
             }: {
               purpose?: string;
               reference?: string;
               txnType?: string;
-              amount?: string;
+              amount?: string | number;
+              createdAt?: string;
             },
             index: number
           ) => (
@@ -46,7 +47,7 @@ const TransactionHistory = ({ showAll }: { showAll?: boolean }) => {
             >
               <div className="transaction__history--left">
                 <p>{convertToTitleCase(purpose || "")}</p>
-                <h5>{reference}</h5>
+                <h5>{getFullDate(createdAt)}</h5>
               </div>
               <div
                 className={clsx(
@@ -60,7 +61,7 @@ const TransactionHistory = ({ showAll }: { showAll?: boolean }) => {
                   {txnType?.toUpperCase() === TRANSACTION_TYPE.CREDIT
                     ? "+"
                     : "-"}
-                  N{amount}
+                  {formatNumberToCurrency({ number: amount })}
                 </h3>
               </div>
             </div>

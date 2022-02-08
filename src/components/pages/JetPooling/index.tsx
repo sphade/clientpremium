@@ -8,7 +8,8 @@ const JetPooling = () => {
   return (
     <div className="home jet-pooling">
       <Banner
-        images={[JetPoolingBanner2, JetPoolingBanner2]}
+        images={[JetPoolingBanner2]}
+        canSwitch={false}
         headers={["JET POOLING"]}
         subtitle="Joing people going your direction and enjoy premium services at lower cost."
         hasButton={false}

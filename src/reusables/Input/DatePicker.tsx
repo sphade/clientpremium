@@ -1,11 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
-import { DateTimePicker, TimePicker } from "@mui/lab";
+import {
+  DateTimePicker,
+  MobileDatePicker,
+  MobileDateTimePicker,
+  MobileTimePicker,
+  TimePicker,
+} from "@mui/lab";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import { TextField, TextFieldProps } from "@mui/material";
+import { InputAdornment, TextField, TextFieldProps } from "@mui/material";
 import { DatePickerProps } from "./types";
 import { PrimaryInput } from "..";
+import { ReactComponent as CalendarIcon } from "./../../assets/svgs/calendar.svg";
+import { ReactComponent as ClockIcon } from "./../../assets/svgs/clock-input.svg";
 
 // eslint-disable-next-line
 export const DatePicker = ({
@@ -23,17 +31,64 @@ export const DatePicker = ({
     }
   };
 
+  const InputProps = {
+    startAdornment: (
+      <InputAdornment position="start">
+        <CalendarIcon />
+      </InputAdornment>
+    ),
+  };
+
   if (formik) {
+    const { values, handleChange } = formik;
+
+    const changeDate = (newValue: string | null) => {
+      if (newValue) {
+        const value = new Date(newValue).toUTCString();
+        handleChange({ target: { name, value: value } });
+      }
+    };
+
+    const picker =
+      type === "date" ? (
+        <MobileDatePicker
+          InputProps={InputProps}
+          value={values[name]}
+          onChange={changeDate}
+          renderInput={(params) => (
+            <PrimaryInput
+              {...params}
+              formik={formik}
+              name={name}
+              type="navigator"
+              placeholder="Pick date and time"
+              fullWidth={fullWidth}
+              {...rest}
+            />
+          )}
+        />
+      ) : (
+        <MobileDateTimePicker
+          InputProps={InputProps}
+          value={values[name]}
+          onChange={changeDate}
+          renderInput={(params) => (
+            <PrimaryInput
+              {...params}
+              formik={formik}
+              name={name}
+              type="navigator"
+              placeholder="Pick date and time"
+              fullWidth={fullWidth}
+              {...rest}
+            />
+          )}
+        />
+      );
+
     return (
       <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <PrimaryInput
-          type={type}
-          formik={formik}
-          name={name}
-          placeholder="Pick date and time"
-          fullWidth={fullWidth}
-          {...rest}
-        />
+        {picker}
       </LocalizationProvider>
     );
   }
@@ -75,16 +130,23 @@ export const CustomTimePicker = ({
 
     return (
       <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <TimePicker
+        <MobileTimePicker
           value={values[name]}
           onChange={changeTime}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <ClockIcon />
+              </InputAdornment>
+            ),
+          }}
           InputAdornmentProps={{ position: "start" }}
           renderInput={(params) => (
             <PrimaryInput
-              disabled
               {...params}
               formik={formik}
               name={name}
+              type="navigator"
               placeholder="Pick date and time"
               fullWidth={fullWidth}
               {...rest}

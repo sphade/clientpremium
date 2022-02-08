@@ -11,6 +11,7 @@ import SeaFilter from "./components/SeaFilter";
 const TopFilter = ({
   handleFilters,
 }: {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   handleFilters: (filter: any) => void;
 }) => {
   const { charterType, isAir, isLand, isSea } = useCheckCharterType();

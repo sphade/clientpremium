@@ -14,6 +14,26 @@
             height: 67rem;
             position: absolute;
             overflow: hidden;
+
+           
+            &.switch {
+                img {
+
+                    -webkit-animation: fadeOut 15s infinite;
+                     animation: fadeOut 15s infinite;
+                  
+                    &:nth-child(1) {
+                     animation-delay: -1s;
+                    }
+                    &:nth-child(2) {
+                     animation-delay: 4s;
+                    }
+                    &:nth-child(3) {
+                     animation-delay: 8s;
+                    }
+                }
+        
+         }
            img {
 
                height: 100%;
@@ -23,19 +43,8 @@
                top: 0;
                left: 0;
             
-            -webkit-animation: fadeOut 15s infinite;
-             animation: fadeOut 15s infinite;
+               
 
-               &:nth-child(1) {
-                animation-delay: -1s;
-               }
-               &:nth-child(2) {
-                animation-delay: 4s;
-               }
-               &:nth-child(3) {
-                animation-delay: 8s;
-               }
-        
             }
 
             

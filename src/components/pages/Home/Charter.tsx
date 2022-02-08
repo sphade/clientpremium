@@ -33,7 +33,10 @@ const Charter = () => {
       duration: 1,
     },
     onSubmit: async (values) => {
-      history.push(APP_ROUTES.charter(currentCharter), values);
+      history.push(APP_ROUTES.charter(currentCharter), {
+        ...values,
+        charterType: currentCharter,
+      });
     },
     validationSchema: charterValidation({ type: currentCharter as TCharter }),
   });

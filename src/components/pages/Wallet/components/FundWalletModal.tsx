@@ -21,7 +21,7 @@ const FundWalletModal = ({
     onSuccess: async (data) => {
       // await addToStore("charter_details", data.data);
 
-      const url = data.data.link;
+      const url = data.data.authorization_url;
 
       const newWindow = window.open(url, "_self", "");
 
@@ -46,8 +46,8 @@ const FundWalletModal = ({
     initialValues: {
       amount: "",
     },
-    onSubmit: async () => {
-      const newPrice = Number(3000);
+    onSubmit: async (values) => {
+      const newPrice = Number(values?.amount);
 
       const metadata = {
         type: "wallet",
@@ -56,7 +56,7 @@ const FundWalletModal = ({
       };
 
       mutate({
-        amount: newPrice,
+        amount: newPrice * 100,
         metadata,
       });
     },

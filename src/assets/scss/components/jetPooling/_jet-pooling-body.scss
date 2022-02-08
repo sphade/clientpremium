@@ -117,9 +117,11 @@
     
     &__cards {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 290px) ) ;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr) ) ;
         gap: 2rem;
         margin-top: 2rem;
+        justify-items: center;
+        
  
     .jet-pooling__card {
         background-color: white;

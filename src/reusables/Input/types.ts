@@ -33,6 +33,7 @@ export interface PrimarySelectProps {
   name: string;
   fullWidth?: boolean;
   icon?: string | JSX.Element;
+  makeEmpty?: boolean,
 }
 
 export interface DatePickerProps {

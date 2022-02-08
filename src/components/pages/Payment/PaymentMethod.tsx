@@ -7,7 +7,7 @@ import {
   RadioGroup,
 } from "@mui/material";
 // import { Link } from "react-router-dom";
-import { capitalize } from "lodash";
+import { omit, capitalize } from "lodash";
 
 import { Preloader, PrimaryButton } from "../../../reusables";
 // import { APP_ROUTES } from "../../../routes/path";
@@ -21,15 +21,18 @@ import { PaymentMethodsEnum } from "./types";
 import { useHistory } from "react-router-dom";
 import { APP_ROUTES } from "../../../routes/path";
 import { useRouterState } from "../../../hooks";
+import { PAYMENT_ENUM } from "../../../utils/constants";
 // import { useAppStorage } from "../../../hooks";
 
-const { PAYSTACK, FLUTTER_WAVE } = PaymentMethodsEnum;
+const { PAYSTACK } = PaymentMethodsEnum;
 
 const PaymentMethod = () => {
   const history = useHistory();
   const [paymentMethod, setPaymentMethod] = useState(PAYSTACK);
 
   const [routerState] = useRouterState();
+
+  console.log({ routerState });
 
   const { succesSnackbar, errorSnackbar } = useCustomSnackbar();
 
@@ -39,7 +42,7 @@ const PaymentMethod = () => {
     onSuccess: async (data) => {
       // await addToStore("charter_details", data.data);
 
-      const url = data.data.link;
+      const url = data.data.authorization_url;
 
       const newWindow = window.open(url, "_self", "");
 
@@ -65,26 +68,38 @@ const PaymentMethod = () => {
       departureDate = "",
       id = "",
       type = "",
-      // price = "",
+      price = "",
       terminalId = "",
       destinationTerminalId = "",
+      passengers = "",
     } = routerState;
-    if (paymentMethod === FLUTTER_WAVE) {
-      const newPrice = Number(3000);
+    if (paymentMethod === PAYSTACK) {
+      const newPrice = Number(price);
 
-      const metadata = {
-        ...routerState,
-        destination: "Ikeja, Lagos",
-        pickupLocation: pickup,
-        pickupDate: departureDate,
-        vehicleId: id,
-        amount: newPrice,
-        ...(terminalId && { terminalId }),
-        ...(destinationTerminalId && { destinationTerminalId }),
-      };
+      let metadata = {};
+
+      if (type === PAYMENT_ENUM.JET_POOLING) {
+        metadata = {
+          id,
+          price,
+          passengers,
+          type: PAYMENT_ENUM.JET_POOLING,
+        };
+      } else {
+        metadata = {
+          ...omit(routerState, ["passengers"]),
+          destination: "Ikeja, Lagos",
+          pickupLocation: pickup,
+          pickupDate: departureDate,
+          vehicleId: id,
+          amount: newPrice,
+          ...(terminalId && { terminalId }),
+          ...(destinationTerminalId && { destinationTerminalId }),
+        };
+      }
 
       mutate({
-        amount: newPrice,
+        amount: newPrice * 100,
         metadata,
       });
     } else {

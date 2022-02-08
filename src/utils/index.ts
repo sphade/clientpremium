@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { lowerCase, startCase } from "lodash";
 import { useLocation } from "react-router-dom"
+import { MONTHS } from "./constants";
 
 
 export const useGetParams =() => {
@@ -101,3 +102,55 @@ export const getUrlQueryEntries = (
 
 /** Convert string to title case */
 export const convertToTitleCase = (string: string) => startCase(lowerCase(string));
+
+
+export const getFullDate = (date: number | string = 0) => {
+
+	const dateObj = new Date(date);	
+	const monthNumber = dateObj.getUTCMonth() + 1; //months from 1-12
+	const day = dateObj.getUTCDate();
+	const year = dateObj.getUTCFullYear();
+
+		return `${day}, ${MONTHS[monthNumber]} ${year}`;
+}
+
+
+
+export const getAllTripFilters = ({data}: {data: Record<string, any>}) => {
+
+    const segmentedTrips: Record<string, any> = {
+      land: data?.land,
+      sea: [...(data?.sea?.boatCruises || []), ...(data?.sea?.boatTrips || [])],
+      air: [...(data?.air?.charters || [])],
+    };
+
+    const allTrips = Object.values(segmentedTrips).reduce((acc, curr) => {
+      return [...acc, ...curr];
+    }, []);
+
+    const allPendingTrips = allTrips.filter((trip: Record<string, any>) => trip?.status === 'pending')
+
+    const allCompletedTrips = allTrips.filter((trip: Record<string, any>) => trip?.status !== 'pending')
+
+	const allPendingSegmented = Object.keys(segmentedTrips).reduce((acc: Record<string, any>, curr) => {
+
+		const values = segmentedTrips[curr].filter((trip: Record<string, any>) => trip?.status === 'pending')
+		
+		acc[curr] = acc[curr] ? [...acc[curr], ...values] : [...values]
+
+		return acc;
+	}, {})
+
+
+	const allCompletedSegmented = Object.keys(segmentedTrips).reduce((acc: Record<string, any>, curr) => {
+
+		const values = segmentedTrips[curr].filter((trip: Record<string, any>) => trip?.status !== 'pending')
+		
+		acc[curr] = acc[curr] ? [...acc[curr], ...values] : [...values]
+
+		return acc;
+	}, {})
+
+
+	return { allPendingTrips, allCompletedTrips, segmentedTrips, allCompletedSegmented, allPendingSegmented }
+}

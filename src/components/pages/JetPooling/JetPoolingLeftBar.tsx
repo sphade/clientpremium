@@ -41,7 +41,9 @@ const JetPoolingLeftBar = () => {
             label="Going to"
             icon={<LocationIcon />}
           />
-          <DatePicker name="departure" label="Departing" />
+          <div className="mb-12">
+            <DatePicker name="departure" label="Departing" />
+          </div>
 
           <CustomCounter outlined mb />
           <PrimaryButton label="Subscribe" color={"black"} fullWidth={true} />

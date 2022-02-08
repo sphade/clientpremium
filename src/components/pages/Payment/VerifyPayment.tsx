@@ -7,23 +7,27 @@ import useCustomSnackbar from "../../../hooks/useSnackbar";
 import { Preloader } from "../../../reusables";
 import {
   bookCharterApi,
+  bookJetPoolingApi,
   fundWalletApi,
   verifyPaymentApi,
 } from "../../../routes/api";
 import { APP_ROUTES } from "../../../routes/path";
 import { getUrlQueryEntries } from "../../../utils";
+import { PAYMENT_ENUM } from "../../../utils/constants";
+
+const { JET_POOLING } = PAYMENT_ENUM;
 
 const VerifyPayment = () => {
   console.log("verify payments");
   const history = useHistory();
 
   const { succesSnackbar, errorSnackbar } = useCustomSnackbar();
-  const { transaction_id = "" } = getUrlQueryEntries();
+  const { reference = "" } = getUrlQueryEntries();
 
   const { isLoading: verifyLoading, data: verifyData } = useQuery(
-    transaction_id,
+    reference,
     async () => {
-      const data = await verifyPaymentApi(transaction_id);
+      const data = await verifyPaymentApi(reference);
       return data;
     }
   );
@@ -44,7 +48,7 @@ const VerifyPayment = () => {
 
       succesSnackbar(response?.message || "Success");
 
-      history.push(APP_ROUTES.bookedPage);
+      history.push(`${APP_ROUTES.bookedPage}/?type=${type}`);
     } catch (error: any) {
       errorSnackbar(error?.response?.data?.error || "Error");
     }
@@ -61,25 +65,67 @@ const VerifyPayment = () => {
       errorSnackbar(error?.response?.data?.error || "Error");
     }
   };
+  const bookJetPooling = async ({
+    id,
+    data,
+  }: {
+    id: string;
+    data: Record<string, any>;
+  }) => {
+    try {
+      const response = await bookJetPoolingApi({ id, data });
+
+      succesSnackbar(response?.message || "Success");
+
+      history.push(APP_ROUTES.bookedPage);
+    } catch (error: any) {
+      errorSnackbar(error?.response?.data?.error || "Error");
+    }
+  };
 
   useEffect(() => {
     if (verifyData && verifyData?.isPaymentSuccessful) {
       const { metadata = {} } = verifyData;
 
-      const charterBookings = ["land", "sea"];
+      const charterBookings = ["land", "sea", "air"];
       const walletFunding = ["wallet"];
+      const jetPooling = [JET_POOLING];
 
       const { type = "", tripType = "" } = metadata;
+
       let subType = "";
+
+      console.log({ metadata });
       let data = {};
-      if (type === "land") {
+
+      if (type === "air") {
+        data = {
+          tripType: metadata?.tripType,
+          isShared: false,
+          departureCity: metadata?.pickup,
+          destinationCity: metadata?.destination,
+          passengers: Number(metadata?.passenger || 1),
+          amount: Number(metadata.amount || 0),
+          departureDate: metadata?.departureDate,
+          reference: reference,
+        };
+        subType = "one-way";
+        if (tripType === "round trip") {
+          data = {
+            ...data,
+            tripType: "round-trip",
+            returnDate: metadata?.returnDate,
+          };
+          subType = "round-trip";
+        }
+      } else if (type === "land") {
         data = {
           ...pick(metadata, ["destination"]),
           pickupLocation: metadata?.pickup || "",
           pickupDate: metadata?.departureDate || "",
           amount: Number(metadata.amount || 0),
           duration: Number(metadata.duration || 1),
-          reference: transaction_id,
+          reference: reference,
         };
       } else if (type === "sea") {
         if (tripType === "boat cruise") {
@@ -88,7 +134,7 @@ const VerifyPayment = () => {
             departureDate: metadata?.departureDate || "",
             duration: Number(metadata.duration || 1),
             amount: Number(metadata.amount || 0),
-            reference: transaction_id,
+            reference: reference,
             pickupTerminalId: metadata?.terminalId || "",
           };
           subType = "cruise";
@@ -97,7 +143,7 @@ const VerifyPayment = () => {
             passengers: Number(metadata?.passenger || 1),
             departureDate: metadata?.departureDate || "",
             amount: Number(metadata.amount || 0),
-            reference: transaction_id,
+            reference: reference,
             pickupTerminalId: metadata?.terminalId || "",
             destinationTerminalId: metadata?.destinationTerminalId || "",
           };
@@ -106,13 +152,21 @@ const VerifyPayment = () => {
       } else if (type === "wallet") {
         data = {
           amount: Number(metadata.amount || 0),
-          reference: transaction_id,
+          reference: reference,
+        };
+      } else if (type === JET_POOLING) {
+        data = {
+          passengers: metadata?.passengers,
         };
       }
 
       if (isEmpty(data)) return;
 
       if (charterBookings.includes(type)) {
+        data = {
+          ...data,
+          provider: "paystack",
+        };
         bookCharter({
           type: metadata?.type,
           id: metadata?.vehicleId,
@@ -121,6 +175,8 @@ const VerifyPayment = () => {
         });
       } else if (walletFunding.includes(type)) {
         fundWallet({ data });
+      } else if (jetPooling.includes(type)) {
+        bookJetPooling({ id: metadata?.id, data });
       }
     }
   }, [verifyData]);

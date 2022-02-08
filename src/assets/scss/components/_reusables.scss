@@ -1,0 +1,11 @@
+.empty__state {
+  display: flex;
+  margin-top: 5rem;
+  flex-direction: column;
+  gap: 3rem;
+  align-items: center;
+
+  svg {
+    max-width: 40rem;
+  }
+}

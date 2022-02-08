@@ -21,7 +21,7 @@ export const APP_ROUTES = {
     charterDetailPage: (type: string, id: string) => `/charter/${type}/${id}`,
     charterSummary: '/charter-summary',
     paymentMethod: '/payment-method',
-    getPaymentMethod: ({type, id, price}: { type: string, id: string, price: string | number}) => `/payment-method/?type=${type}&id=${id}&price=${price}`,
+    getPaymentMethod:  `/payment-method`,
     bookedPage: '/booked-success',
     getBookedPage: ({type, id}: { type: string, id: string}) => `/booked-success/?type=${type}&id=${id}`,
     pickUpSummary: '/pickup-summary',

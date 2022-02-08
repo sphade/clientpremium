@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React from "react";
 import { useQuery } from "react-query";
 import { PrimarySelect } from "..";
 import useGlobalStoreProvider from "../../context";

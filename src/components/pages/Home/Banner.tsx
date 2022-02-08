@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import clsx from "clsx";
 import { ArrowButton, PrimaryButton, ScrollButton } from "../../../reusables";
 import PlaneBanner from "../../../assets/images/hero.jpg";
 import SeaBanner from "../../../assets/images/sea-banner.jpg";
@@ -10,6 +11,7 @@ type BannerType = {
   subtitle?: string;
   hasButton?: boolean;
   scrollId?: string;
+  canSwitch?: boolean;
 };
 
 const Banner = ({
@@ -18,10 +20,11 @@ const Banner = ({
   subtitle = "Enjoy the comfort and pleasure of executive VVIP service, 24/7 travel support.",
   hasButton = true,
   scrollId = "find-charter",
+  canSwitch = true,
 }: BannerType): JSX.Element => {
   return (
     <div className="banner__image">
-      <div className="banner__image--container">
+      <div className={clsx("banner__image--container", canSwitch && "switch")}>
         {images.map((image, id) => (
           <Fragment key={id}>
             <img className={`image-${id}`} src={image} />

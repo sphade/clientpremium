@@ -9,6 +9,7 @@ import { PREMIUM_CHARTER_DATA } from "../Home/constants";
 import { useDialogHook } from "../../../hooks";
 import JetPoolingDialog from "./JetPoolingDialog";
 import JetpoolingCard from "./components/JetpoolingCard";
+import HomeJetPoolingContainer from "../Home/Widgets/HomeJetPoolingContainer";
 
 const AvailableJetPools = () => {
   const [filter, setFilter] = useState("air");
@@ -20,8 +21,6 @@ const AvailableJetPools = () => {
   const onChange = (value: string) => {
     setFilter(value.toLowerCase());
   };
-
-  const { open, toggleDialog } = useDialogHook();
 
   return (
     <article className="jet-pooling__middleBar" id="jet-pool-content">
@@ -49,9 +48,7 @@ const AvailableJetPools = () => {
       </div>
       <h3 className="title">Available Jet Pools</h3>
       <div className="jet-pooling__cards">
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
-          <JetpoolingCard key={item} toggleDialog={toggleDialog} />
-        ))}
+        <HomeJetPoolingContainer />
       </div>
       <div className="private-jets__footer">
         <p className="private-jets__footer--sumary">Showing 4 from 12 Jets</p>
@@ -72,8 +69,6 @@ const AvailableJetPools = () => {
           </button>
         </div>
       </div>
-
-      <JetPoolingDialog open={open} handleClose={toggleDialog} />
     </article>
   );
 };

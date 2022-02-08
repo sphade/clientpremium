@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useRef } from "react";
 import { Loader } from "@googlemaps/js-api-loader";
 import { PrimaryInput } from ".";
@@ -15,7 +16,7 @@ const CustomGoogleAddress = (props: PrimaryInputProps & TextFieldProps) => {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onChangeAddress = (autocomplete: any) => {
-    const location = autocomplete.getPlace();
+    // const location = autocomplete.getPlace();
   };
 
   const initAutoComplete = () => {

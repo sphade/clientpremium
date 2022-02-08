@@ -152,6 +152,7 @@ export const PrimarySelect = ({
   fullWidth = true,
   className = "",
   handleSelectChange,
+  makeEmpty = true,
   ...rest
 }: PrimarySelectProps & TextFieldProps) => {
   const inputProps = {
@@ -187,9 +188,11 @@ export const PrimarySelect = ({
         InputProps={inputProps}
         fullWidth={fullWidth}
       >
-        <MenuItem value="">
-          <em>{placeholder || "Select"}</em>
-        </MenuItem>
+        {makeEmpty && (
+          <MenuItem value="" disabled>
+            <em>{placeholder || "Select"}</em>
+          </MenuItem>
+        )}
         {options.map(({ value, name }, index) => (
           <MenuItem key={index} value={value}>
             {capitalize(name)}
@@ -209,9 +212,11 @@ export const PrimarySelect = ({
       InputProps={inputProps}
       fullWidth={fullWidth}
     >
-      <MenuItem value="">
-        <em>{placeholder || "Select"}</em>
-      </MenuItem>
+      {makeEmpty && (
+        <MenuItem value="" disabled>
+          <em>{placeholder || "Select"}</em>
+        </MenuItem>
+      )}
       {options.map(({ value, name }, index) => (
         <MenuItem key={index} value={value}>
           {capitalize(name)}

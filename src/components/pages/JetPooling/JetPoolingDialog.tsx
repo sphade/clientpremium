@@ -1,18 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import Slider from "react-slick";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { Divider } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-
-import PlaneImage4 from "./../../../assets/images/plane-4.png";
-import PlaneImage2 from "./../../../assets/images/plane-2.png";
-import PlaneImage3 from "./../../../assets/images/plane-3.png";
 
 import { CustomAlert, CustomCounter, PrimaryButton } from "../../../reusables";
 import BaseModal from "../../../reusables/BaseModal";
 import { ReactComponent as AirPlaneIcon } from "../../../assets/svgs/air-plane-icon.svg";
 import { APP_ROUTES } from "../../../routes/path";
 import { singleSettings } from "../CharterPage/components/CharterCard";
+import { formatNumberToCurrency } from "../../../utils";
+import { PAYMENT_ENUM } from "../../../utils/constants";
 
 const useDialogStyles = makeStyles({
   paper: {
@@ -23,11 +21,44 @@ const useDialogStyles = makeStyles({
 const JetPoolingDialog = ({
   open,
   handleClose,
+  data = {},
 }: {
   open: boolean;
   handleClose: () => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  data?: Record<string, any>;
 }) => {
   const dialogClasses = useDialogStyles();
+
+  const [currentCount, setCurrentCount] = useState(1);
+
+  const history = useHistory();
+
+  const getCount = (count: number) => {
+    setCurrentCount(count);
+  };
+
+  //Destructure from props
+  const {
+    id,
+    availableFrom = "",
+    mappedImages = "",
+    departureCity = "",
+    destinationCity = "",
+    currentPrice = 0,
+    startingPrice = 0,
+    availableSeats = "",
+  } = data;
+
+  const handleCharterJetpooling = () => {
+    history.push(APP_ROUTES.getPaymentMethod, {
+      id,
+      passengers: currentCount,
+      price: currentPrice * currentCount,
+      type: PAYMENT_ENUM.JET_POOLING,
+    });
+  };
+
   return (
     <BaseModal
       classes={dialogClasses}
@@ -38,37 +69,39 @@ const JetPoolingDialog = ({
       <div className="trip__dialog">
         <div className="trip__dialog--image">
           <Slider {...singleSettings}>
-            <img src={PlaneImage3} alt="plane" />
-            <img src={PlaneImage4} alt="plane" />
-            <img src={PlaneImage2} alt="plane" />
+            {mappedImages.map((image: string) => (
+              <img key={image} src={image} alt="plane" />
+            ))}
           </Slider>
-          <Link to={APP_ROUTES.charterDetailPage("air", "2")}>
+          {/* <Link to={APP_ROUTES.charterDetailPage("air", "2")}>
             <PrimaryButton small classes="image-button" label="jet details" />
-          </Link>
+          </Link> */}
         </div>
         <div className="trip__details">
           <div>
             <p>Departure </p>
-            <h3>25 Nov 2021</h3>
+            <h3>{availableFrom}</h3>
           </div>
           <div className="trip__details--flight">
             <div>
               <p>09:30</p>
-              <h3>Abuja (Nigeria)</h3>
+              <h3>{departureCity} (Nigeria)</h3>
               <p>Nnamdi Azikiwe Int...</p>
             </div>
             <AirPlaneIcon />
             <div>
               <p>09:30</p>
-              <h3>Abuja (Nigeria)</h3>
+              <h3>{destinationCity} (Nigeria)</h3>
               <p>Nnamdi Azikiwe Int...</p>
             </div>
           </div>
         </div>
         <div className="trip__passengers">
           <h3>Select number of passengers</h3>
-          <p>5 of 12 seats left</p>
-          <CustomCounter />
+          <p>
+            {currentCount} of {availableSeats} seats left
+          </p>
+          <CustomCounter getCount={getCount} />
         </div>
         <CustomAlert
           header="Notice"
@@ -80,16 +113,16 @@ const JetPoolingDialog = ({
         <div className="trip__pricing">
           <div>
             <p>Starting price per seat:</p>
-            <p>N 850,000</p>
+            <p>{formatNumberToCurrency({ number: startingPrice })}</p>
           </div>
           <Divider />
           <div>
             <p>Current price per seat:</p>
-            <h3>N600,000</h3>
+            <h3>{formatNumberToCurrency({ number: currentPrice })}</h3>
           </div>
-          <Link to={APP_ROUTES.bookingSummaryPrimary + `?type=air`}>
+          <div onClick={handleCharterJetpooling}>
             <PrimaryButton label="Join flight" />
-          </Link>
+          </div>
         </div>
       </div>
     </BaseModal>
