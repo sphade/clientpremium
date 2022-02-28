@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
+  CharterTerminalDropdown,
   CharterTypeDropdown,
   CustomCounter,
-  CustomGoogleAddress,
   DatePicker,
   TripTypeDropdown,
 } from "../../../../reusables";
@@ -19,29 +19,28 @@ const AirCharterFilter = ({
   formik,
 }: {
   type: string;
-  formik?: ICustomFormikProps;
+  formik: ICustomFormikProps;
 }) => {
-  const [selectedTripType, setSelectedTripType] = useState("");
   const [formNumber, setFormNumber] = useState([1]);
+  const {
+    values: { tripType = "" },
+  } = formik;
 
+  const isMultiCity = tripType?.toLowerCase() === "multi-city";
+  const isRoundTrip = tripType?.toLowerCase() === "round trip";
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleChange = (event: any) => {
-    setFormNumber([1]);
-    setSelectedTripType(event.target.value);
-  };
 
-  const isMultiCity = selectedTripType?.toLowerCase() === "multi-city";
-  const isRoundTrip = selectedTripType?.toLowerCase() === "round trip";
+  useEffect(() => {
+    if (!isMultiCity) {
+      setFormNumber([1]);
+    }
+  }, [tripType]);
 
   return (
     <>
       <div className="charter__content--select air-type">
         <div>
-          <TripTypeDropdown
-            filter={type}
-            handleChange={handleChange}
-            formik={formik}
-          />
+          <TripTypeDropdown filter={type} formik={formik} />
           <CharterTypeDropdown filter={type} formik={formik} />
         </div>
         <CustomCounter text="Passenger" formik={formik} />
@@ -61,16 +60,14 @@ const AirCharterFilter = ({
               </h3>
             )}
             <div className="charter__content--form">
-              <CustomGoogleAddress
+              <CharterTerminalDropdown
                 name="pickup"
                 label="Leaving from"
-                iconType="navigator"
                 formik={formik}
               />
-              <CustomGoogleAddress
+              <CharterTerminalDropdown
                 name="destination"
                 label="Going to"
-                iconType="location"
                 formik={formik}
               />
 

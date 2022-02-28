@@ -49,7 +49,7 @@ const CharterCard = ({
             <span className="bold">Speed:</span> {item.maxSpeed} kts
           </p>
           <p>
-            <span className="bold">Passengers: </span> {item.capacity}
+            <span className="bold">No Of Seats: </span> {item.capacity}
           </p>
           <p>
             <span className="bold">Year:</span> {item.year}

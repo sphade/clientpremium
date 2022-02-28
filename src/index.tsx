@@ -13,6 +13,7 @@ import "./index.css";
 import "./app.scss";
 import { Preloader } from "./reusables";
 import { GlobalStoreProvider } from "./context";
+import { ScrollToTop } from "./hooks";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -32,7 +33,9 @@ ReactDOM.render(
       <GlobalStoreProvider>
         <SnackbarProvider
           hideIconVariant={false}
-          maxSnack={3}
+          preventDuplicate
+          autoHideDuration={3000}
+          maxSnack={2}
           anchorOrigin={{
             vertical: "top",
             horizontal: "right",
@@ -40,9 +43,8 @@ ReactDOM.render(
         >
           <QueryClientProvider client={queryClient}>
             <BrowserRouter>
-              {/* <SimpleReactLightbox> */}
+              <ScrollToTop />
               <App />
-              {/* </SimpleReactLightbox> */}
             </BrowserRouter>
           </QueryClientProvider>
         </SnackbarProvider>

@@ -35,17 +35,19 @@ const CharterPage = () => {
 
   //Dispatch to the state
   useEffect(() => {
+    console.log("here");
     if (!isEmpty(routerState)) {
       dispatch({ type: MUTATE_CHARTER, payload: routerState });
       const {
         transitType = "",
         passenger = "",
         // pickup = "",
+        destination = "",
       } = routerState as Record<string, any>;
       setFilters({
         category: transitType,
         capacity: passenger,
-        location: "Lagos",
+        location: destination,
       });
     }
   }, [routerState]);

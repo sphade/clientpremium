@@ -5,8 +5,8 @@ import { formatNumberToCurrency, getFullDate } from "../../../../utils";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const TripHistoryCard = ({ trip }: { trip: Record<string, any> }) => {
-  const { destination = "", pickupDate = 0, Payment = {} } = trip;
-  const formattedDate = getFullDate(pickupDate);
+  const { destination = "", createdAt = 0, Payment = {} } = trip;
+  const formattedDate = getFullDate(createdAt);
   return (
     <div className="pending__trips">
       <NavigatorIcon className="navigator" />

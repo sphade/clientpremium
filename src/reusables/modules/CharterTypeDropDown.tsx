@@ -13,9 +13,11 @@ const { MUTATE_CHARTER } = CharterReducerActions;
 const CharterTypeDropdown = ({
   filter,
   formik,
+  fullWidth = false,
   handleFilters,
 }: {
   filter: string;
+  fullWidth?: boolean;
   formik?: ICustomFormikProps;
   handleFilters?: (filter: any) => void;
 }) => {
@@ -44,7 +46,7 @@ const CharterTypeDropdown = ({
   if (formik) {
     return (
       <PrimarySelect
-        fullWidth={false}
+        fullWidth={fullWidth}
         formik={formik}
         handleSelectChange={(data: any) => {
           const value = data;

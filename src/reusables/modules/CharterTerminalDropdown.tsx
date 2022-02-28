@@ -1,17 +1,20 @@
-import { TextFieldProps } from "@mui/material";
 import React from "react";
 import { useQuery } from "react-query";
 import { PrimarySelect } from "..";
 import { getTerminalApi } from "../../routes/api";
 import { ReactComponent as NavigatorIcon } from "./../../assets/svgs/navigator.svg";
 import { ReactComponent as LocationIcon } from "./../../assets/svgs/location-outlined.svg";
+import { PrimarySelectProps } from "../Input/types";
 
 const CharterTerminalDropdown = ({
-  filter,
+  filter = "air",
   isPickup = true,
   ...rest
-}: { filter: string; isPickup?: boolean } & TextFieldProps) => {
-  const charterQuery = filter === "air" ? "/airpot" : "/jetty";
+}: { filter?: string; isPickup?: boolean } & Omit<
+  PrimarySelectProps,
+  "options"
+>) => {
+  const charterQuery = filter === "air" ? "/airport" : "/jetty";
 
   const { data = [] } = useQuery(charterQuery, async () => {
     const data = await getTerminalApi(charterQuery);
@@ -26,8 +29,6 @@ const CharterTerminalDropdown = ({
   }));
   return (
     <PrimarySelect
-      name="terminal"
-      label={rest?.label || "Pick-up Location"}
       {...rest}
       options={terminals}
       icon={isPickup ? <NavigatorIcon /> : <LocationIcon />}

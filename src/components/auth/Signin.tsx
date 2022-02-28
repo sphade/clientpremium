@@ -1,12 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useFormik } from "formik";
 import React from "react";
-import { useMutation, useQueryClient } from "react-query";
-import { Link, useHistory } from "react-router-dom";
-import { useAppStorage } from "../../hooks";
-import useGlobalStoreProvider from "../../context";
-
-import useCustomSnackbar from "../../hooks/useSnackbar";
+import { useFormik } from "formik";
+import { Link } from "react-router-dom";
 
 import {
   OutlineButton,
@@ -15,42 +10,16 @@ import {
   LinkButton,
   CustomDivider,
 } from "../../reusables";
-import { login } from "../../routes/api";
-import { APP_ROUTES, AUTHENTICATED_ROUTES } from "../../routes/path";
+import { AUTHENTICATED_ROUTES } from "../../routes/path";
 import { loginValidation } from "../../validations";
 import { ReactComponent as EyeIcon } from "./../../assets/svgs/eye.svg";
-import { UserReducerType } from "../../context/reducers/userReducer";
+import { useLogin } from "../../hooks";
 
 const SignIn = (): JSX.Element => {
-  const history = useHistory();
-  const { succesSnackbar, errorSnackbar } = useCustomSnackbar();
-  const { addToStore } = useAppStorage();
-  const { checkAuthenticated, dispatch } = useGlobalStoreProvider();
-  const { MUTATE_USER } = UserReducerType;
-
-  const queryClient = useQueryClient();
-
-  const { mutate, isLoading } = useMutation(login, {
-    onSuccess: async (data) => {
-      await addToStore("user", data.data);
-      dispatch({ type: MUTATE_USER, payload: data.data });
-
-      succesSnackbar(data.message || "Success");
-      await checkAuthenticated();
-      history.push(APP_ROUTES.home);
-    },
-    onError: (error: any) => {
-      errorSnackbar(error?.response?.data?.error || "Error");
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries("create");
-    },
-  });
-
+  const { mutate, isLoading } = useLogin();
   const formik = useFormik({
     initialValues: {
       email: "",
-
       password: "",
     },
     onSubmit: async (values) => {

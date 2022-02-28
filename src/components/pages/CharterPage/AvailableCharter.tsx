@@ -14,7 +14,7 @@ import CharterCard from "./components/CharterCard";
 const AvailableCharter = ({ charter }: { charter: Record<string, any> }) => {
   const history = useHistory();
 
-  const { isLand, charterType, isSea } = useCheckCharterType();
+  const { isLand, charterType, isAir } = useCheckCharterType();
   const [pageNumber, setPageNumber] = useState(1);
   const [open, setOpen] = useState(false);
   const [images, setImages] = useState([]);
@@ -69,7 +69,7 @@ const AvailableCharter = ({ charter }: { charter: Record<string, any> }) => {
   return (
     <div className="private-jets">
       <h3 className="private-jets__title">
-        AVAILABLE {isLand ? "CARS" : "PRIVATE JETS"}{" "}
+        AVAILABLE {isLand ? "CARS" : isAir ? "PRIVATE JETS" : "BOATS"}{" "}
       </h3>
 
       {newCharter.map((item: any, index: number) => (

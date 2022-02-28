@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import {
-  DatePicker,
+  DateRangeInput,
   OutlineButton,
   PrimaryButton,
   PrimaryInput,
@@ -30,7 +30,7 @@ const HomeJetPooling = () => {
             />
             <PrimaryInput name="Leaving" label="Going to" iconType="location" />
             <div className="flex-none ">
-              <DatePicker name="departure" label="Departing" />
+              <DateRangeInput />
             </div>
             <PrimaryButton label="Search" className="flex-none" small />
             <OutlineButton label="Reset Filter" classes="!flex-none" small />

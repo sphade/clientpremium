@@ -55,11 +55,30 @@ const GetHelp = () => {
             <div className="help__left--info" key={header}>
               <h4>{header}</h4>
               {content.map(
-                ({ text, icon: Icon }: { text?: string; icon?: any }) => (
+                ({
+                  text,
+                  icon: Icon,
+                  isEmail = false,
+                }: {
+                  text?: string;
+                  icon?: any;
+                  isEmail?: boolean;
+                }) => (
                   <div key={text}>
                     <div className="help__left--infoCard">
                       {Icon && <Icon />}
-                      <p>{text}</p>
+                      {isEmail ? (
+                        <a
+                          href={`mailto:${text}`}
+                          className="underline"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {text}
+                        </a>
+                      ) : (
+                        <a>{text}</a>
+                      )}
                     </div>
                   </div>
                 )

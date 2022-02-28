@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { lowerCase, startCase } from "lodash";
+import { ChangeEvent } from "react";
 import { useLocation } from "react-router-dom";
 import { MONTHS } from "./constants";
 
@@ -107,6 +108,12 @@ export const getFullDate = (date: number | string = 0) => {
 
   return `${day}, ${MONTHS[monthNumber]} ${year}`;
 };
+export const getTime = (date: number | string = 0) => {
+  const dateObj = new Date(date);
+  const time = dateObj.getTime();
+
+  return time;
+};
 
 export const getAllTripFilters = ({ data }: { data: Record<string, any> }) => {
   const segmentedTrips: Record<string, any> = {
@@ -164,4 +171,24 @@ export const getAllTripFilters = ({ data }: { data: Record<string, any> }) => {
     allCompletedSegmented,
     allPendingSegmented,
   };
+};
+
+export const transformNonEventChange = (
+  {
+    name,
+    value,
+  }: { name: string; value?: string | number | File | Blob | any },
+  domEvent = {}
+): ChangeEvent<HTMLInputElement> => {
+  const event = {
+    ...domEvent,
+    target: {
+      ...domEvent,
+      name,
+      value,
+    },
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return event as any;
 };

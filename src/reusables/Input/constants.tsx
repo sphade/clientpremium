@@ -34,3 +34,75 @@ export const IconType = {
     </SvgIcon>
   ),
 };
+
+//     return (
+//       <FormControl
+//         error={hasError as unknown as boolean}
+//         required={required}
+//         disabled={disabled}
+//         fullWidth={fullWidth}
+//       >
+//         {label && (
+//           <FormLabel id={`${name ?? id}-label`} htmlFor={name ?? id}>
+//             {label}
+//           </FormLabel>
+//         )}
+//         <LocalizationProvider dateAdapter={AdapterDateFns}>
+//           <DateRangePicker
+//             ref={ref}
+//             allowSameDateSelection
+//             clearable
+//             desktopModeMediaQuery="@media (min-width: 767px)"
+//             // views={["year", "month", "day"]}
+//             // minDate={new Date("1920-01-01").toUTCString()}
+//             calendars={2}
+//             {...(showCalendarIcon && {
+//               InputProps: {
+//                 endAdornment: (
+//                   <InputAdornment position="end">
+//                     <SvgIcon>
+//                       <CalendarIcon />
+//                     </SvgIcon>
+//                   </InputAdornment>
+//                 ),
+//               },
+//             })}
+//             disabled={disabled}
+//             disableCloseOnSelect={false}
+//             {...rest}
+//             value={[]}
+//             // onChange={(d: any): (() => void) => handleDateChange(d)}
+//             inputFormat={format}
+//             renderInput={(startProps, endProps) => (
+//               <Fragment>
+//                 <PrimaryInput
+//                   required={required}
+//                   placeholder={placeholder}
+//                   hasError={hasError}
+//                   errorMessage={errorMessage}
+//                   // useIconType={useIconType}
+//                   showHelperText={showHelperText}
+//                   {...omit(startProps, "label")}
+//                 />
+//                 <Box sx={{ mx: 2 }}> ~ </Box>
+//                 <PrimaryInput
+//                   required={required}
+//                   placeholder={placeholder}
+//                   hasError={hasError}
+//                   errorMessage={errorMessage}
+//                   // iconType=""
+//                   showHelperText={showHelperText}
+//                   {...omit(endProps, "label")}
+//                 />
+//               </Fragment>
+//             )}
+//           />
+//         </LocalizationProvider>
+//       </FormControl>
+//     );
+//   }
+// );
+
+// DateRangeInput.displayName = "DateRangePicker";
+
+// export default DateRangeInput;

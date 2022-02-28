@@ -27,16 +27,18 @@ const BookingSummaryPrimary = () => {
   const {
     isLoading,
     error,
-    data = [],
+    data = {},
   } = useQuery([id, charterQuery], async () => {
     const data = await fetchCharterById(charterQuery, id);
     return data;
   });
 
-  const { getExtraDatas, goToPayment } = useBookingSummary({
-    data,
-    shareFlight,
-  });
+  const { getExtraDatas, goToPayment, bookingShareFlights } = useBookingSummary(
+    {
+      data,
+      shareFlight,
+    }
+  );
 
   const bookSummaryData = getExtraDatas();
 
@@ -49,6 +51,8 @@ const BookingSummaryPrimary = () => {
   if (error || isEmpty(routerState)) {
     return <h3>Error Fetching</h3>;
   }
+
+  const { capacity = 1 } = data;
 
   return (
     <div className="booking-summary ">
@@ -84,7 +88,12 @@ const BookingSummaryPrimary = () => {
         )}
 
         {shareFlight ? (
-          <ShareFlights passengers={passenger} goToPayment={goToPayment} />
+          <ShareFlights
+            capacity={capacity}
+            passengers={passenger}
+            goToPayment={goToPayment}
+            bookingShareFlights={bookingShareFlights}
+          />
         ) : (
           <BookingSummaryCard data={bookSummaryData} />
         )}

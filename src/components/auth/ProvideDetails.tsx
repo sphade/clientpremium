@@ -121,8 +121,20 @@ const ProvideDetails = () => {
           />
           <p>
             By creating a Bossbus Premium Account, I understand and agree to
-            Bossbus’s Privacy Notice and
-            <Link to={AUTHENTICATED_ROUTES.terms}> Terms of Use</Link>
+            Bossbus’s{" "}
+            <Link
+              to={AUTHENTICATED_ROUTES.privacyNotice}
+              className="underline cursor-pointer"
+            >
+              Privacy Notice
+            </Link>{" "}
+            and{" "}
+            <Link
+              to={AUTHENTICATED_ROUTES.terms}
+              className="underline cursor-pointer"
+            >
+              Terms of Use
+            </Link>
           </p>
         </div>
 

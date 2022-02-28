@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useHistory } from "react-router-dom";
-import { useCheckCharterType, useRouterState } from "../../../hooks";
+import { useCheckCharterType, useRouterState, useToggle } from "../../../hooks";
 import useCustomSnackbar from "../../../hooks/useSnackbar";
 import { bookCharterApi } from "../../../routes/api";
 import { APP_ROUTES } from "../../../routes/path";
@@ -19,12 +19,13 @@ export const useBookingSummary = ({
 }) => {
   const { isLand, charterType } = useCheckCharterType();
 
+  const [isLoading, toggleLoader] = useToggle();
+
   const history = useHistory();
 
   const [routerState] = useRouterState();
 
   const { succesSnackbar, errorSnackbar } = useCustomSnackbar();
-  console.log("heresa");
 
   const { type, id } = getUrlQueryEntries();
 
@@ -72,6 +73,8 @@ export const useBookingSummary = ({
       }
 
       try {
+        toggleLoader();
+
         const response = await bookCharterApi({
           id,
           type: routerStateCharterType,
@@ -83,6 +86,8 @@ export const useBookingSummary = ({
         history.push(`${APP_ROUTES.bookedPage}/?type=${type}`);
       } catch (error: any) {
         errorSnackbar(error?.response?.data?.error || "Error");
+      } finally {
+        toggleLoader();
       }
     } else {
       history.push(APP_ROUTES.getPaymentMethod, {
@@ -133,5 +138,10 @@ export const useBookingSummary = ({
     return bookSummaryData;
   };
 
-  return { handlePayment, getExtraDatas, goToPayment };
+  return {
+    handlePayment,
+    getExtraDatas,
+    goToPayment,
+    bookingShareFlights: isLoading,
+  };
 };

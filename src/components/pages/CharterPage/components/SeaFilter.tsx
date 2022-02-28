@@ -1,8 +1,8 @@
 import React from "react";
 import {
+  CharterTerminalDropdown,
   CharterTypeDropdown,
   CustomDurationInput,
-  CustomGoogleAddress,
   CustomTimePicker,
   DatePicker,
   TripTypeDropdown,
@@ -30,7 +30,7 @@ const SeaFilter = ({
   return (
     <>
       <div className="top-filter__content">
-        <CustomGoogleAddress
+        <CharterTerminalDropdown
           name="pickup"
           label="Pickup Location"
           formik={formik}
@@ -38,10 +38,9 @@ const SeaFilter = ({
         {isBoatCruise ? (
           <CustomDurationInput label="Cruise Duration" formik={formik} />
         ) : (
-          <CustomGoogleAddress
+          <CharterTerminalDropdown
             name="destination"
             label="Destination Terminal"
-            iconType="navigator"
             formik={formik}
           />
         )}

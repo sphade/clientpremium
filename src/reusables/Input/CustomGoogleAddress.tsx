@@ -5,8 +5,10 @@ import { PrimaryInput } from ".";
 import { TextFieldProps } from "@mui/material";
 import { PrimaryInputProps } from "./types";
 
+const apiKey = process.env.GOOGLE_API_KEY || "";
+
 const loader = new Loader({
-  apiKey: process.env.GOOGLE_API_KEY || "",
+  apiKey,
   version: "weekly",
   libraries: ["places"],
 });
@@ -20,7 +22,7 @@ const CustomGoogleAddress = (props: PrimaryInputProps & TextFieldProps) => {
   };
 
   const initAutoComplete = () => {
-    if (!searchInput.current) return;
+    if (!searchInput.current || !apiKey) return;
     loader
       .load()
       .then((google) => {

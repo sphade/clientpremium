@@ -1,7 +1,7 @@
 import React from "react";
 import {
+  CharterTerminalDropdown,
   CharterTypeDropdown,
-  CustomGoogleAddress,
   DatePicker,
   TripTypeDropdown,
 } from "../../../../reusables";
@@ -14,16 +14,14 @@ const AirFilter = ({ formik }: { formik: ICustomFormikProps }) => {
   return (
     <>
       <div className="top-filter__content">
-        <CustomGoogleAddress
+        <CharterTerminalDropdown
           name="pickup"
           label="Leaving from"
-          iconType="navigator"
           formik={formik}
         />
-        <CustomGoogleAddress
+        <CharterTerminalDropdown
           name="destination"
           label="Going to"
-          iconType="location"
           formik={formik}
         />
         <DatePicker

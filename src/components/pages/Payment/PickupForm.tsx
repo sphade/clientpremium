@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import {
   FormControl,
   FormControlLabel,
@@ -8,25 +8,18 @@ import {
 } from "@mui/material";
 
 import {
+  CharterTypeDropdown,
   CustomAlert,
+  CustomGoogleAddress,
   PrimaryButton,
-  PrimaryInput,
-  PrimarySelect,
 } from "../../../reusables";
 import SmallCar from "../../../assets/images/small-car.png";
 import BaseModal from "../../../reusables/BaseModal";
-import { ReactComponent as PickupIcon } from "../../../assets/svgs/pickup-icon.svg";
-import { ReactComponent as CarIcon } from "../../../assets/svgs/car-outlined.svg";
-import { APP_ROUTES } from "../../../routes/path";
+import { useSearchCharter } from "../../../hooks";
+import { isEmpty } from "lodash";
+import { getTime } from "../../../utils";
 
 const tripType = ["One stop trip", "Two stop trip"];
-
-export const carType = [
-  {
-    name: "Sedan",
-    value: "Sedan",
-  },
-];
 
 const PickupForm = ({
   openPickupForm,
@@ -35,6 +28,33 @@ const PickupForm = ({
   openPickupForm: boolean;
   closePickupForm: () => void;
 }) => {
+  const currentCharter = "land";
+
+  const location = useLocation();
+
+  const routerState = (location?.state || {}) as Record<string, any>;
+
+  const { charter = {} } = routerState;
+  if (isEmpty(charter)) {
+    return <div>No data</div>;
+  }
+
+  const { departureCity = "", departureDate = "" } = charter;
+
+  const time = getTime(departureDate);
+
+  const initialValues = {
+    departureTime: time,
+    departureDate,
+    duration: 1,
+  };
+
+  // Instantiate formik
+  const { formik, isDisabled, handleSubmit } = useSearchCharter({
+    currentCharter,
+    initialValues,
+  });
+
   return (
     <BaseModal open={openPickupForm} onClose={closePickupForm}>
       <div className="pickedup-form">
@@ -69,37 +89,35 @@ const PickupForm = ({
         </div>
         <div className="pickedup-form__fields">
           <div className="pickedup-form__fields--row">
-            <PrimaryInput
-              icon={<PickupIcon />}
-              name="Leaving"
-              label="Enter pick up address"
-              required
+            <CustomGoogleAddress
+              name="pickup"
+              label="Pickup Location"
+              iconType="navigator"
+              formik={formik}
             />
             <div className="depature-img">
               <img src={SmallCar} alt="small-car" />
             </div>
             <div className="depature">
               <h5>Departure location</h5>
-              <p>Murtala Muhammed Airport, Lagos</p>
+              <p>{departureCity}</p>
             </div>
           </div>
           <div className="pickedup-form__fields--row">
-            <PrimarySelect
-              icon={<CarIcon />}
-              name="carType"
-              options={carType}
-              fullWidth
-            />
+            <CharterTypeDropdown filter="land" fullWidth formik={formik} />
 
             <div className="depature-img"></div>
             <div className="depature">
               <h5>Pick up date & time</h5>
-              <p>Nov-05-2021 | 09:00 am</p>
+              <p>{departureDate}</p>
             </div>
           </div>
-          <Link to={APP_ROUTES.pickUpSummary}>
-            <PrimaryButton style={{ maxWidth: "500px" }} label="NEXT" />
-          </Link>
+          <PrimaryButton
+            disabled={isDisabled}
+            onClick={handleSubmit}
+            style={{ maxWidth: "500px" }}
+            label="NEXT"
+          />
         </div>
       </div>
     </BaseModal>

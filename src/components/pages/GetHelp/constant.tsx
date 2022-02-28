@@ -24,8 +24,9 @@ export const helpInfo = () => {
       hasDivider: false,
       content: [
         {
+          isEmail: true,
           icon: SmsIcon,
-          text: "bossbusspremiumng.com",
+          text: "support@bossbusworld.com",
         },
       ],
     },

@@ -6,106 +6,27 @@ import {
   Radio,
   RadioGroup,
 } from "@mui/material";
-// import { Link } from "react-router-dom";
-import { omit, capitalize } from "lodash";
+import { capitalize } from "lodash";
 
 import { Preloader, PrimaryButton } from "../../../reusables";
-// import { APP_ROUTES } from "../../../routes/path";
 
 import WalletLogo from "../../../assets/images/wallet.png";
 
-import { useMutation, useQuery, useQueryClient } from "react-query";
-import { getPaymentMethodsApi, initializePayment } from "../../../routes/api";
-import useCustomSnackbar from "../../../hooks/useSnackbar";
+import { useQuery } from "react-query";
+import { getPaymentMethodsApi } from "../../../routes/api";
 import { PaymentMethodsEnum } from "./types";
-import { useHistory } from "react-router-dom";
-import { APP_ROUTES } from "../../../routes/path";
-import { useRouterState } from "../../../hooks";
-import { PAYMENT_ENUM } from "../../../utils/constants";
-// import { useAppStorage } from "../../../hooks";
+import { usePayment } from "../../../hooks";
 
 const { PAYSTACK } = PaymentMethodsEnum;
 
 const PaymentMethod = () => {
-  const history = useHistory();
   const [paymentMethod, setPaymentMethod] = useState(PAYSTACK);
 
-  const [routerState] = useRouterState();
-
-  console.log({ routerState });
-
-  const { succesSnackbar, errorSnackbar } = useCustomSnackbar();
-
-  const queryClient = useQueryClient();
-
-  const { mutate, isLoading: postLoading } = useMutation(initializePayment, {
-    onSuccess: async (data) => {
-      // await addToStore("charter_details", data.data);
-
-      const url = data.data.authorization_url;
-
-      const newWindow = window.open(url, "_self", "");
-
-      if (newWindow) {
-        newWindow.onabort = () => {
-          alert("ahaher");
-        };
-      }
-
-      succesSnackbar(data.message || "Success");
-    },
-    onError: (error: any) => {
-      errorSnackbar(error?.response?.data?.error || "Error");
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries("create");
-    },
-  });
-
-  const handlePayment = () => {
-    const {
-      pickup = "",
-      departureDate = "",
-      id = "",
-      type = "",
-      price = "",
-      terminalId = "",
-      destinationTerminalId = "",
-      passengers = "",
-    } = routerState;
-    if (paymentMethod === PAYSTACK) {
-      const newPrice = Number(price);
-
-      let metadata = {};
-
-      if (type === PAYMENT_ENUM.JET_POOLING) {
-        metadata = {
-          id,
-          price,
-          passengers,
-          type: PAYMENT_ENUM.JET_POOLING,
-        };
-      } else {
-        metadata = {
-          ...omit(routerState, ["passengers"]),
-          destination: "Ikeja, Lagos",
-          pickupLocation: pickup,
-          pickupDate: departureDate,
-          vehicleId: id,
-          amount: newPrice,
-          ...(terminalId && { terminalId }),
-          ...(destinationTerminalId && { destinationTerminalId }),
-        };
-      }
-
-      mutate({
-        amount: newPrice * 100,
-        metadata,
-      });
-    } else {
-      history.push(APP_ROUTES.getBookedPage({ type, id }));
-    }
-  };
+  const {
+    handlePayment,
+    loadingPaystack,
+    isLoading: walletLoading,
+  } = usePayment();
 
   const {
     isLoading,
@@ -159,8 +80,8 @@ const PaymentMethod = () => {
             </FormControl>
             {/* <Link to={APP_ROUTES.bookedPage + search}> */}
             <PrimaryButton
-              isLoading={postLoading}
-              onClick={handlePayment}
+              isLoading={loadingPaystack || walletLoading}
+              onClick={() => handlePayment(paymentMethod)}
               label="MAKE PAYMENT"
               fullWidth
             />
