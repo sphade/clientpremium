@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import {
   CharterTerminalDropdown,
@@ -8,18 +9,26 @@ import {
 import { ICustomFormikProps } from "../../../../reusables/Input/types";
 import { useCheckCharterType } from "../../../../hooks";
 
-const AirFilter = ({ formik }: { formik: ICustomFormikProps }) => {
+const AirFilter = ({
+  formik,
+  handleFilters,
+}: {
+  formik: ICustomFormikProps;
+  handleFilters?: (filter: any) => void;
+}) => {
   const { charterType } = useCheckCharterType();
 
   return (
     <>
       <div className="top-filter__content">
         <CharterTerminalDropdown
+          handleFilters={handleFilters}
           name="pickup"
           label="Leaving from"
           formik={formik}
         />
         <CharterTerminalDropdown
+          handleFilters={handleFilters}
           name="destination"
           label="Going to"
           formik={formik}
@@ -34,7 +43,11 @@ const AirFilter = ({ formik }: { formik: ICustomFormikProps }) => {
       <div className="top-filter__content">
         <div>
           <TripTypeDropdown filter={charterType} formik={formik} />
-          <CharterTypeDropdown filter={charterType} formik={formik} />
+          <CharterTypeDropdown
+            handleFilters={handleFilters}
+            filter={charterType}
+            formik={formik}
+          />
         </div>
       </div>
     </>

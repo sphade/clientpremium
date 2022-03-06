@@ -76,7 +76,7 @@ const TopFilter = ({
         </div>
       </div>
       <div className=" center">
-        {isAir && <AirFilter formik={formik} />}
+        {isAir && <AirFilter handleFilters={handleFilters} formik={formik} />}
         {isLand && <LandFilter handleFilters={handleFilters} formik={formik} />}
         {isSea && <SeaFilter formik={formik} handleFilters={handleFilters} />}
       </div>

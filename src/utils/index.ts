@@ -115,14 +115,49 @@ export const getTime = (date: number | string = 0) => {
   return time;
 };
 
+const addNewKeysToMap = ({
+  data,
+  newKeys,
+}: {
+  data: Record<string, any>[];
+  newKeys: Record<string, any>;
+}) => {
+  return data.map((ele) => ({ ...ele, ...newKeys }));
+};
+
 export const getAllTripFilters = ({ data }: { data: Record<string, any> }) => {
   const segmentedTrips: Record<string, any> = {
-    land: data?.land,
-    sea: [...(data?.sea?.boatCruises || []), ...(data?.sea?.boatTrips || [])],
+    land: addNewKeysToMap({
+      data: data?.land || [],
+      newKeys: { type: "Land Charter" },
+    }),
+    sea: [
+      ...addNewKeysToMap({
+        data: data?.sea?.boatCruises || [],
+        newKeys: { type: "Boat Cruises" },
+      }),
+      ...addNewKeysToMap({
+        data: data?.sea?.boatTrips || [],
+        newKeys: { type: "Boat Trips" },
+      }),
+    ],
     air: [
-      ...(data?.air?.charters?.oneWay || []),
-      ...(data?.air?.charters?.roundTrip || []),
-      ...(data?.air?.charters?.multiCity || []),
+      ...addNewKeysToMap({
+        data: data?.air?.oneWay || [],
+        newKeys: { type: "One Way" },
+      }),
+      ...addNewKeysToMap({
+        data: data?.air?.roundTrip || [],
+        newKeys: { type: "Round Trip" },
+      }),
+      ...addNewKeysToMap({
+        data: data?.air?.multiCity || [],
+        newKeys: { type: "Multi City" },
+      }),
+      ...addNewKeysToMap({
+        data: data?.air?.pooling || [],
+        newKeys: { type: "Jet Pooling" },
+      }),
     ],
   };
 

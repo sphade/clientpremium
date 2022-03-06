@@ -99,7 +99,7 @@ const JetPoolingDialog = ({
         <div className="trip__passengers">
           <h3>Select number of passengers</h3>
           <p>
-            {currentCount} of {availableSeats} seats left
+            {availableSeats - currentCount} of {availableSeats} seats left
           </p>
           <CustomCounter getCount={getCount} />
         </div>

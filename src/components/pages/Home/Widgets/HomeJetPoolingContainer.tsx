@@ -17,8 +17,6 @@ const HomeJetPoolingContainer = () => {
 
   const jetPoolings = data.data || [];
 
-  console.log({ jetPoolings });
-
   return (
     <>
       {jetPoolings.map((data: Record<string, any>) => (

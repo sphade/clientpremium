@@ -193,8 +193,8 @@ export const PrimarySelect = ({
             <em>{placeholder || "Select"}</em>
           </MenuItem>
         )}
-        {options.map(({ value, name }, index) => (
-          <MenuItem key={index} value={value}>
+        {options.map(({ name }, index) => (
+          <MenuItem key={index} value={name}>
             {capitalize(name)}
           </MenuItem>
         ))}

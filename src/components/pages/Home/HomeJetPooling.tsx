@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import {
+  CharterTerminalDropdown,
   DateRangeInput,
   OutlineButton,
   PrimaryButton,
-  PrimaryInput,
 } from "../../../reusables";
 import { APP_ROUTES } from "../../../routes/path";
 import HomeJetPoolingContainer from "./Widgets/HomeJetPoolingContainer";
@@ -23,15 +23,23 @@ const HomeJetPooling = () => {
         <div className="searchBar bg-white pt-10 px-20 rounded-md space-y-10">
           <p>Search for specific jet pools</p>
           <div className="searchBar__group flex  gap-4 items-start flex-wrap lg:flex-nowrap ">
-            <PrimaryInput
-              name="Leaving"
+            <CharterTerminalDropdown
+              name="pickup"
               label="Leaving from"
-              iconType="navigator"
+              // formik={formik}
+              // iconType="navigator"
             />
-            <PrimaryInput name="Leaving" label="Going to" iconType="location" />
+            <CharterTerminalDropdown
+              name="destination"
+              label="Going to"
+              // iconType="location"
+            />
+
             <div className="flex-none ">
               <DateRangeInput />
             </div>
+          </div>
+          <div className="flex gap-4 !mt-0">
             <PrimaryButton label="Search" className="flex-none" small />
             <OutlineButton label="Reset Filter" classes="!flex-none" small />
           </div>

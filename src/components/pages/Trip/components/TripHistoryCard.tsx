@@ -5,7 +5,7 @@ import { formatNumberToCurrency, getFullDate } from "../../../../utils";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const TripHistoryCard = ({ trip }: { trip: Record<string, any> }) => {
-  const { destination = "", createdAt = 0, Payment = {} } = trip;
+  const { destination = "", createdAt = 0, Payment = {}, type = "" } = trip;
   const formattedDate = getFullDate(createdAt);
   return (
     <div className="pending__trips">
@@ -18,6 +18,7 @@ const TripHistoryCard = ({ trip }: { trip: Record<string, any> }) => {
             number: Payment?.amount,
           })}
         </p>
+        <p>{type}</p>
       </div>
       <ArrowRight className="arrow-right" />
     </div>

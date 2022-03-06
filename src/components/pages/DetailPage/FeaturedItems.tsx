@@ -1,65 +1,60 @@
-import React from 'react';
-import Slider from 'react-slick';
-import { ReactComponent as ArrowLeftIcon } from '../../../assets/svgs/arrow-left.svg';
-import { ReactComponent as ArrowRightIcon } from '../../../assets/svgs/arrow-right.svg';
-import { useCheckCharterType } from '../../../hooks';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React from "react";
+import Slider from "react-slick";
 
-const settings = {
-    infinite: true,
-    className: 'outside-slick',
-    speed: 500,
-    
-     responsive: [
-        {
-          breakpoint: 2024,
-          settings: {
-         slidesToShow: 3,
-         infinite: true,
-          }
-        },
-        {
-          breakpoint: 800,
-          settings: {
-            slidesToShow:2,
-            className: 'custom-slick',
-          }
-        },
-        {
-          breakpoint: 480,
-          settings: {
-            className: 'custom-slick',
-            slidesToShow: 1,
-            dots: true,
-          }
-        }
-      ],
-
-    nextArrow: <ArrowRightIcon />,
-    prevArrow: <ArrowLeftIcon />,
-};
+import { useFetchFeaturedItems } from "../../../hooks";
+import { formatNumberToCurrency } from "../../../utils";
+import { featuredSliderSettings } from "./constants";
 
 const FeaturedItems = () => {
-    const { charterData,  text  } = useCheckCharterType();
+  const { data, text } = useFetchFeaturedItems();
 
-    return (
-        <div className="featured-item">
-            <div className="featured-item__slider center">
-                <h3>FEATURED {text.toUpperCase()}</h3>
-                <Slider {...settings}>
-                    {charterData.map(({ name, image}, index) => (
-                        <div className="featured-item__slider--card" key={index}>
-                            <img src={image} alt="plane" />
-                            <div className="slider-card-content">
-                                <h5>{name}</h5>
-                                <p>Rate from N168 per trip.</p>
-                                <p>Length: 54m | Buit: 2018 | Guests: 12</p>
-                            </div>
-                        </div>
-                    ))}
-                </Slider>
-            </div>
-        </div>
-    );
+  return (
+    <div className="featured-item">
+      <div className="featured-item__slider center">
+        <h3>FEATURED {text.toUpperCase()}</h3>
+        <Slider {...featuredSliderSettings(data)}>
+          {data.map(
+            ({
+              brand = "",
+              ProductImages = [],
+              id = "",
+              location = "",
+              capacity = "",
+              price = "",
+              year = "",
+            }: {
+              brand: string;
+              ProductImages: any[];
+              id: string;
+              description?: string;
+              location?: string;
+              capacity?: string;
+              price?: string;
+              year?: string;
+            }) => (
+              <div
+                className="featured-item__slider--card max-w-[500px]"
+                key={id}
+              >
+                <img src={ProductImages[0]?.url} alt="plane" />
+                <div className="slider-card-content">
+                  <h5>{brand}</h5>
+                  <p>
+                    Rate from {formatNumberToCurrency({ number: price })} per
+                    trip
+                  </p>
+                  <p>
+                    Location: {location} | Buit: {year} | Guests: {capacity}
+                  </p>
+                </div>
+              </div>
+            )
+          )}
+        </Slider>
+      </div>
+    </div>
+  );
 };
 
 export default FeaturedItems;

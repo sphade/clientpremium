@@ -23,12 +23,6 @@ const PaymentMethod = () => {
   const [paymentMethod, setPaymentMethod] = useState(PAYSTACK);
 
   const {
-    handlePayment,
-    loadingPaystack,
-    isLoading: walletLoading,
-  } = usePayment();
-
-  const {
     isLoading,
     error,
     data: paymentMethods = [],
@@ -36,6 +30,13 @@ const PaymentMethod = () => {
     const data = await getPaymentMethodsApi();
     return data;
   });
+
+  const {
+    handlePayment,
+    loadingPaystack,
+    isLoading: walletLoading,
+    newPaymentMethods,
+  } = usePayment(paymentMethods);
 
   if (isLoading) {
     return <Preloader />;
@@ -61,7 +62,7 @@ const PaymentMethod = () => {
                 defaultValue={paymentMethod}
                 name="radio-buttons-group"
               >
-                {paymentMethods.map((payment: Record<string, any>) => (
+                {newPaymentMethods.map((payment: Record<string, any>) => (
                   <FormControlLabel
                     key={payment?.id}
                     className="form-radio"

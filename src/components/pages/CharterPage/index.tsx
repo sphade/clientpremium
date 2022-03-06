@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
-import { isEmpty } from "lodash";
+import { isEmpty, trim } from "lodash";
 import { useQuery } from "react-query";
 import { useLocation } from "react-router-dom";
 import useGlobalStoreProvider from "../../../context";
@@ -35,19 +35,20 @@ const CharterPage = () => {
 
   //Dispatch to the state
   useEffect(() => {
-    console.log("here");
     if (!isEmpty(routerState)) {
       dispatch({ type: MUTATE_CHARTER, payload: routerState });
       const {
         transitType = "",
         passenger = "",
-        // pickup = "",
-        destination = "",
+        pickup = "",
       } = routerState as Record<string, any>;
+
+      const location = trim(pickup.split(",")[1] || "");
+
       setFilters({
         category: transitType,
         capacity: passenger,
-        location: destination,
+        location,
       });
     }
   }, [routerState]);

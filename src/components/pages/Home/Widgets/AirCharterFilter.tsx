@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useEffect } from "react";
 import {
   CharterTerminalDropdown,
   CharterTypeDropdown,
@@ -21,18 +22,16 @@ const AirCharterFilter = ({
   type: string;
   formik: ICustomFormikProps;
 }) => {
-  const [formNumber, setFormNumber] = useState([1]);
-  const {
-    values: { tripType = "" },
-  } = formik;
+  const { setFieldValue, values } = formik;
+
+  const { tripType = "", formNumber = [1] } = values;
 
   const isMultiCity = tripType?.toLowerCase() === "multi-city";
   const isRoundTrip = tripType?.toLowerCase() === "round trip";
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
   useEffect(() => {
     if (!isMultiCity) {
-      setFormNumber([1]);
+      setFieldValue("formNumber", [1]);
     }
   }, [tripType]);
 
@@ -45,7 +44,7 @@ const AirCharterFilter = ({
         </div>
         <CustomCounter text="Passenger" formik={formik} />
       </div>
-      {formNumber.map((form, index) => {
+      {formNumber.map((form: any, index: number) => {
         const numberIndex: string = (index + 1).toString();
         return (
           <article key={index}>
@@ -96,7 +95,7 @@ const AirCharterFilter = ({
             className="add__flight--button"
             onClick={() => {
               const lastNumber = ++formNumber[formNumber.length - 1];
-              setFormNumber([...formNumber, lastNumber]);
+              setFieldValue("formNumber", [...formNumber, lastNumber]);
             }}
           >
             <PlusIcon />

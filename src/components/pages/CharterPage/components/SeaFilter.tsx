@@ -31,6 +31,7 @@ const SeaFilter = ({
     <>
       <div className="top-filter__content">
         <CharterTerminalDropdown
+          filter="sea"
           name="pickup"
           label="Pickup Location"
           formik={formik}
@@ -39,6 +40,7 @@ const SeaFilter = ({
           <CustomDurationInput label="Cruise Duration" formik={formik} />
         ) : (
           <CharterTerminalDropdown
+            filter="sea"
             name="destination"
             label="Destination Terminal"
             formik={formik}

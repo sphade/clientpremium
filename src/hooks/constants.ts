@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { pick } from "lodash";
 import { PAYMENT_ENUM } from "../utils/constants";
 
 export const getMetaDataForBooking = ({
@@ -40,8 +39,11 @@ export const getMetaDataForBooking = ({
     }
   } else if (type === "land") {
     //Check for land
+
+    const { destination = "" } = metadata;
+
     data = {
-      ...pick(metadata, ["destination"]),
+      ...(destination && { destination }),
       pickupLocation: metadata?.pickup || "",
       pickupDate: metadata?.departureDate || "",
       amount: Number(metadata.amount || 0),

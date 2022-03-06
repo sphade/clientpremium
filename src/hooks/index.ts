@@ -10,3 +10,4 @@ export { default as ScrollToTop } from "./ScrollToTop";
 export { default as useBookCharter } from "./useBookCharter";
 export { default as usePayment } from "./usePayment";
 export { default as useSearchCharter } from "./useSearchCharter";
+export { default as useFetchFeaturedItems } from "./useFetchFeaturedItems";

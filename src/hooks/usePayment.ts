@@ -9,7 +9,7 @@ import useCustomSnackbar from "./useSnackbar";
 
 const { PAYSTACK, WALLET } = PaymentMethodsEnum;
 
-const usePayment = () => {
+const usePayment = (paymentMethods: any[] = []) => {
   const { succesSnackbar, errorSnackbar } = useCustomSnackbar();
 
   const queryClient = useQueryClient();
@@ -71,7 +71,7 @@ const usePayment = () => {
     } else {
       metadata = {
         ...omit(routerState, ["passengers"]),
-        destination,
+        ...(destination && { destination }),
         pickupLocation: pickup,
         pickupDate: departureDate,
         vehicleId: id,
@@ -95,7 +95,12 @@ const usePayment = () => {
     }
   };
 
-  return { handlePayment, loadingPaystack, isLoading };
+  const newPaymentMethods =
+    routerState?.type === PAYMENT_ENUM.JET_POOLING
+      ? paymentMethods.filter((payment) => payment.name === "wallet")
+      : paymentMethods;
+
+  return { handlePayment, loadingPaystack, isLoading, newPaymentMethods };
 };
 
 export default usePayment;
