@@ -1,7 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect } from "react";
-import { withRouter } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { History } from "history";
+
+export const withRouter = (Component: any) => {
+  const Wrapper = (props: any) => {
+    const history = useHistory();
+
+    return <Component history={history} {...props} />;
+  };
+
+  return Wrapper;
+};
 
 function ScrollToTop({ history }: { history: History }) {
   useEffect(() => {

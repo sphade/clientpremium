@@ -251,8 +251,8 @@ export const fundWalletApi = async (data: Record<string, any>) => {
   return response.data.data;
 };
 
-export const getJetPoolingList = async () => {
-  const response = await axios.get(apiRoutes.jetPooling);
+export const getJetPoolingList = async (params = "") => {
+  const response = await axios.get(apiRoutes.jetPooling + params);
   return response.data.data;
 };
 
