@@ -20,6 +20,7 @@ const CharterTerminalDropdown = ({
 }: {
   filter?: string;
   isPickup?: boolean;
+  useId?: boolean;
   handleFilters?: (filter: any) => void;
 } & Omit<PrimarySelectProps, "options">) => {
   const charterQuery = filter === "air" ? "/airport" : "/jetty";

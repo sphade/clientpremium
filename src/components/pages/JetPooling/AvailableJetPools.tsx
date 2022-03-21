@@ -1,36 +1,24 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState } from "react";
+import React from "react";
 import {
   PrimaryButton,
-  PrimaryInput,
-  DatePicker,
   CharterTerminalDropdown,
   DateRangeInput,
 } from "../../../reusables";
-import Plane from "../../../assets/images/plane-5.png";
-import { ReactComponent as ArrowRight } from "./../../../assets/svgs/arrow-right-secondary.svg";
 import { ReactComponent as CloseIcon } from "./../../../assets/svgs/close.svg";
 
-import { PREMIUM_CHARTER_DATA } from "../Home/constants";
-import { useDialogHook, useJetPooling } from "../../../hooks";
-import JetPoolingDialog from "./JetPoolingDialog";
-import JetpoolingCard from "./components/JetpoolingCard";
+import { useJetPooling } from "../../../hooks";
 import HomeJetPoolingContainer from "../Home/Widgets/HomeJetPoolingContainer";
-import { useQuery } from "react-query";
-import { getJetPoolingList } from "../../../routes/api";
 
 const AvailableJetPools = () => {
-  const [filter, setFilter] = useState("air");
-
-  const selectedFilter = PREMIUM_CHARTER_DATA.filter(
-    (item) => item.type.toLowerCase() === filter
-  );
-
-  const onChange = (value: string) => {
-    setFilter(value.toLowerCase());
-  };
-
-  const { formik, isDisabled, handleSubmit, data } = useJetPooling();
+  const {
+    formik,
+    isDisabled,
+    fetchingJetpooling,
+    handleSubmit,
+    data,
+    resetFilter,
+  } = useJetPooling();
 
   const jetPoolings = data.data || [];
 
@@ -47,13 +35,13 @@ const AvailableJetPools = () => {
               name="from"
               label="Leaving from"
               formik={formik}
-              // iconType="navigator"
+              useEvent={true}
             />
             <CharterTerminalDropdown
               formik={formik}
               name="to"
               label="Going to"
-              // iconType="location"
+              useEvent={true}
             />
           </div>
           <div className="flex-none w-full">
@@ -64,11 +52,9 @@ const AvailableJetPools = () => {
               label="Search"
               className="flex-none"
               onClick={handleSubmit}
-              disabled={isDisabled}
             />
-            {/* <OutlineButton label="Reset Filter" classes="!flex-none" small /> */}
           </div>
-          <div className="reset__filter">
+          <div onClick={resetFilter} className="reset__filter">
             <p>Reset Filter</p>
             <CloseIcon />
           </div>
@@ -76,7 +62,10 @@ const AvailableJetPools = () => {
       </div>
       <h3 className="title">Available Jet Pools</h3>
       <div className="jet-pooling__cards">
-        <HomeJetPoolingContainer jetPoolings={jetPoolings} />
+        <HomeJetPoolingContainer
+          fetchingJetpooling={fetchingJetpooling}
+          jetPoolings={jetPoolings}
+        />
       </div>
       <div className="private-jets__footer">
         <p className="private-jets__footer--sumary">Showing 4 from 12 Jets</p>

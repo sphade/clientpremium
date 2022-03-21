@@ -54,7 +54,7 @@ export default function BasicDateRangePicker({
             <DateRangePicker
               startText="Start From"
               endText="To"
-              // minDate={new Date()}
+              minDate={new Date()}
               value={values[name]}
               {...calendarAdornment}
               calendars={1}

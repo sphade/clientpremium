@@ -153,6 +153,7 @@ export const PrimarySelect = ({
   className = "",
   handleSelectChange,
   makeEmpty = true,
+  useEvent = false,
   ...rest
 }: PrimarySelectProps & TextFieldProps) => {
   const inputProps = {
@@ -168,6 +169,8 @@ export const PrimarySelect = ({
   if (formik) {
     const { handleChange, handleBlur, values, errors, touched } = formik;
 
+    const newValue = values[name];
+
     return (
       <TextField
         select
@@ -175,10 +178,17 @@ export const PrimarySelect = ({
         name={name}
         className={`primary__input ${className}`}
         onChange={(e) => {
+          const value = useEvent ? JSON.parse(e.target.value) : e.target.value;
+          const valueName = useEvent ? value?.value : value;
           if (handleSelectChange) {
-            handleSelectChange(e.target.value);
+            handleSelectChange(valueName);
           }
-          handleChange(e);
+          const newEventObject = {
+            ...e,
+            target: { ...e.target, name, value: e.target.value },
+          };
+
+          useEvent ? handleChange(newEventObject) : handleChange(e);
         }}
         value={values[name]}
         onBlur={handleBlur}
@@ -193,9 +203,12 @@ export const PrimarySelect = ({
             <em>{placeholder || "Select"}</em>
           </MenuItem>
         )}
-        {options.map(({ name }, index) => (
-          <MenuItem key={index} value={name}>
-            {capitalize(name)}
+        {options.map((options, index) => (
+          <MenuItem
+            key={index}
+            value={useEvent ? JSON.stringify(options) : options?.value}
+          >
+            {capitalize(options?.name)}
           </MenuItem>
         ))}
       </TextField>

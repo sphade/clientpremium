@@ -1,3 +1,4 @@
+import { CircularProgress, Stack } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
 import { useJetPooling } from "../../../hooks";
@@ -11,7 +12,8 @@ import { APP_ROUTES } from "../../../routes/path";
 import HomeJetPoolingContainer from "./Widgets/HomeJetPoolingContainer";
 
 const HomeJetPooling = () => {
-  const { formik, isDisabled, handleSubmit, data } = useJetPooling();
+  const { formik, resetFilter, handleSubmit, data, fetchingJetpooling } =
+    useJetPooling();
 
   const jetPoolings = data.data || [];
 
@@ -32,13 +34,13 @@ const HomeJetPooling = () => {
               name="from"
               label="Leaving from"
               formik={formik}
-              // iconType="navigator"
+              useEvent={true}
             />
             <CharterTerminalDropdown
               formik={formik}
               name="to"
               label="Going to"
-              // iconType="location"
+              useEvent={true}
             />
           </div>
 
@@ -49,14 +51,25 @@ const HomeJetPooling = () => {
             <PrimaryButton
               label="Search"
               className="flex-none"
-              onClick={handleSubmit}
-              disabled={isDisabled}
+              onClick={() => {
+                console.log("clicked");
+                handleSubmit();
+              }}
             />
-            <OutlineButton label="Reset Filter" classes="!flex-none" small />
+            <OutlineButton
+              onClick={resetFilter}
+              label="Reset Filter"
+              classes="!flex-none"
+              small
+            />
           </div>
         </div>
+
         <div className="jet-pooling__cards  !mt-10 flex-wrap lg:flex-nowrap !justify-center">
-          <HomeJetPoolingContainer jetPoolings={jetPoolings} />
+          <HomeJetPoolingContainer
+            fetchingJetpooling={fetchingJetpooling}
+            jetPoolings={jetPoolings}
+          />
         </div>
         <div className="flex justify-center mt-20">
           <Link to={APP_ROUTES.jetPooling}>

@@ -43,6 +43,8 @@ const CharterPage = () => {
         pickup = "",
       } = routerState as Record<string, any>;
 
+      console.log({ routerState });
+
       const location = trim(pickup.split(",")[1] || "");
 
       setFilters({

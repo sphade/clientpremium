@@ -15,18 +15,21 @@ const useJetPooling = () => {
 
   const [filter, setFilters] = useState<Record<string, any>>({});
 
-  const { data = [] } = useQuery(["getJetPoolings", filter], async () => {
-    let filterQuery = "?";
-    filterQuery =
-      filterQuery +
-      Object.entries(filter)
-        .map(([key, value]) => `${key}=${value}`)
-        .join("&");
+  const { data = [], isLoading } = useQuery(
+    ["getJetPoolings", filter],
+    async () => {
+      let filterQuery = "?";
+      filterQuery =
+        filterQuery +
+        Object.entries(filter)
+          .map(([key, value]) => `${key}=${value}`)
+          .join("&");
 
-    const data = await getJetPoolingList(filterQuery);
+      const data = await getJetPoolingList(filterQuery);
 
-    return data;
-  });
+      return data;
+    }
+  );
 
   // Instantiate formik
   const formik = useFormik({
@@ -34,10 +37,15 @@ const useJetPooling = () => {
     onSubmit: async (values) => {
       const { to, from, date } = values;
 
+      const newDates = date.map((d) => new Date(d).toISOString());
+
+      const newFrom = JSON.parse(from)?.id || "";
+      const newTo = JSON.parse(to)?.id || "";
+
       const newFilter = {
-        to,
-        from,
-        date: `${date[0]},${date[1]}`,
+        ...(newFrom && { from: newFrom }),
+        ...(newTo && { to: newTo }),
+        date: `${newDates[0]},${newDates[1]}`,
       };
 
       setFilters(newFilter);
@@ -45,11 +53,22 @@ const useJetPooling = () => {
     validationSchema: getJetPoolingValidation,
   });
 
+  const resetFilter = () => {
+    setFilters({});
+  };
+
   const { handleSubmit, isValid, dirty } = formik;
 
   const isDisabled = !(isValid && dirty);
 
-  return { formik, isDisabled, handleSubmit, data };
+  return {
+    formik,
+    isDisabled,
+    handleSubmit,
+    data,
+    resetFilter,
+    fetchingJetpooling: isLoading,
+  };
 };
 
 export default useJetPooling;

@@ -40,6 +40,7 @@ export interface PrimarySelectProps {
   icon?: string | JSX.Element;
   makeEmpty?: boolean;
   label?: string;
+  useEvent?: boolean;
 }
 
 export interface DatePickerProps {

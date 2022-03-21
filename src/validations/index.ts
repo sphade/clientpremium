@@ -162,8 +162,4 @@ export const charterValidation = ({ type }: { type: TCharter }) =>
     return validations[type];
   });
 
-export const getJetPoolingValidation = Yup.object({
-  from: Yup.string().trim().required("Pick a departure terminal"),
-  to: Yup.string().trim().required("Pick a destination terminal"),
-  date: Yup.array().required("Pick a date"),
-});
+export const getJetPoolingValidation = Yup.object({});

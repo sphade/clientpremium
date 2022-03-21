@@ -37,7 +37,7 @@ const useSearchCharter = ({
     validationSchema: charterValidation({ type: currentCharter as TCharter }),
   });
 
-  const { handleSubmit, isValid, dirty } = formik;
+  const { handleSubmit, isValid, dirty, values } = formik;
 
   const isDisabled = !(isValid && dirty);
 

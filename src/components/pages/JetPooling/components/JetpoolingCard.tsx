@@ -8,7 +8,11 @@ import JetPoolingDialog from "../JetPoolingDialog";
 const JetpoolingCard = ({ data = {} }: { data?: Record<string, any> }) => {
   const { open, toggleDialog } = useDialogHook();
 
-  const { departureCity = "", destinationCity = "", Aircraft = {} } = data;
+  const {
+    departureAirport = {},
+    destinationAirport = {},
+    Aircraft = {},
+  } = data;
 
   const { ProductImages = [] } = Aircraft;
   const availableFrom = getFullDate("2022-02-01T08:45:00.000Z");
@@ -26,11 +30,11 @@ const JetpoolingCard = ({ data = {} }: { data?: Record<string, any> }) => {
         </div>
         <div className="content">
           <div>
-            <h3>{departureCity} (Nigeria)</h3>
+            <h3>{departureAirport?.address} (Nigeria)</h3>
           </div>
           <ArrowRight />
           <div>
-            <h3>{destinationCity} (Nigeria)</h3>
+            <h3>{destinationAirport?.address} (Nigeria)</h3>
           </div>
         </div>
         <div className="available__cta">
