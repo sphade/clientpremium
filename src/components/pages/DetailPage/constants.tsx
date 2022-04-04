@@ -1,36 +1,38 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { compact } from "lodash";
 import React from "react";
 import { ReactComponent as ArrowLeftIcon } from "../../../assets/svgs/arrow-left.svg";
 import { ReactComponent as ArrowRightIcon } from "../../../assets/svgs/arrow-right.svg";
 import { CharterType } from "../../../hooks/types";
 
-export const detailBannerSummary = (isLand = false) => [
-  {
-    title: isLand ? "Rates Per day" : "Max range",
-    value: isLand ? "N120,000" : "6000 nm",
-    key: isLand ? "price" : "maxRange",
-  },
-  {
-    title: "Year built",
-    value: "2016",
-    key: "year",
-  },
-  {
-    title: "Cabin Length",
-    value: "43 ft 3 in",
-    key: "cabinLength",
-  },
-  {
-    title: isLand ? "Capacity" : "Guests",
-    value: "14",
-    key: "capacity",
-  },
-  {
-    title: "Baggage capacity",
-    value: "1000 lbs",
-    key: "baggageCapacity",
-  },
-];
+export const detailBannerSummary = (isLand = false) =>
+  compact([
+    isLand && {
+      title: isLand ? "Rates Per day" : "Max range",
+      value: isLand ? "N120,000" : "6000 nm",
+      key: isLand ? "price" : "maxRange",
+    },
+    {
+      title: "Year built",
+      value: "2016",
+      key: "year",
+    },
+    isLand && {
+      title: "Cabin Length",
+      value: "43 ft 3 in",
+      key: "cabinLength",
+    },
+    {
+      title: isLand ? "Capacity" : "Guests",
+      value: "14",
+      key: "capacity",
+    },
+    {
+      title: "Baggage capacity",
+      value: "1000 lbs",
+      key: "baggageCapacity",
+    },
+  ]);
 
 export const detailSpecifications = {
   performance: {

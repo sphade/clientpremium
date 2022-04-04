@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import React from "react";
 import { ReactComponent as ArrowRight } from "../../../../assets/svgs/arrow-right-secondary.svg";
 import { useDialogHook } from "../../../../hooks";
@@ -12,10 +13,11 @@ const JetpoolingCard = ({ data = {} }: { data?: Record<string, any> }) => {
     departureAirport = {},
     destinationAirport = {},
     Aircraft = {},
+    createdAt,
   } = data;
 
   const { ProductImages = [] } = Aircraft;
-  const availableFrom = getFullDate("2022-02-01T08:45:00.000Z");
+  const availableFrom = dayjs(createdAt).format("dddd D, MMMM YYYY");
 
   const mappedImages = ProductImages.map(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

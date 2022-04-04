@@ -37,7 +37,7 @@ const ShareFlights = ({
         header="Notice"
         content={[
           "Charter price may end up cheaper depending on final number of seats booked.",
-          "Sharing flight requires you to funded your bossbuss premium wallet. This is needed to credit additional gains to your wallet.",
+          "Sharing flight requires you to fund your bossbuss premium wallet. This is needed to credit additional gains to your wallet.",
         ]}
         hasIcon
       />

@@ -55,7 +55,7 @@ const settings = {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const DetailBanner = ({ charter }: { charter: Record<string, any> }) => {
-  const { isLand, isSea, charterType } = useCheckCharterType();
+  const { isLand, isSea, isAir, charterType } = useCheckCharterType();
 
   const {
     isAvailable = true,
@@ -100,7 +100,7 @@ const DetailBanner = ({ charter }: { charter: Record<string, any> }) => {
           </Slider>
         </div>
         <div className="detail-banner__hero--titles center">
-          {detailBannerSummary(isLand).map(({ title, key }, id) => (
+          {detailBannerSummary(isLand || isAir).map(({ title, key }, id) => (
             <div className="single-title" key={id}>
               <p>{title}</p>
               <h3>

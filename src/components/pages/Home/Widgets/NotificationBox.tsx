@@ -9,7 +9,7 @@ const NotificationBox = () => {
     <div className="premium__filter notification">
       <h3 className="premium__filter--title">Notifications</h3>
       <Stack className="notification__contents">
-        {mockNotification.map(({ message, date }, index) => (
+        {/* {mockNotification.map(({ message, date }, index) => (
           <div className="notification__contents--tile" key={index}>
             <BossBusLogoSmall />
             <div className="message">
@@ -20,7 +20,7 @@ const NotificationBox = () => {
               <CloseIcon />
             </IconButton>
           </div>
-        ))}
+        ))} */}
       </Stack>
     </div>
   );

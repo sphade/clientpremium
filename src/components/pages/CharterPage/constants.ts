@@ -81,12 +81,12 @@ export const filters = {
     filters: [
       {
         value: "2-5",
-        label: "2-5 Passengers",
+        label: "2-5 Seats",
         key: "capacity",
       },
       {
         value: "6",
-        label: "6+ passengers",
+        label: "6+ Seats",
         key: "capacity",
       },
       {

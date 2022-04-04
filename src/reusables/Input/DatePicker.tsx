@@ -14,6 +14,7 @@ import { DatePickerProps } from "./types";
 import { PrimaryInput } from "..";
 import { ReactComponent as CalendarIcon } from "./../../assets/svgs/calendar.svg";
 import { ReactComponent as ClockIcon } from "./../../assets/svgs/clock-input.svg";
+import dayjs from "dayjs";
 
 // eslint-disable-next-line
 export const DatePicker = ({
@@ -59,6 +60,7 @@ export const DatePicker = ({
           InputProps={InputProps}
           value={values[name]}
           onChange={changeDate}
+          minDate={new Date() as any}
           renderInput={(params) => (
             <PrimaryInput
               {...params}
@@ -74,6 +76,7 @@ export const DatePicker = ({
       ) : (
         <MobileDateTimePicker
           InputProps={InputProps}
+          minDate={new Date() as any}
           value={values[name]}
           onChange={changeDate}
           renderInput={(params) => (
