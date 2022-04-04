@@ -47,6 +47,8 @@ export interface DatePickerProps {
   formik?: ICustomFormikProps;
   name: string;
   fullWidth?: boolean;
+  handleSelectChange?: (value: string) => void;
+
   type?: "datetime-local" | "date";
 }
 

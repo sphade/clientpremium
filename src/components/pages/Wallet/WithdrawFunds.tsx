@@ -1,10 +1,16 @@
 import React from "react";
-import { useSteps } from "../../../hooks";
-import { EnterPhoneNumber, ProvideOtp, WithdrawalDetails } from "./components";
+import useGlobalStoreProvider from "../../../context";
+import { useWithdrawal } from "../../../hooks";
+import { ProvideOtp, WithdrawalDetails } from "./components";
 import WalletFunded from "./WalletFunded";
 
 const WithdrawFunds = () => {
-  const steps = useSteps(4);
+  const { state } = useGlobalStoreProvider();
+
+  const {
+    user: { phoneNumber },
+  } = state;
+  const { formik, steps, isSubmitting, completeWithdrawal } = useWithdrawal();
 
   // Get the current step
   const { currentStep } = steps;
@@ -13,12 +19,22 @@ const WithdrawFunds = () => {
   const stepIndex = currentStep - 1;
 
   const views = [
-    <WithdrawalDetails key={1} steps={steps} />,
-    <EnterPhoneNumber key={2} steps={steps} />,
-    <ProvideOtp key={3} steps={steps} />,
+    <WithdrawalDetails
+      formik={formik}
+      isSubmitting={isSubmitting}
+      key={1}
+      steps={steps}
+    />,
+    <ProvideOtp
+      key={2}
+      steps={steps}
+      isLoading={isSubmitting}
+      details={phoneNumber}
+      handleSubmit={(otp) => completeWithdrawal(otp)}
+    />,
     <WalletFunded
       message="You fund has been withdrawn successfully!"
-      key={4}
+      key={3}
     />,
   ];
 

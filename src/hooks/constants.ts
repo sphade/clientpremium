@@ -19,8 +19,8 @@ export const getMetaDataForBooking = ({
     data = {
       tripType: metadata?.tripType,
       isShared: false,
-      departureCity: metadata?.pickup,
-      destinationCity: metadata?.destination,
+      departureId: metadata?.pickup,
+      destinationId: metadata?.destination,
       passengers: Number(metadata?.passenger || 1),
       amount: Number(metadata.amount || 0),
       departureDate: metadata?.departureDate,

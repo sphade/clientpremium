@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import OtpInput from "react-otp-input";
 
 import { useCountdown } from "../../../../hooks";
@@ -22,9 +22,14 @@ const ProvideOtp = ({
   const {
     minutesLeft,
     secondsLeft,
-    // start: startOtpCountdown,
+    start: startOtpCountdown,
     isOver,
   } = useCountdown({ minutes: 2 });
+
+  //Start countdown on page load
+  useEffect(() => {
+    startOtpCountdown();
+  }, []);
 
   //handle Otp
   const [otp, setOtp] = useState("");
@@ -68,6 +73,7 @@ const ProvideOtp = ({
         <PrimaryButton
           label={okText}
           isLoading={isLoading}
+          disabled={otp.length !== 6}
           onClick={() => {
             handleSubmit && handleSubmit(otp);
           }}

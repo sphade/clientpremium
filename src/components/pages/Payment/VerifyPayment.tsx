@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Stack } from "@mui/material";
 import React, { useEffect } from "react";
 import { useQuery } from "react-query";
 import { useBookCharter } from "../../../hooks";
-import { Preloader } from "../../../reusables";
+import { Loader, Preloader } from "../../../reusables";
 import { verifyPaymentApi } from "../../../routes/api";
 import { getUrlQueryEntries } from "../../../utils";
 
@@ -30,7 +31,20 @@ const VerifyPayment = () => {
   }
   return (
     <div>
-      <p>Payments</p>
+      <Stack
+        sx={{
+          color: "red",
+          paddingTop: "8rem",
+          minHeight: "100vh",
+          width: "100vw",
+        }}
+        display="flex"
+        justifyContent="center"
+        spacing={2}
+        direction="row"
+      >
+        <Loader />
+      </Stack>
     </div>
   );
 };

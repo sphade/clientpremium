@@ -21,6 +21,7 @@ export const DatePicker = ({
   name,
   fullWidth,
   type = "datetime-local",
+  handleSelectChange,
   ...rest
 }: DatePickerProps & TextFieldProps): JSX.Element => {
   const [value] = React.useState(new Date("2014-08-18T21:11:54"));
@@ -46,6 +47,9 @@ export const DatePicker = ({
       if (newValue) {
         const value = new Date(newValue).toUTCString();
         handleChange({ target: { name, value: value } });
+        if (handleSelectChange) {
+          handleSelectChange(newValue);
+        }
       }
     };
 
@@ -110,6 +114,7 @@ export const CustomTimePicker = ({
   formik,
   name,
   fullWidth,
+  handleSelectChange,
   ...rest
 }: DatePickerProps & TextFieldProps): JSX.Element => {
   const [value] = React.useState(new Date("2014-08-18T21:11:54"));
@@ -123,8 +128,11 @@ export const CustomTimePicker = ({
 
     const changeTime = (newValue: string | null) => {
       if (newValue) {
-        const value = new Date(newValue).getTime();
+        const value = new Date(newValue).toUTCString();
         handleChange({ target: { name, value: value } });
+        if (handleSelectChange) {
+          handleSelectChange(newValue);
+        }
       }
     };
 

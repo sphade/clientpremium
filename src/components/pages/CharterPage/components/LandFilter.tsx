@@ -9,6 +9,10 @@ import {
 } from "../../../../reusables";
 import { ICustomFormikProps } from "../../../../reusables/Input/types";
 import { useCheckCharterType } from "../../../../hooks";
+import useGlobalStoreProvider from "../../../../context";
+import { CharterReducerActions } from "../../../../context/reducers/actions";
+
+const { MUTATE_CHARTER } = CharterReducerActions;
 
 const LandFilter = ({
   formik,
@@ -19,6 +23,8 @@ const LandFilter = ({
 }) => {
   const { charterType } = useCheckCharterType();
 
+  const { dispatch } = useGlobalStoreProvider();
+
   return (
     <>
       <div className="top-filter__content flex-wrap lg:flex-nowrap">
@@ -27,6 +33,8 @@ const LandFilter = ({
           label="Pickup Location"
           iconType="navigator"
           formik={formik}
+          isPickup
+          handleFilters={handleFilters}
         />
         <CustomDurationInput
           isHour={false}
@@ -38,11 +46,27 @@ const LandFilter = ({
           label="Pick-up Date"
           formik={formik}
           type="date"
+          handleSelectChange={(data: any) => {
+            const value = data;
+            dispatch({
+              type: MUTATE_CHARTER,
+              payload: { departureDate: value },
+            });
+            handleFilters &&
+              handleFilters({ date: new Date(value).toISOString() });
+          }}
         />
         <CustomTimePicker
           name="departureTime"
           label="Pick-up time"
           formik={formik}
+          handleSelectChange={(data: any) => {
+            const value = data;
+            dispatch({
+              type: MUTATE_CHARTER,
+              payload: { departureTime: value },
+            });
+          }}
         />
       </div>
       <div className="top-filter__content">

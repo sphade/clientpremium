@@ -169,8 +169,6 @@ export const PrimarySelect = ({
   if (formik) {
     const { handleChange, handleBlur, values, errors, touched } = formik;
 
-    const newValue = values[name];
-
     return (
       <TextField
         select

@@ -8,9 +8,11 @@ import { TCharter } from "../validations/types";
 const useSearchCharter = ({
   currentCharter,
   initialValues = {},
+  pushRoute = true,
 }: {
   currentCharter: string;
   initialValues?: Record<string, any>;
+  pushRoute?: boolean;
 }) => {
   const history = useHistory();
 
@@ -28,16 +30,18 @@ const useSearchCharter = ({
       duration: 1,
       ...initialValues,
     },
-    onSubmit: async (values) => {
-      history.push(APP_ROUTES.charter(currentCharter), {
-        ...values,
-        charterType: currentCharter,
-      });
+    onSubmit: (values) => {
+      if (pushRoute) {
+        history.push(APP_ROUTES.charter(currentCharter), {
+          ...values,
+          charterType: currentCharter,
+        });
+      }
     },
     validationSchema: charterValidation({ type: currentCharter as TCharter }),
   });
 
-  const { handleSubmit, isValid, dirty, values } = formik;
+  const { handleSubmit, isValid, dirty } = formik;
 
   const isDisabled = !(isValid && dirty);
 

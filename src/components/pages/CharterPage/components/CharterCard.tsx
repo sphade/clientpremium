@@ -25,12 +25,22 @@ const CharterCard = ({
   item,
   handleCharterCar,
   handleLightBoxView,
+  searchCharter,
 }: {
   item: Record<string, any>;
   handleCharterCar: ({ item }: { item: any }) => void;
   handleLightBoxView: ({ item, index }: { item: any; index: number }) => void;
+  searchCharter: any;
 }) => {
   const { isLand, charterType, isSea } = useCheckCharterType();
+
+  const {
+    isDisabled = false,
+    handleSubmit = () => {
+      return;
+    },
+    formik: { values, errors },
+  } = searchCharter;
 
   return (
     <div className="charter-card">
@@ -57,9 +67,19 @@ const CharterCard = ({
         </div>
         <div className="button-group">
           <PrimaryButton
-            onClick={() => handleCharterCar({ item })}
+            onClick={async () => {
+              if (isDisabled) {
+                handleSubmit();
+                window.scrollTo(0, 0);
+
+                return;
+              } else {
+                handleCharterCar({ item });
+              }
+            }}
             label={`Charter ${isLand ? "Car" : isSea ? "Boat" : "Flight"}`}
             small
+            // disabled={isDisabled}
           />
           <Link
             to={APP_ROUTES.charterDetailPage(

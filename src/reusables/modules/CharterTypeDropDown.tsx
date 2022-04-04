@@ -49,7 +49,6 @@ const CharterTypeDropdown = ({
         fullWidth={fullWidth}
         formik={formik}
         handleSelectChange={(data: any) => {
-          console.log({ data });
           const value = data;
           dispatch({ type: MUTATE_CHARTER, payload: { transitType: value } });
           handleFilters && handleFilters({ category: value });

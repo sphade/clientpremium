@@ -31,12 +31,14 @@ const HomeJetPooling = () => {
           <p className="mb-8"> Search for specific jet pools</p>
           <div className="searchBar__group flex  gap-4 items-start flex-wrap lg:flex-nowrap ">
             <CharterTerminalDropdown
+              filterKey="from"
               name="from"
               label="Leaving from"
               formik={formik}
               useEvent={true}
             />
             <CharterTerminalDropdown
+              filterKey="to"
               formik={formik}
               name="to"
               label="Going to"
@@ -52,7 +54,6 @@ const HomeJetPooling = () => {
               label="Search"
               className="flex-none"
               onClick={() => {
-                console.log("clicked");
                 handleSubmit();
               }}
             />

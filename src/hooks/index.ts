@@ -12,3 +12,5 @@ export { default as usePayment } from "./usePayment";
 export { default as useSearchCharter } from "./useSearchCharter";
 export { default as useFetchFeaturedItems } from "./useFetchFeaturedItems";
 export { default as useJetPooling } from "./useJetPooling";
+export { default as useCharterPage } from "./useCharterPage";
+export { default as useWithdrawal } from "./useWithdrawal";

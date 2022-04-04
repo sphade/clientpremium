@@ -39,6 +39,7 @@ const PendingTrips = ({ trips }: { trips: Record<string, any> }) => {
     }
     setAllTrips(selectedTrips);
   };
+
   return (
     <div className="pending__container">
       <PrimarySelect

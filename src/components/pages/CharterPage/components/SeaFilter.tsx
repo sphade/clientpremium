@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import {
   CharterTerminalDropdown,
@@ -10,6 +11,10 @@ import {
 
 import { ICustomFormikProps } from "../../../../reusables/Input/types";
 import { useCheckCharterType } from "../../../../hooks";
+import useGlobalStoreProvider from "../../../../context";
+import { CharterReducerActions } from "../../../../context/reducers/actions";
+
+const { MUTATE_CHARTER } = CharterReducerActions;
 
 const SeaFilter = ({
   formik,
@@ -21,6 +26,8 @@ const SeaFilter = ({
 }) => {
   const { charterType } = useCheckCharterType();
 
+  const { dispatch } = useGlobalStoreProvider();
+
   const { values } = formik;
 
   const { tripType = "" } = values;
@@ -31,6 +38,8 @@ const SeaFilter = ({
     <>
       <div className="top-filter__content">
         <CharterTerminalDropdown
+          handleFilters={handleFilters}
+          filterKey="from"
           filter="sea"
           name="pickup"
           label="Pickup Location"
@@ -40,6 +49,8 @@ const SeaFilter = ({
           <CustomDurationInput label="Cruise Duration" formik={formik} />
         ) : (
           <CharterTerminalDropdown
+            handleFilters={handleFilters}
+            filterKey="to"
             filter="sea"
             name="destination"
             label="Destination Terminal"
@@ -50,11 +61,27 @@ const SeaFilter = ({
           name="departureDate"
           label="Departure Date"
           formik={formik}
+          handleSelectChange={(data: any) => {
+            const value = data;
+            dispatch({
+              type: MUTATE_CHARTER,
+              payload: { departureDate: value },
+            });
+            // handleFilters &&
+            //   handleFilters({ date: new Date(value).toISOString() });
+          }}
           type="date"
         />
         <CustomTimePicker
           name="departureTime"
           label="Departure time"
+          handleSelectChange={(data: any) => {
+            const value = data;
+            dispatch({
+              type: MUTATE_CHARTER,
+              payload: { departureTime: value },
+            });
+          }}
           formik={formik}
         />
       </div>

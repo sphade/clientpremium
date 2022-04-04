@@ -14,7 +14,7 @@ export const provideDetailsValidation = () =>
       phoneNumber: Yup.string()
         .trim()
         .required("Enter your phone number")
-        .min(4, "Password must be greater than 3 characters"),
+        .min(10, "Phone number must be greater than 10 "),
       name: Yup.string()
         .trim()
 
@@ -121,6 +121,13 @@ export const getHelpValidation = Yup.object({
     .required("Enter your message")
     .min(10, "Password must be greater than 9 characters")
     .trim(),
+});
+export const withdrawalValidation = Yup.object({
+  amount: Yup.number().required("Enter a valid amount"),
+  accountName: Yup.string().trim().required("Enter your account name"),
+  narration: Yup.string().trim().required("Enter narration"),
+  bankCode: Yup.number().required("Pick a bank"),
+  bankAccountNumber: Yup.number().required("Enter your account number"),
 });
 
 export const charterValidation = ({ type }: { type: TCharter }) =>

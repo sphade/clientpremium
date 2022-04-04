@@ -16,12 +16,14 @@ const CharterTerminalDropdown = ({
   filter = "air",
   isPickup = true,
   handleFilters,
+  filterKey,
   ...rest
 }: {
   filter?: string;
   isPickup?: boolean;
   useId?: boolean;
   handleFilters?: (filter: any) => void;
+  filterKey: string;
 } & Omit<PrimarySelectProps, "options">) => {
   const charterQuery = filter === "air" ? "/airport" : "/jetty";
 
@@ -36,20 +38,20 @@ const CharterTerminalDropdown = ({
   const terminals = data.map((ele: any) => {
     return {
       ...ele,
-      value: ele.name,
+      value: ele.id,
       name: `${ele.address}, ${ele.state}, ${ele?.country}`,
     };
   });
+
   return (
     <PrimarySelect
       {...rest}
       handleSelectChange={(data: any) => {
-        const value = data;
+        const location = data;
         if (isPickup) {
-          const location = trim(data.split(",")[1] || "");
           const name = rest?.name;
-          dispatch({ type: MUTATE_CHARTER, payload: { [name]: value } });
-          handleFilters && handleFilters({ location: location });
+          dispatch({ type: MUTATE_CHARTER, payload: { [name]: location } });
+          handleFilters && handleFilters({ [filterKey]: location });
         }
       }}
       options={terminals}

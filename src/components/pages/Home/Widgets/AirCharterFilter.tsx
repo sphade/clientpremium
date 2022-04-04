@@ -60,12 +60,14 @@ const AirCharterFilter = ({
             )}
             <div className="charter__content--form">
               <CharterTerminalDropdown
+                filterKey="from"
                 name="pickup"
                 label="Leaving from"
                 formik={formik}
               />
               <CharterTerminalDropdown
                 name="destination"
+                filterKey="to"
                 label="Going to"
                 formik={formik}
               />

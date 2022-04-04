@@ -16,6 +16,7 @@ const LandCharterFilter = ({
   type: string;
   formik: ICustomFormikProps;
 }) => {
+
   return (
     <>
       <div className="charter__content--select">

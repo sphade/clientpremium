@@ -227,3 +227,14 @@ export const transformNonEventChange = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return event as any;
 };
+
+export const apiHandleErrorMessage = ({ error }: { error: any }) => {
+  const defaultMessage = "Error";
+  const message =
+    error.response.data?.error ||
+    error.message ||
+    error.response.data.message ||
+    defaultMessage;
+
+  return message;
+};

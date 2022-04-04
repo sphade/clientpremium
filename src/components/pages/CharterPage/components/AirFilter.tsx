@@ -8,6 +8,10 @@ import {
 } from "../../../../reusables";
 import { ICustomFormikProps } from "../../../../reusables/Input/types";
 import { useCheckCharterType } from "../../../../hooks";
+import useGlobalStoreProvider from "../../../../context";
+import { CharterReducerActions } from "../../../../context/reducers/actions";
+
+const { MUTATE_CHARTER } = CharterReducerActions;
 
 const AirFilter = ({
   formik,
@@ -17,6 +21,7 @@ const AirFilter = ({
   handleFilters?: (filter: any) => void;
 }) => {
   const { charterType } = useCheckCharterType();
+  const { dispatch } = useGlobalStoreProvider();
 
   return (
     <>
@@ -25,20 +30,42 @@ const AirFilter = ({
           handleFilters={handleFilters}
           name="pickup"
           label="Leaving from"
+          filterKey="from"
           formik={formik}
         />
         <CharterTerminalDropdown
           handleFilters={handleFilters}
           name="destination"
           label="Going to"
+          filterKey="to"
           formik={formik}
         />
         <DatePicker
           name="departureDate"
           label="Departure Date"
           formik={formik}
+          handleSelectChange={(data: any) => {
+            const value = data;
+            dispatch({
+              type: MUTATE_CHARTER,
+              payload: { departureDate: value },
+            });
+            handleFilters && handleFilters({ departureDate: value });
+          }}
         />
-        <DatePicker name="returnDate" label="Return Date" formik={formik} />
+        <DatePicker
+          name="returnDate"
+          handleSelectChange={(data: any) => {
+            const value = data;
+            dispatch({
+              type: MUTATE_CHARTER,
+              payload: { returnDate: value },
+            });
+            handleFilters && handleFilters({ returnDate: value });
+          }}
+          label="Return Date"
+          formik={formik}
+        />
       </div>
       <div className="top-filter__content">
         <div>

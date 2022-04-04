@@ -1,41 +1,26 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect } from "react";
 
-import StylishArrow from "../../../assets/images/arrow-style.png";
 import { useCheckCharterType } from "../../../hooks";
 import useGlobalStoreProvider from "../../../context";
 import AirFilter from "./components/AirFilter";
-import { useFormik } from "formik";
 import LandFilter from "./components/LandFilter";
 import SeaFilter from "./components/SeaFilter";
+import { CHARTER_ARROW } from "./constants";
 
 const TopFilter = ({
   handleFilters,
-}: {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  formik,
+}: // formik,
+{
   handleFilters: (filter: any) => void;
+  formik: any;
 }) => {
   const { charterType, isAir, isLand, isSea } = useCheckCharterType();
 
   const {
     state: { charter },
   } = useGlobalStoreProvider();
-
-  const formik = useFormik({
-    initialValues: {
-      pickup: "",
-      destination: "",
-      departureDate: "",
-      returnDate: "",
-      passenger: 1,
-      tripType: "",
-      transitType: "",
-      duration: 1,
-      departureTime: "",
-    },
-    onSubmit: async (values) => {
-      console.log(values);
-    },
-  });
 
   const { setValues } = formik;
 
@@ -72,7 +57,7 @@ const TopFilter = ({
       <div className="top-filter__banner">
         <div className="center">
           <h3>{charterType} CHARTER</h3>
-          <img src={StylishArrow} alt="stylish-arrow" />
+          <img src={CHARTER_ARROW[charterType]} alt="stylish-arrow" />
         </div>
       </div>
       <div className=" center">

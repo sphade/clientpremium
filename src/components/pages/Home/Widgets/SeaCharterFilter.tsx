@@ -37,6 +37,7 @@ const SeaCharterFilter = ({
         <CharterTerminalDropdown
           filter="sea"
           name="pickup"
+          filterKey="from"
           label="Pickup Location"
           formik={formik}
         />
@@ -45,6 +46,7 @@ const SeaCharterFilter = ({
           <CustomDurationInput label="Cruise Duration" formik={formik} />
         ) : (
           <CharterTerminalDropdown
+            filterKey="to"
             filter="sea"
             name="destination"
             label="Destination Terminal"

@@ -11,7 +11,13 @@ import { Pagination } from "@mui/material";
 import useGlobalStoreProvider from "../../../context";
 import CharterCard from "./components/CharterCard";
 
-const AvailableCharter = ({ charter }: { charter: Record<string, any> }) => {
+const AvailableCharter = ({
+  charter,
+  searchCharter,
+}: {
+  charter: Record<string, any>;
+  searchCharter: any;
+}) => {
   const history = useHistory();
 
   const { isLand, charterType, isAir } = useCheckCharterType();
@@ -19,6 +25,10 @@ const AvailableCharter = ({ charter }: { charter: Record<string, any> }) => {
   const [open, setOpen] = useState(false);
   const [images, setImages] = useState([]);
   const [photoIndex, setPhotoIndex] = useState(0);
+
+  const {
+    formik: { values = {} },
+  } = searchCharter;
 
   const {
     state: { charter: storeCharter },
@@ -54,7 +64,7 @@ const AvailableCharter = ({ charter }: { charter: Record<string, any> }) => {
         type: charterType.toLowerCase(),
         id: item.id,
       }),
-      storeCharter || {}
+      { ...storeCharter, ...values } || {}
     );
   };
 
@@ -78,6 +88,7 @@ const AvailableCharter = ({ charter }: { charter: Record<string, any> }) => {
           item={item}
           handleCharterCar={handleCharterCar}
           handleLightBoxView={handleLightBoxView}
+          searchCharter={searchCharter}
         />
       ))}
 

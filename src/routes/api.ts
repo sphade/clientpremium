@@ -68,6 +68,7 @@ export const apiRoutes = {
   wallet: "/wallet",
   userTrips: "/user/trips",
   jetPooling: "/jet-pooling",
+  banks: "/payment/banks",
 };
 
 export const signUserUp = async (data: Record<string, unknown>) => {
@@ -175,6 +176,10 @@ export const getPaymentMethodsApi = async () => {
   const response = await axios.get(apiRoutes.payment + "/methods");
   return response.data.data;
 };
+export const getBanksApi = async () => {
+  const response = await axios.get(apiRoutes.banks);
+  return response.data.data;
+};
 export const getFeaturedItemsApi = async ({
   type,
   id,
@@ -248,6 +253,20 @@ export const sendUpdateEmailOtp = async (data: Record<string, any>) => {
 export const fundWalletApi = async (data: Record<string, any>) => {
   const request = useAxios();
   const response = await request.post("/wallet/fund", data);
+  return response.data.data;
+};
+export const initializeWalletWithdrawalApi = async (
+  data: Record<string, any>
+) => {
+  const request = useAxios();
+  const response = await request.post("/wallet/withdraw/initialize", data);
+  return response.data.data;
+};
+export const completeWalletWithdrawalApi = async (
+  data: Record<string, any>
+) => {
+  const request = useAxios();
+  const response = await request.post("/wallet/withdraw/complete", data);
   return response.data.data;
 };
 

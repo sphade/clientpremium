@@ -16,8 +16,6 @@ const BookingSummaryCard = ({ data }: Record<string, any>) => {
     goToPayment,
   } = data;
 
-  console.log({ destinationTerminal, pickup });
-
   return (
     <article className="booking-summary__booking-card">
       <h3 className="booking-card__title">BOOKING SUMMARY</h3>

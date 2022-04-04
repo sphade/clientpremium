@@ -32,12 +32,14 @@ const AvailableJetPools = () => {
         <div className="searchBar ">
           <div className="searchBar__group flex gap-4 items-start flex-wrap lg:flex-nowrap ">
             <CharterTerminalDropdown
+              filterKey="from"
               name="from"
               label="Leaving from"
               formik={formik}
               useEvent={true}
             />
             <CharterTerminalDropdown
+              filterKey="to"
               formik={formik}
               name="to"
               label="Going to"

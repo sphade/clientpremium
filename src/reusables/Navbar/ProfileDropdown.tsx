@@ -85,7 +85,6 @@ const ProfileDropDown = ({ buttonText }: { buttonText: string }) => {
               <div className="middle">
                 <h3>{name}</h3>
               </div>
-              <NavArrow />
             </MenuItem>
           </Link>
         ))}

@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Badge } from "@mui/material";
 import ShortLogo from "./../../assets/svgs/logo.svg";
 import FullLogo from "../../assets/images/logo-premium.png";
@@ -20,6 +20,10 @@ const Navbar = ({ primary = true }: { primary?: boolean }): JSX.Element => {
     user: { name = "", photo = "" },
   } = state;
 
+  const { pathname } = useLocation();
+
+  const isHomeLink = pathname.includes("/home");
+
   return (
     <div className="navbar">
       <div className="center .navbar">
@@ -32,39 +36,43 @@ const Navbar = ({ primary = true }: { primary?: boolean }): JSX.Element => {
             {primary && (
               <CustomDropDown
                 buttonText="All travel services"
-                menuItems={allTravelServices.map((menu) => (
-                  <Fragment key={menu.name}>
-                    {menu.isLink ? (
-                      <Link to={menu.link || "/home"}>
-                        <div className="nav-dropdown">
-                          {menu.image && (
-                            <img
-                              src={menu?.image}
-                              alt="icon"
-                              width="20"
-                              height="20"
-                            />
-                          )}
-                          <p>{menu.name}</p>
-                        </div>
-                      </Link>
-                    ) : (
-                      <a key={menu.name} href={menu.link || "/home"}>
-                        <div className="nav-dropdown">
-                          {menu.image && (
-                            <img
-                              src={menu.image}
-                              alt="icon"
-                              width="20"
-                              height="20"
-                            />
-                          )}
-                          <p>{menu.name}</p>
-                        </div>
-                      </a>
-                    )}
-                  </Fragment>
-                ))}
+                menuItems={allTravelServices
+                  .filter((item) => (isHomeLink ? true : !item.homeNav))
+                  .map((menu) => {
+                    return (
+                      <Fragment key={menu.name}>
+                        {menu.isLink ? (
+                          <Link to={menu.link || "/home"}>
+                            <div className="nav-dropdown">
+                              {menu.image && (
+                                <img
+                                  src={menu?.image}
+                                  alt="icon"
+                                  width="20"
+                                  height="20"
+                                />
+                              )}
+                              <p>{menu.name}</p>
+                            </div>
+                          </Link>
+                        ) : (
+                          <a key={menu.name} href={menu.link || "/home"}>
+                            <div className="nav-dropdown">
+                              {menu.image && (
+                                <img
+                                  src={menu.image}
+                                  alt="icon"
+                                  width="20"
+                                  height="20"
+                                />
+                              )}
+                              <p>{menu.name}</p>
+                            </div>
+                          </a>
+                        )}
+                      </Fragment>
+                    );
+                  })}
               />
             )}
           </div>
