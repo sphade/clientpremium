@@ -1,31 +1,31 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from "react";
+import React from 'react';
 import {
   DateTimePicker,
   MobileDatePicker,
   MobileDateTimePicker,
   MobileTimePicker,
   TimePicker,
-} from "@mui/lab";
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import { InputAdornment, TextField, TextFieldProps } from "@mui/material";
-import { DatePickerProps } from "./types";
-import { PrimaryInput } from "..";
-import { ReactComponent as CalendarIcon } from "./../../assets/svgs/calendar.svg";
-import { ReactComponent as ClockIcon } from "./../../assets/svgs/clock-input.svg";
-import dayjs from "dayjs";
+} from '@mui/lab';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import { InputAdornment, TextField, TextFieldProps } from '@mui/material';
+import { DatePickerProps } from './types';
+import { PrimaryInput } from '..';
+import { ReactComponent as CalendarIcon } from './../../assets/svgs/calendar.svg';
+import { ReactComponent as ClockIcon } from './../../assets/svgs/clock-input.svg';
+// import dayjs from "dayjs";
 
 // eslint-disable-next-line
 export const DatePicker = ({
   formik,
   name,
   fullWidth,
-  type = "datetime-local",
+  type = 'datetime-local',
   handleSelectChange,
   ...rest
 }: DatePickerProps & TextFieldProps): JSX.Element => {
-  const [value] = React.useState(new Date("2014-08-18T21:11:54"));
+  const [value] = React.useState(new Date('2014-08-18T21:11:54'));
 
   const onChange = (newValue: string | null) => {
     if (newValue) {
@@ -35,7 +35,7 @@ export const DatePicker = ({
 
   const InputProps = {
     startAdornment: (
-      <InputAdornment position="start">
+      <InputAdornment position='start'>
         <CalendarIcon />
       </InputAdornment>
     ),
@@ -55,8 +55,9 @@ export const DatePicker = ({
     };
 
     const picker =
-      type === "date" ? (
+      type === 'date' ? (
         <MobileDatePicker
+          inputFormat='dd/MM/yyyy'
           InputProps={InputProps}
           value={values[name]}
           onChange={changeDate}
@@ -66,8 +67,8 @@ export const DatePicker = ({
               {...params}
               formik={formik}
               name={name}
-              type="navigator"
-              placeholder="Pick date and time"
+              type='navigator'
+              placeholder='Pick date and time'
               fullWidth={fullWidth}
               {...rest}
             />
@@ -75,8 +76,13 @@ export const DatePicker = ({
         />
       ) : (
         <MobileDateTimePicker
+          inputFormat='dd/MM/yyyy p'
           InputProps={InputProps}
-          minDate={new Date() as any}
+          minDate={
+            name.includes('turn')
+              ? (new Date(values?.firstDepartureDate) as any)
+              : (new Date() as any)
+          }
           value={values[name]}
           onChange={changeDate}
           renderInput={(params) => (
@@ -84,8 +90,8 @@ export const DatePicker = ({
               {...params}
               formik={formik}
               name={name}
-              type="navigator"
-              placeholder="Pick date and time"
+              type='navigator'
+              placeholder='Pick date and time'
               fullWidth={fullWidth}
               {...rest}
             />
@@ -106,7 +112,7 @@ export const DatePicker = ({
         value={value}
         ampmInClock
         onChange={onChange}
-        InputAdornmentProps={{ position: "start" }}
+        InputAdornmentProps={{ position: 'start' }}
         renderInput={(params) => <TextField {...rest} {...params} fullWidth />}
       />
     </LocalizationProvider>
@@ -120,7 +126,7 @@ export const CustomTimePicker = ({
   handleSelectChange,
   ...rest
 }: DatePickerProps & TextFieldProps): JSX.Element => {
-  const [value] = React.useState(new Date("2014-08-18T21:11:54"));
+  const [value] = React.useState(new Date('2014-08-18T21:11:54'));
 
   const onChange = (newValue: string | null) => {
     console.log(newValue);
@@ -146,19 +152,19 @@ export const CustomTimePicker = ({
           onChange={changeTime}
           InputProps={{
             startAdornment: (
-              <InputAdornment position="start">
+              <InputAdornment position='start'>
                 <ClockIcon />
               </InputAdornment>
             ),
           }}
-          InputAdornmentProps={{ position: "start" }}
+          InputAdornmentProps={{ position: 'start' }}
           renderInput={(params) => (
             <PrimaryInput
               {...params}
               formik={formik}
               name={name}
-              type="navigator"
-              placeholder="Pick date and time"
+              type='navigator'
+              placeholder='Pick date and time'
               fullWidth={fullWidth}
               {...rest}
             />
@@ -175,7 +181,7 @@ export const CustomTimePicker = ({
         ampmInClock
         // timeIcon={<ClockIcon />}
         onChange={onChange}
-        InputAdornmentProps={{ position: "start" }}
+        InputAdornmentProps={{ position: 'start' }}
         renderInput={(params) => <TextField {...rest} {...params} fullWidth />}
       />
     </LocalizationProvider>
