@@ -1,35 +1,36 @@
-import * as Yup from "yup";
-import { TCharter } from "./types";
+import * as Yup from 'yup';
+import { TCharter } from './types';
+import { flightNumber } from '../components/pages/Home/constants';
 
 export const provideDetailsValidation = () =>
   Yup.lazy((formValues) => {
-    const password = formValues["password"];
-    const confirmPassword = formValues["confirmPassword"];
+    const password = formValues['password'];
+    const confirmPassword = formValues['confirmPassword'];
 
     return Yup.object({
       email: Yup.string()
         .trim()
-        .email("Enter a valid email")
-        .required("Enter a valid email"),
+        .email('Enter a valid email')
+        .required('Enter a valid email'),
       phoneNumber: Yup.string()
         .trim()
-        .required("Enter your phone number")
-        .min(10, "Phone number must be greater than 10 "),
+        .required('Enter your phone number')
+        .min(10, 'Phone number must be greater than 10 '),
       name: Yup.string()
         .trim()
 
-        .required("Enter your name"),
+        .required('Enter your name'),
       password: Yup.string()
-        .min(4, "Password must be greater than 3 characters")
-        .required("Enter your password")
+        .min(4, 'Password must be greater than 3 characters')
+        .required('Enter your password')
         .test({
-          message: "Password do not match",
+          message: 'Password do not match',
           test: (value) => value === confirmPassword,
         }),
       confirmPassword: Yup.string()
-        .required("Re-enter your password")
+        .required('Re-enter your password')
         .test({
-          message: "Password do not match",
+          message: 'Password do not match',
           test: (value) => value === password,
         }),
     });
@@ -38,117 +39,150 @@ export const provideDetailsValidation = () =>
 export const loginValidation = Yup.object({
   email: Yup.string()
     .trim()
-    .email("Enter a valid email")
-    .required("Enter a valid email"),
+    .email('Enter a valid email')
+    .required('Enter a valid email'),
 
   password: Yup.string()
-    .required("Enter your password")
-    .min(4, "Password must be greater than 3 characters"),
+    .required('Enter your password')
+    .min(4, 'Password must be greater than 3 characters'),
 });
 export const changePasswordValidation = () =>
   Yup.lazy((formValues) => {
-    const newPassword = formValues["newPassword"];
-    const confirmPassword = formValues["confirmPassword"];
+    const newPassword = formValues['newPassword'];
+    const confirmPassword = formValues['confirmPassword'];
 
     return Yup.object({
       oldPassword: Yup.string()
-        .required("Enter your old password")
-        .min(4, "Password must be greater than 3 characters"),
+        .required('Enter your old password')
+        .min(4, 'Password must be greater than 3 characters'),
       newPassword: Yup.string()
-        .min(4, "Password must be greater than 3 characters")
-        .required("Enter your new password")
+        .min(4, 'Password must be greater than 3 characters')
+        .required('Enter your new password')
         .test({
-          message: "Password do not match",
+          message: 'Password do not match',
           test: (value) => value === confirmPassword,
         }),
       confirmPassword: Yup.string()
-        .min(4, "Password must be greater than 3 characters")
-        .required("Re-enter your new password")
+        .min(4, 'Password must be greater than 3 characters')
+        .required('Re-enter your new password')
         .test({
-          message: "Password do not match",
+          message: 'Password do not match',
           test: (value) => value === newPassword,
         }),
     });
   });
 
 export const changePhoneValidation = Yup.object({
-  phone: Yup.string().trim().required("Enter your phone number"),
+  phone: Yup.string().trim().required('Enter your phone number'),
   name: Yup.string().trim(),
 });
 export const fundWalletValidation = Yup.object({
-  amount: Yup.number().required("Enter a valid amount"),
+  amount: Yup.number().required('Enter a valid amount'),
 });
 
 export const forgotPasswordValidaiton = Yup.object({
   email: Yup.string()
     .trim()
-    .email("Enter a valid email")
-    .required("Enter a valid email"),
+    .email('Enter a valid email')
+    .required('Enter a valid email'),
 });
 
 export const resetPasswordValidation = () =>
   Yup.lazy((formValues) => {
-    const password = formValues["password"];
-    const confirmPassword = formValues["confirmPassword"];
+    const password = formValues['password'];
+    const confirmPassword = formValues['confirmPassword'];
 
     return Yup.object({
       password: Yup.string()
-        .required("Enter your password")
+        .required('Enter your password')
         .test({
-          message: "Password do not match",
+          message: 'Password do not match',
           test: (value) => value === confirmPassword,
         }),
       confirmPassword: Yup.string()
-        .required("Re-enter your password")
+        .required('Re-enter your password')
         .test({
-          message: "Password do not match",
+          message: 'Password do not match',
           test: (value) => value === password,
         }),
     });
   });
 
 export const getHelpValidation = Yup.object({
-  fullName: Yup.string().trim().required("Enter your full name"),
+  fullName: Yup.string().trim().required('Enter your full name'),
   email: Yup.string()
     .trim()
-    .email("Enter a valid email")
-    .required("Enter a valid email"),
+    .email('Enter a valid email')
+    .required('Enter a valid email'),
   phone: Yup.string()
     .trim()
-    .required("Enter your phone number")
-    .min(4, "Password must be greater than 3 characters"),
+    .required('Enter your phone number')
+    .min(4, 'Password must be greater than 3 characters'),
   message: Yup.string()
-    .required("Enter your message")
-    .min(10, "Password must be greater than 9 characters")
+    .required('Enter your message')
+    .min(10, 'Password must be greater than 9 characters')
     .trim(),
 });
 export const withdrawalValidation = Yup.object({
-  amount: Yup.number().required("Enter a valid amount"),
-  accountName: Yup.string().trim().required("Enter your account name"),
-  narration: Yup.string().trim().required("Enter narration"),
-  bankCode: Yup.number().required("Pick a bank"),
-  bankAccountNumber: Yup.number().required("Enter your account number"),
+  amount: Yup.number().required('Enter a valid amount'),
+  accountName: Yup.string().trim().required('Enter your account name'),
+  narration: Yup.string().trim().required('Enter narration'),
+  bankCode: Yup.number().required('Pick a bank'),
+  bankAccountNumber: Yup.number().required('Enter your account number'),
 });
 
 export const charterValidation = ({ type }: { type: TCharter }) =>
   Yup.lazy((formValues) => {
-    const tripType = formValues["tripType"];
+    const { formNumber } = formValues;
+    const tripType = formValues['tripType'];
+    const defaultMessage = 'This field is required';
 
-    const defaultMessage = "This field is required";
+    const pickUpObj: any = {};
+    formNumber?.forEach((form: any, index: number) => {
+      const numberIndex: string = (index + 1).toString();
+      pickUpObj[flightNumber[numberIndex].toLowerCase() + 'Pickup'] =
+        Yup.string().trim().required(defaultMessage);
+    });
+
+    const destinationObj: any = {};
+    formNumber?.forEach((form: any, index: number) => {
+      const numberIndex: string = (index + 1).toString();
+      destinationObj[flightNumber[numberIndex].toLowerCase() + 'Destination'] =
+        Yup.string().trim().required(defaultMessage);
+    });
+
+    const departureDateObj: any = {};
+    formNumber?.forEach((form: any, index: number) => {
+      const numberIndex: string = (index + 1).toString();
+      departureDateObj[
+        flightNumber[numberIndex].toLowerCase() + 'DepartureDate'
+      ] = Yup.string().trim().required(defaultMessage);
+    });
+
+    const returnDateObj: any = {};
+    formNumber?.forEach((form: any, index: number) => {
+      const numberIndex: string = (index + 1).toString();
+      returnDateObj[flightNumber[numberIndex].toLowerCase() + 'ReturnDate'] =
+        Yup.string().trim().required(defaultMessage);
+    });
 
     const validations = {
       air: Yup.object({
-        pickup: Yup.string().trim().required(defaultMessage),
-        destination: Yup.string().trim().required(defaultMessage),
-        departureDate: Yup.string().trim().required(defaultMessage),
-        returnDate: Yup.string().trim().required(defaultMessage),
+        ...pickUpObj,
+        ...destinationObj,
+        ...departureDateObj,
+        ...returnDateObj,
+        // pickup: Yup.string().trim().required(defaultMessage),
+        // destination: Yup.string().trim().required(defaultMessage),
+        // departureDate: Yup.string().trim().required(defaultMessage),
+        // returnDate: Yup.string().trim().required(defaultMessage),
         passenger: Yup.number().required(defaultMessage),
         tripType: Yup.string().trim().required(defaultMessage),
         transitType: Yup.string().trim().required(defaultMessage),
       }),
       sea: Yup.object({
         pickup: Yup.string().trim().required(defaultMessage),
-        ...(tripType === "boat trip"
+        ...(tripType === 'boat trip'
           ? { destination: Yup.string().trim().required(defaultMessage) }
           : { duration: Yup.number().required(defaultMessage) }),
         departureDate: Yup.string().trim().required(defaultMessage),
@@ -166,6 +200,7 @@ export const charterValidation = ({ type }: { type: TCharter }) =>
         transitType: Yup.string().trim().required(defaultMessage),
       }),
     };
+
     return validations[type];
   });
 
