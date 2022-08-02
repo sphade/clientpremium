@@ -41,7 +41,9 @@ const WithdrawFunds = lazy(
 );
 const Trip = lazy(() => import("../components/pages/Trip"));
 const Profile = lazy(() => import("../components/pages/Profile"));
-const GetHelp = lazy(() => import("../components/pages/GetHelp"));
+import GetHelp from "../components/pages/GetHelp";
+
+// const GetHelp = lazy(() => import("../components/pages/GetHelp"));
 const Terms = lazy(() => import("../components/pages/Company/Terms"));
 const PrivacyNotice = lazy(
   () => import("../components/pages/Company/PrivacyNotice")

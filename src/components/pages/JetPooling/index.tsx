@@ -11,7 +11,7 @@ const JetPooling = () => {
         images={[JetPoolingBanner2]}
         canSwitch={false}
         headers={["JET POOLING"]}
-        subtitle="Joing people going your direction and enjoy premium services at lower cost."
+        subtitle="Join people going your direction and enjoy premium services at lower cost."
         hasButton={false}
         scrollId="jet-pool-content"
       />

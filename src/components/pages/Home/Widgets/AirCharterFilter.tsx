@@ -24,7 +24,7 @@ const AirCharterFilter = ({
 }) => {
   const { setFieldValue, values } = formik;
 
-  const { tripType = "", formNumber = [1] } = values;
+  const { tripType = "", formNumber = [8] } = values;
 
   const isMultiCity = tripType?.toLowerCase() === "multi-city";
   const isRoundTrip = tripType?.toLowerCase() === "round trip";
@@ -96,7 +96,7 @@ const AirCharterFilter = ({
           <button
             className="add__flight--button"
             onClick={() => {
-              const lastNumber = ++formNumber[formNumber.length - 1];
+              const lastNumber = 3 + 1;
               setFieldValue("formNumber", [...formNumber, lastNumber]);
             }}
           >

@@ -7,21 +7,28 @@ export  const socialMediaLinks = [
     {
         id: 1, 
         name: "Facebook",
-        icon: FacebookIcon
+        icon: FacebookIcon,
+        link:'https://www.facebook.com/Bossbusworld'
     },
     {
         id: 2, 
         name: "Twitter",
-        icon: TwitterIcon
+        icon: TwitterIcon,
+        link:'https://twitter.com/bossbusworld'
+
     },
     {
         id: 3, 
         name: "Instagram",
-        icon: InstagramIcon
+        icon: InstagramIcon,
+        link:'https://www.instagram.com/bossbusworld/'
+
     },
     {
         id: 4, 
         name: "LinkedIn",
-        icon: LinkedInIcon
+        icon: LinkedInIcon,
+        link:'https://www.linkedin.com/company/bossbusworld/about/'
+
     },
 ]

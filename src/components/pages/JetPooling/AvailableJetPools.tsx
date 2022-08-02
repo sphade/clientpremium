@@ -6,7 +6,7 @@ import {
   DateRangeInput,
 } from "../../../reusables";
 import { ReactComponent as CloseIcon } from "./../../../assets/svgs/close.svg";
-
+import ReactPaginate from "react-paginate";
 import { useJetPooling } from "../../../hooks";
 import HomeJetPoolingContainer from "../Home/Widgets/HomeJetPoolingContainer";
 
@@ -21,12 +21,16 @@ const AvailableJetPools = () => {
   } = useJetPooling();
 
   const jetPoolings = data.data || [];
-
+  const totalPages = data.totalPages || 3;
+  const currentPage = data.currentPage || 1;
+  const handlePageClick = (selectedItem: { selected: number }) => {
+    console.log(selectedItem.selected);
+  };
   return (
     <article className="jet-pooling__middleBar" id="jet-pool-content">
       <div className="searchBar__container">
         <p>
-          Search for Empty leg filights going from your present location to your
+          Search for Empty leg flights going from your present location to your
           desired destination
         </p>
         <div className="searchBar ">
@@ -72,20 +76,19 @@ const AvailableJetPools = () => {
       <div className="private-jets__footer">
         <p className="private-jets__footer--sumary">Showing 4 from 12 Jets</p>
         <div className="private-jets__footer--buttons">
-          <button>
-            <span>{"<<"}</span>
-            <span>Previous</span>
-          </button>
-
-          <div className="paginations">
-            <h3 className="active">1</h3>
-            <h3>2</h3>
-            <h3>3</h3>
-          </div>
-          <button>
-            <span>Next</span>
-            <span>{">>"}</span>
-          </button>
+          <ReactPaginate
+            breakLabel="..."
+            nextLabel="next >>"
+            onPageActive={handlePageClick}
+            disabledLinkClassName="opacity-20 "
+            pageCount={totalPages}
+            previousLabel="<< previous"
+            containerClassName="  flex items-center"
+            activeLinkClassName="bg-black text-white rounded-2xl"
+            pageLinkClassName="p-5 m-3 px-10 hover:bg-gray-900 hover:text-white duration-150 ease rounded-2xl"
+            previousLinkClassName="p-5   border-black border-2 text-black duration-150 ease  mr-5 rounded-2xl hover:bg-black hover:text-white"
+            nextLinkClassName="p-5 border-black border-2 text-black duration-150 ease ml-5 rounded-2xl hover:bg-black hover:text-white"
+          />
         </div>
       </div>
     </article>

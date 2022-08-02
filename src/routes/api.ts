@@ -113,6 +113,7 @@ export const fetchCharter = async ({
   const response = await axios.get(`/products/${type}${filters}`);
   return response.data.data;
 };
+
 export const fetchCharterById = async (type: string, id: string) => {
   const response = await axios.get(
     `${apiRoutes.getSingleCharter}/${type}/${id}`

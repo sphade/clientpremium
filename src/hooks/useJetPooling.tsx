@@ -7,7 +7,7 @@ import { useState } from "react";
 
 const useJetPooling = () => {
   // Initial Values
-  const initialValues = {
+  let initialValues = {
     from: "",
     to: "",
     date: [new Date(), new Date()],
@@ -33,7 +33,7 @@ const useJetPooling = () => {
 
   // Instantiate formik
   const formik = useFormik({
-    initialValues,
+    initialValues: initialValues,
     onSubmit: async (values) => {
       const { to, from, date } = values;
 
@@ -55,6 +55,13 @@ const useJetPooling = () => {
 
   const resetFilter = () => {
     setFilters({});
+    console.log(filter);
+    initialValues = {
+      from: "",
+      to: "",
+      date: [new Date(), new Date()],
+    };
+    console.log(initialValues);
   };
 
   const { handleSubmit, isValid, dirty } = formik;

@@ -27,15 +27,14 @@ export const GlobalStoreProvider = ({ children }: { children: ReactNode }) => {
       setIsAuthenticated(false);
     }
   };
+  useEffect(() => {
+    checkAuthenticated();
+  }, [isAuthenticated]);
 
   const logoutUser = async () => {
     await clearStore();
     setIsAuthenticated(false);
   };
-
-  useEffect(() => {
-    checkAuthenticated();
-  }, [isAuthenticated]);
 
   const value = { state, dispatch };
   return (

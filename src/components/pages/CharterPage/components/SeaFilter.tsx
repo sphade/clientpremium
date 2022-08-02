@@ -35,6 +35,7 @@ const SeaFilter = ({
   const isBoatCruise = tripType === "boat cruise";
 
   return (
+    
     <>
       <div className="top-filter__content">
         <CharterTerminalDropdown

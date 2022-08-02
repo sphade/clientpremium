@@ -8,12 +8,18 @@ import {
 import { PREMIUM_CHARTER_DATA } from "./constants";
 import { ReactComponent as FilterIcon } from "../../../assets/svgs/filter-icon.svg";
 import PremiumCharterFilter from "./Widgets/PremiumCharterFilter";
-
+import useFetch from "../../../hooks/useFetch.jsx";
+import { getVehicles } from "../../../routes/api";
 const PremiumCharter = () => {
   const [filter, setFilter] = useState("air");
+  const { data } = useFetch("vehicles", getVehicles);
 
   const selectedFilter = PREMIUM_CHARTER_DATA.filter(
     (item) => item.type.toLowerCase() === filter
+  );
+  console.log(
+    "🚀 ~ file: PremiumCharter.tsx ~ line 20 ~ PremiumCharter ~ selectedFilter",
+    selectedFilter
   );
 
   const onChange = (value: string) => {
