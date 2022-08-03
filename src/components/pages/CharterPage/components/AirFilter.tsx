@@ -10,6 +10,7 @@ import { ICustomFormikProps } from "../../../../reusables/Input/types";
 import { useCheckCharterType } from "../../../../hooks";
 import useGlobalStoreProvider from "../../../../context";
 import { CharterReducerActions } from "../../../../context/reducers/actions";
+import { flightNumber } from '../../Home/constants';
 
 const { MUTATE_CHARTER } = CharterReducerActions;
 
@@ -22,26 +23,26 @@ const AirFilter = ({
 }) => {
   const { charterType } = useCheckCharterType();
   const { dispatch } = useGlobalStoreProvider();
-
+  
   return (
     <>
       <div className="top-filter__content">
         <CharterTerminalDropdown
           handleFilters={handleFilters}
-          name="pickup"
+          name={`${flightNumber['1'].toLowerCase()}Pickup`}
           label="Leaving from"
           filterKey="from"
           formik={formik}
         />
         <CharterTerminalDropdown
           handleFilters={handleFilters}
-          name="destination"
+          name={`${flightNumber['1'].toLowerCase()}Destination`}
           label="Going to"
           filterKey="to"
           formik={formik}
         />
         <DatePicker
-          name="departureDate"
+          name={`${flightNumber['1'].toLowerCase()}DepartureDate`}
           label="Departure Date"
           formik={formik}
           handleSelectChange={(data: any) => {
@@ -54,7 +55,7 @@ const AirFilter = ({
           }}
         />
         <DatePicker
-          name="returnDate"
+          name={`${flightNumber['1'].toLowerCase()}ReturnDate`}
           handleSelectChange={(data: any) => {
             const value = data;
             dispatch({
