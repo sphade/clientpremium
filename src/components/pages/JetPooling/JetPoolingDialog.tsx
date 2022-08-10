@@ -45,6 +45,8 @@ const JetPoolingDialog = ({
     mappedImages = "",
     departureCity = "",
     destinationCity = "",
+    departureAirport = {},
+    destinationAirport = {},
     currentPrice = 0,
     startingPrice = 0,
     availableSeats = "",
@@ -86,13 +88,13 @@ const JetPoolingDialog = ({
             <div>
               <p>09:30</p>
               <h3>{departureCity} (Nigeria)</h3>
-              <p>Nnamdi Azikiwe Int...</p>
+              <p>{ departureAirport?.address}</p>
             </div>
             <AirPlaneIcon />
             <div>
               <p>09:30</p>
-              <h3>{destinationCity} (Nigeria)</h3>
-              <p>Nnamdi Azikiwe Int...</p>
+              <h3> (Nigeria)</h3>
+              <p>{destinationAirport?.address}</p>
             </div>
           </div>
         </div>

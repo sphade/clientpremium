@@ -40,6 +40,7 @@ export const contactLinks = [
     text: `
         hello@bossbusworld.com`,
   },
+ // link:'mailto:hello@bossbusworld.com'
 ];
 
 export const pageLinks = [

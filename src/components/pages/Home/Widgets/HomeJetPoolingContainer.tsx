@@ -9,7 +9,8 @@ const HomeJetPoolingContainer = ({
 }: {
   fetchingJetpooling?: boolean;
   jetPoolings: Record<string, any>[];
-}) => {
+  }) => {
+  console.log(jetPoolings)
   return (
     <>
       {fetchingJetpooling && (
