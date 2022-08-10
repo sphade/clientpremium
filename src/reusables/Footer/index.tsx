@@ -47,7 +47,7 @@ export const pageLinks = [
   [
     { text: "Home", link: "www.bossbusworld.com" },
     { text: "Services", link: "" },
-    { text: "About Us", link: "" },
+    { text: "About Us", link: "about" },
     { text: "Careers", link: "" },
     { text: "Partnership", link: "" },
   ],

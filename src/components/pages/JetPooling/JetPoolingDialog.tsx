@@ -43,8 +43,7 @@ const JetPoolingDialog = ({
     id,
     availableFrom = "",
     mappedImages = "",
-    departureCity = "",
-    destinationCity = "",
+    
     departureAirport = {},
     destinationAirport = {},
     currentPrice = 0,
@@ -87,7 +86,7 @@ const JetPoolingDialog = ({
           <div className="trip__details--flight">
             <div>
               <p>09:30</p>
-              <h3>{departureCity} (Nigeria)</h3>
+              <h3> (Nigeria)</h3>
               <p>{ departureAirport?.address}</p>
             </div>
             <AirPlaneIcon />

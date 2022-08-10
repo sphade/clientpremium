@@ -21,7 +21,7 @@ const AvailableJetPools = () => {
   } = useJetPooling();
 
   const jetPoolings = data.data || [];
-  const totalPages = data.totalPages || 3;
+  const totalPages = data.totalPages || 1;
   const currentPage = data.currentPage || 1;
   const handlePageClick = (selectedItem: { selected: number }) => {
     console.log(selectedItem.selected);
@@ -74,7 +74,7 @@ const AvailableJetPools = () => {
         />
       </div>
       <div className="private-jets__footer">
-        <p className="private-jets__footer--sumary">Showing 4 from 12 Jets</p>
+        <p className="private-jets__footer--sumary"></p>
         <div className="private-jets__footer--buttons">
           <ReactPaginate
             breakLabel="..."
