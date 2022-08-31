@@ -62,7 +62,7 @@ export const DatePicker = ({
           value={values[name]}
           onChange={changeDate}
           minDate={new Date() as any}
-          renderInput={(params) => (
+          renderInput={(params:any) => (
             <PrimaryInput
               {...params}
               formik={formik}
@@ -85,7 +85,7 @@ export const DatePicker = ({
           }
           value={values[name]}
           onChange={changeDate}
-          renderInput={(params) => (
+          renderInput={(params:any) => (
             <PrimaryInput
               {...params}
               formik={formik}
@@ -113,7 +113,7 @@ export const DatePicker = ({
         ampmInClock
         onChange={onChange}
         InputAdornmentProps={{ position: 'start' }}
-        renderInput={(params) => <TextField {...rest} {...params} fullWidth />}
+        renderInput={(params:any) => <TextField {...rest} {...params} fullWidth />}
       />
     </LocalizationProvider>
   );
@@ -158,7 +158,7 @@ export const CustomTimePicker = ({
             ),
           }}
           InputAdornmentProps={{ position: 'start' }}
-          renderInput={(params) => (
+          renderInput={(params:any) => (
             <PrimaryInput
               {...params}
               formik={formik}
@@ -182,7 +182,7 @@ export const CustomTimePicker = ({
         // timeIcon={<ClockIcon />}
         onChange={onChange}
         InputAdornmentProps={{ position: 'start' }}
-        renderInput={(params) => <TextField {...rest} {...params} fullWidth />}
+        renderInput={(params:any) => <TextField {...rest} {...params} fullWidth />}
       />
     </LocalizationProvider>
   );
