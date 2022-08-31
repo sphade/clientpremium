@@ -1,9 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-// animateScroll.js
 
 const pow = Math.pow;
 
-// The easing function that makes the scroll decelerate over time
 function easeOutQuart(x: any) {
   return 1 - pow(1 - x, 4);
 }
