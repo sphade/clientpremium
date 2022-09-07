@@ -49,6 +49,7 @@ const usePayment = (paymentMethods: any[] = []) => {
     const {
       pickup = "",
       departureDate = "",
+      firstDepartureDate ='',
       id = "",
       type = "",
       price = "",
@@ -58,6 +59,7 @@ const usePayment = (paymentMethods: any[] = []) => {
       destination = "",
     } = routerState;
     const newPrice = Number(price);
+
 
     let metadata = {};
 
@@ -73,14 +75,14 @@ const usePayment = (paymentMethods: any[] = []) => {
         ...omit(routerState, ["passengers"]),
         ...(destination && { destination }),
         pickupLocation: pickup,
-        pickupDate: departureDate,
+        pickupDate:  departureDate,
         vehicleId: id,
         amount: newPrice,
         ...(terminalId && { terminalId }),
         ...(destinationTerminalId && { destinationTerminalId }),
       };
     }
-
+console.log(metadata)
     if (paymentMethod === PAYSTACK) {
       mutate({
         amount: newPrice * 100,

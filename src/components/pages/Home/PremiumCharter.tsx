@@ -1,29 +1,61 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
+
 import {
   CharterTypeDropdown,
   CustomPopper,
   PrimaryButton,
   Tabpane,
 } from "../../../reusables";
-import { PREMIUM_CHARTER_DATA } from "./constants";
 import { ReactComponent as FilterIcon } from "../../../assets/svgs/filter-icon.svg";
 import PremiumCharterFilter from "./Widgets/PremiumCharterFilter";
-import useFetch from "../../../hooks/useFetch.jsx";
-import { getVehicles } from "../../../routes/api";
+import { useAxios } from "../../../routes/api";
+import { useQuery } from "react-query";
+import { CircularProgress, Stack } from "@mui/material";
+import { Link } from "react-router-dom";
 const PremiumCharter = () => {
-  const [filter, setFilter] = useState("air");
-  const { data } = useFetch("vehicles", getVehicles);
-
-  const selectedFilter = PREMIUM_CHARTER_DATA.filter(
-    (item) => item.type.toLowerCase() === filter
-  );
-  console.log(
-    "🚀 ~ file: PremiumCharter.tsx ~ line 20 ~ PremiumCharter ~ selectedFilter",
-    selectedFilter
+  const [filter, setFilter] = useState("aircraft");
+  const [tabValue, setTabValue] = useState("air");
+  const [category, setCategory] = useState<string>("");
+  const [passengers, setPassengers] = useState<any>("");
+  const [price, setPrice] = useState<any>("");
+  const {
+    data: chatter,
+    isLoading,
+    isError,
+  } = useQuery(
+    ["chatter", filter, category, passengers,price],
+    async () => {
+      const request = useAxios();
+      const response = await request.get(
+        `https://bossbus-premium-api-staging.herokuapp.com/api/v1/products/${filter}`,
+        {
+          params: {
+            category,
+            capacity: passengers,
+            price,
+          },
+        }
+      );
+      return response.data;
+    },
+    {
+      keepPreviousData: true,
+    }
   );
 
   const onChange = (value: string) => {
-    setFilter(value.toLowerCase());
+    setCategory("");
+    setTabValue(value.toLowerCase());
+    if (value.toLowerCase() === "air") {
+      setFilter("aircraft");
+    }
+    if (value.toLowerCase() === "sea") {
+      setFilter("boat");
+    }
+    if (value.toLowerCase() === "land") {
+      setFilter("vehicle");
+    }
   };
 
   return (
@@ -32,7 +64,7 @@ const PremiumCharter = () => {
         <h3 className="title">All Premium Charters</h3>
         <Tabpane onChange={onChange} list={["Air", "Sea", "Land"]} />
         <div className="filter">
-          <CharterTypeDropdown filter={filter} />
+          <CharterTypeDropdown filter={tabValue} setCategory={setCategory} />
 
           <CustomPopper
             anchorOrigin={{
@@ -46,31 +78,50 @@ const PremiumCharter = () => {
               </button>
             }
           >
-            <PremiumCharterFilter />
+            <PremiumCharterFilter
+              setPassengers={setPassengers}
+              setPrice={setPrice}
+            />
           </CustomPopper>
         </div>
 
-        <div className="primary__card--container">
-          {selectedFilter.map((item, index) => (
-            <div key={index} className="primary__card--item">
-              <div className="card__image">
-                <img src={item.image} alt="card__image" />
-              </div>
-              <div className="card__content">
-                <div className="card__title">
-                  <h5>{item.name}</h5>
-                  <h5>
-                    {" "}
-                    PRICE/HOUR <span>{item.price}</span>
-                  </h5>
+        <div className="primary__card--container ">
+          {isLoading && (
+            <Stack
+              sx={{ color: "red", paddingTop: "8rem" }}
+              display="flex"
+              justifyContent="center"
+              spacing={2}
+              direction="row"
+            >
+              <CircularProgress size={100} color="inherit" />
+            </Stack>
+          )}
+          {isError && <h1>Error</h1>}
+          {chatter?.data.data.map((item: any, index: any) => (
+            <Link key={index} to={`charter/${tabValue}/${item.id}`}>
+              <div className="primary__card--item">
+                <div className="card__image">
+                  <img src={item?.ProductImages[0].url} alt="card__image" />
                 </div>
-                <div className="summary">
-                  <p>Capacity: {item.seats}</p>
-                  <p>Currrent Location: Nnamdi Azikiwe... Lagos</p>
-                  <p>Range: {item.range} nm</p>
+                <div className="card__content">
+                  <div className="card__title">
+                    <h5>
+                      {item?.brand} {item?.model}
+                    </h5>
+                    <h5>
+                      {" "}
+                      PRICE/HOUR <span>{item?.price}</span>
+                    </h5>
+                  </div>
+                  <div className="summary">
+                    <p>Capacity: {item?.capacity}</p>
+                    <p>Currrent Location: {item?.pickupTerminal?.address}</p>
+                    <p>Range: {item?.maxRange} nm</p>
+                  </div>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 

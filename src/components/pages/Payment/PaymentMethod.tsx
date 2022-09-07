@@ -45,14 +45,13 @@ const PaymentMethod = () => {
   if (error) {
     return <h3>Error Fetching</h3>;
   }
-
   return (
     <article className="payment-method">
       <div className="payment-method__container">
         <div className="payment-method__container--card">
           <div className="card__title">
             <h3>PAYMENT METHOD</h3>
-            <p>Salect a payment method below</p>
+            <p>Select a payment method below</p>
           </div>
           <div className="card__options">
             <FormControl component="fieldset">

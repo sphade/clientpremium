@@ -19,6 +19,7 @@ const BookingSummaryPrimary = () => {
   const { open, toggleDialog } = useDialogHook();
 
   const [routerState] = useRouterState();
+  console.log("🚀 ~ file: BookingSummaryPrimary.tsx ~ line 22 ~ BookingSummaryPrimary ~ routerState", routerState)
 
   const { type, id } = getUrlQueryEntries();
 

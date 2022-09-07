@@ -154,6 +154,7 @@ export const PrimarySelect = ({
   handleSelectChange,
   makeEmpty = true,
   useEvent = false,
+  onChange,
   ...rest
 }: PrimarySelectProps & TextFieldProps) => {
   const inputProps = {
@@ -176,6 +177,8 @@ export const PrimarySelect = ({
         name={name}
         className={`primary__input ${className}`}
         onChange={(e) => {
+          
+          onChange && onChange(e)
           const value = useEvent ? JSON.parse(e.target.value) : e.target.value;
           const valueName = useEvent ? value?.value : value;
           if (handleSelectChange) {
@@ -222,6 +225,16 @@ export const PrimarySelect = ({
       variant="outlined"
       InputProps={inputProps}
       fullWidth={fullWidth}
+      onChange={(e) => {
+          
+        onChange && onChange(e)
+        const value = useEvent ? JSON.parse(e.target.value) : e.target.value;
+        const valueName = useEvent ? value?.value : value;
+        if (handleSelectChange) {
+          handleSelectChange(valueName);
+        }
+      
+      }}
     >
       {makeEmpty && (
         <MenuItem value="" disabled>

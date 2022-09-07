@@ -2,7 +2,6 @@ import Plane from "../../../assets/images/plane.jpg";
 import CharterCar from "../../../assets/images/charter-car.png";
 import Boat from "../../../assets/images/sea-charter.png";
 
-
 export const flightNumber: Record<string, string> = {
   "1": "First",
   "2": "Second",
@@ -78,35 +77,35 @@ export const BOAT_TYPE = [
 
 export const passengersFilter = [
   {
-    id: 1,
+    id: "0-6",
     text: "0-6 Pass.",
   },
   {
-    id: 2,
+    id: "6-12",
     text: "6-12 Pass.",
   },
   {
-    id: 3,
+    id: "12-20",
     text: "12-20 Pass.",
   },
   {
-    id: 4,
+    id: "20 - * ",
     text: "20+ Pass.",
   },
 ];
 
 export const charterPriceFilter = [
   {
-    id: 1,
+    id: "0 - 25000",
     text: "Lowest Price",
   },
 
   {
-    id: 2,
+    id: "25000 - 10000",
     text: "Medium Price",
   },
   {
-    id: 3,
+    id: "100000 - *",
     text: "Highest Price",
   },
 ];

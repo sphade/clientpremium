@@ -64,7 +64,7 @@ const AvailableCharter = ({
         type: charterType.toLowerCase(),
         id: item.id,
       }),
-      { ...storeCharter, ...values } || {}
+      { ...storeCharter } || {}
     );
   };
 

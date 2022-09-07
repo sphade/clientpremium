@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import { APP_ROUTES } from "../../../routes/path";
 import { useCheckCharterType } from "../../../hooks";
 import { formatNumberToCurrency } from "../../../utils";
+import useGlobalStoreProvider from "../../../context";
 
 const settings = {
   infinite: true,
@@ -56,7 +57,10 @@ const settings = {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const DetailBanner = ({ charter }: { charter: Record<string, any> }) => {
   const { isLand, isSea, isAir, charterType } = useCheckCharterType();
-
+  const {
+    state: { charter: storeCharter },
+  } = useGlobalStoreProvider();
+  console.log(storeCharter)
   const {
     isAvailable = true,
     brand = "",
@@ -77,16 +81,23 @@ const DetailBanner = ({ charter }: { charter: Record<string, any> }) => {
           <h3 style={{ textTransform: "uppercase" }}>{charterName}</h3>
         </div>
         {isAvailable && (
-          <Link
-            to={APP_ROUTES.getBookingSummaryPrimary({
-              type: charterType.toLowerCase(),
-              id: charter.id,
-            })}
+          <div
+           
+            onClick={
+              () => {
+                history.push(
+                  APP_ROUTES.getBookingSummaryPrimary({
+                    type: charterType.toLowerCase(),
+                    id: charter.id,
+                  }),
+                  { ...storeCharter } || {}
+                )
+              }}
           >
             <PrimaryButton
               label={`Charter ${isLand ? "Car" : isSea ? "Boat" : "Flight"}`}
             />
-          </Link>
+          </div>
         )}
       </div>
       <div className="detail-banner__hero">

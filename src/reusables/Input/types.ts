@@ -41,6 +41,8 @@ export interface PrimarySelectProps {
   makeEmpty?: boolean;
   label?: string;
   useEvent?: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onChange?: (value: any) => void;
 }
 
 export interface DatePickerProps {

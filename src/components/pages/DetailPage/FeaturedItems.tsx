@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 import React from "react";
 import Slider from "react-slick";
 
 import { useFetchFeaturedItems } from "../../../hooks";
 import { formatNumberToCurrency } from "../../../utils";
 import { featuredSliderSettings } from "./constants";
+import { Link } from "react-router-dom";
 
 const FeaturedItems = () => {
   const { data, text } = useFetchFeaturedItems();
@@ -33,22 +35,21 @@ const FeaturedItems = () => {
               price?: string;
               year?: string;
             }) => (
-              <div
-                className="featured-item__slider--card max-w-[500px]"
-                key={id}
-              >
-                <img src={ProductImages[0]?.url} alt="plane" />
-                <div className="slider-card-content">
-                  <h5>{brand}</h5>
-                  <p>
-                    Rate from {formatNumberToCurrency({ number: price })} per
-                    trip
-                  </p>
-                  <p>
-                    Location: {location} | Buit: {year} | Guests: {capacity}
-                  </p>
+              <Link to={`${id}`} key={id}>
+                <div className="featured-item__slider--card max-w-[500px]">
+                  <img src={ProductImages[0]?.url} alt="plane" />
+                  <div className="slider-card-content">
+                    <h5>{brand}</h5>
+                    <p>
+                      Rate from {formatNumberToCurrency({ number: price })} per
+                      trip
+                    </p>
+                    <p>
+                      Location: {location} | Built: {year} | Guests: {capacity}
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </Link>
             )
           )}
         </Slider>

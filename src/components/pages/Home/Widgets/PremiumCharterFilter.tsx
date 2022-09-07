@@ -5,7 +5,13 @@ import { ReactComponent as SearchIcon } from "../../../../assets/svgs/search-ico
 import CustomChips from "../../../../reusables/CustomChips/CustomChips";
 import { Stack } from "@mui/material";
 
-const PremiumCharterFilter = () => {
+const PremiumCharterFilter = ({
+  setPassengers,
+  setPrice,
+}: {
+  setPassengers?: any;
+  setPrice?: any;
+}) => {
   return (
     <div className="premium__filter">
       <h3 className="premium__filter--title">Filters</h3>
@@ -20,12 +26,20 @@ const PremiumCharterFilter = () => {
           <CustomChips
             lists={passengersFilter}
             label="By number of passengers"
+            setValue={setPassengers}
           />
 
-          <CustomChips lists={charterPriceFilter} label="By charter price:" />
+          <CustomChips
+            lists={charterPriceFilter}
+            label="By charter price:"
+            setValue={setPrice}
+          />
         </Stack>
 
-        <PrimaryButton label="Apply Filters" />
+        <PrimaryButton
+          onClick={() => console.log("clicked")}
+          label="Apply Filters"
+        />
       </div>
     </div>
   );

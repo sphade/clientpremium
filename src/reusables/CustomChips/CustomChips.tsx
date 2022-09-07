@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const CustomChips = ({ lists, label }: { lists: any[]; label?: string }) => {
+const CustomChips = ({ lists, label, setValue }: { lists: any[]; label?: string;setValue?:any }) => {
   const [selectedChip, setSelectedChip] = useState<string | number>("");
 
   const handleChange = (key: number | string) => {
     setSelectedChip(key);
+    setValue(key)
   };
 
   return (
     <div className="chip">
-      {label && <label>By number of passengers</label>}
+      {label && <label>{label}</label>}
       <div className="chip__filter">
         {lists.map((list) => (
           <div

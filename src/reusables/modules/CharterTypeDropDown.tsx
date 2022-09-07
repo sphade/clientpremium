@@ -15,11 +15,15 @@ const CharterTypeDropdown = ({
   formik,
   fullWidth = false,
   handleFilters,
+  category,
+  setCategory,
 }: {
   filter: string;
   fullWidth?: boolean;
   formik?: ICustomFormikProps;
   handleFilters?: (filter: any) => void;
+  category?: any;
+  setCategory?: any;
 }) => {
   const charterQuery = charterMappings[filter.toLowerCase()] || "";
 
@@ -31,7 +35,7 @@ const CharterTypeDropdown = ({
   });
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const charterTypeSelect = data.map((ele: any) => ({
+    const charterTypeSelect = data.map((ele: any) => ({
     ...ele,
     value: ele.name,
   }));
@@ -50,6 +54,7 @@ const CharterTypeDropdown = ({
         formik={formik}
         handleSelectChange={(data: any) => {
           const value = data;
+          
           dispatch({ type: MUTATE_CHARTER, payload: { transitType: value } });
           handleFilters && handleFilters({ category: value });
         }}
@@ -62,9 +67,16 @@ const CharterTypeDropdown = ({
   return (
     <PrimarySelect
       fullWidth={false}
+
       name="transitType"
       label={label}
       options={charterTypeSelect}
+   
+      handleSelectChange={(data: any) => {
+       
+        setCategory(data);
+       
+      }}
     />
   );
 };
